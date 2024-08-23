@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\" />
+    <Folder Include="Areas\ContributionPortal\Controllers\" />
+    <Folder Include="Areas\ContributionPortal\Views\" />
+    <Folder Include="Areas\DeveloperPortal\Controllers\" />
+    <Folder Include="Areas\DeveloperPortal\Views\" />
+    <Folder Include="Areas\ForumPortal\Controllers\" />
+    <Folder Include="Areas\ForumPortal\Views\" />
+    <Folder Include="Areas\LearnerPortal\Controllers\" />
+    <Folder Include="Areas\LearnerPortal\Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\devspark_core_business_layer\devspark_core_business_layer.csproj" />
+    <ProjectReference Include="..\devspark_core_model\devspark_core_model.csproj" />
+  </ItemGroup>
+
+</Project>
