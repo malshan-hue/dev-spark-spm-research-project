@@ -65,42 +65,24 @@
 
                 <form asp-controller="Access" asp-action="Register" id="UserRegister" class="mb-3" method="POST">
                     <div class="mb-3">
-                        <label asp-for="UserName" class="form-label">@Html.DisplayNameFor(Model => Model.UserName)</label>
-                        <input type="text" asp-for="UserName" class="form-control" id="UserName" name="UserName" placeholder="@Html.DisplayNameFor(Model => Model.UserName)" autofocus />
+                        <label asp-for="FirstName" class="form-label">@Html.DisplayNameFor(Model => Model.FirstName)</label>
+                        <input type="text" asp-for="FirstName" class="form-control" id="FirstName" name="FirstName" placeholder="@Html.DisplayNameFor(Model => Model.FirstName)" autofocus />
                     </div>
                     <div class="mb-3">
-                        <label asp-for="UserEmail" class="form-label">@Html.DisplayNameFor(Model => Model.UserEmail)</label>
-                        <input type="text" asp-for="UserEmail" class="form-control" id="UserEmail" name="UserEmail" placeholder="@Html.DisplayNameFor(Model => Model.UserName)" />
+                        <label asp-for="LastName" class="form-label">@Html.DisplayNameFor(Model => Model.LastName)</label>
+                        <input type="text" asp-for="LastName" class="form-control" id="LastName" name="LastName" placeholder="@Html.DisplayNameFor(Model => Model.LastName)" />
                     </div>
-                    <div class="mb-3 form-password-toggle">
-                        <label class="form-label" asp-for="Password">@Html.DisplayNameFor(Model => Model.Password)</label>
-                        <div class="input-group input-group-merge">
-                            <input type="password"
-                                   id="Password"
-                                   asp-for="Password"
-                                   class="form-control"
-                                   name="Password"
-                                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                   aria-describedby="password" />
-                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                        </div>
-                    </div>
-
                     <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" asp-for="Remember" type="checkbox" id="terms-conditions" name="Remember" />
-                            <label class="form-check-label" for="terms-conditions">
-                                @Html.DisplayNameFor(Model => Model.Remember)
-                                <a href="javascript:void(0);">privacy policy & terms</a>
-                            </label>
-                        </div>
+                        <label asp-for="PersonalEmail" class="form-label">@Html.DisplayNameFor(Model => Model.PersonalEmail)</label>
+                        <input type="text" asp-for="PersonalEmail" class="form-control" id="PersonalEmail" name="PersonalEmail" placeholder="@Html.DisplayNameFor(Model => Model.PersonalEmail)" />
                     </div>
+                    
                     <button type="submit" class="btn btn-primary d-grid w-100">Sign up</button>
                 </form>
 
                 <p class="text-center">
                     <span>Already have an account?</span>
-                    <a href="auth-login-basic.html">
+                    <a href="@Url.Action("MicrosoftSignIn", "Access")">
                         <span>Sign in instead</span>
                     </a>
                 </p>

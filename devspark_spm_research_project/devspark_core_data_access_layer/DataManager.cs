@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -67,6 +68,134 @@ namespace devspark_core_data_access_layer
             {
                 return status;
             }
+        }
+
+        public bool UpdateData(string procedureName, string jsonString)
+        {
+            bool status = false;
+            try
+            {
+                using (var sqlConnection = new SqlConnection(_connectionString))
+                {
+                    using (var sqlCommand = new SqlCommand(procedureName, sqlConnection))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        sqlCommand.Parameters.AddWithValue("@JsonData", jsonString);
+
+                        var executionStatusParam = new SqlParameter
+                        {
+                            ParameterName = "@executionStatus",
+                            SqlDbType = SqlDbType.Bit,
+                            Direction = ParameterDirection.Output
+                        };
+                        sqlCommand.Parameters.Add(executionStatusParam);
+
+                        sqlConnection.Open();
+                        sqlCommand.ExecuteNonQuery();
+
+                        status = (bool)sqlCommand.Parameters["@executionStatus"].Value;
+
+                        return status;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return status;
+            }
+        }
+
+        public ICollection<TEntity> RetrieveData(string procedureName, SqlParameter[] parameters = null)
+        {
+            ICollection<TEntity> data = new List<TEntity>();
+
+            try
+            {
+                using (var sqlConnection = new SqlConnection(_connectionString))
+                {
+                    using (var sqlCommand = new SqlCommand(procedureName, sqlConnection))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        if (parameters != null)
+                        {
+                            sqlCommand.Parameters.AddRange(parameters);
+                        }
+
+                        sqlConnection.Open();
+
+                        var jsonData = sqlCommand.ExecuteScalar() as string;
+
+                        if (!string.IsNullOrEmpty(jsonData))
+                        {
+                            data = JsonConvert.DeserializeObject<ICollection<TEntity>>(jsonData) ?? new List<TEntity>();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return data;
+        }
+
+        public bool DeleteData(string procedureName, SqlParameter[] parameters = null)
+        {
+            bool status = false;
+
+            try
+            {
+                using (var sqlConnection = new SqlConnection(_connectionString))
+                {
+                    using (var sqlCommand = new SqlCommand(procedureName, sqlConnection))
+                    {
+                        try
+                        {
+                            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                            if (parameters != null)
+                            {
+                                sqlCommand.Parameters.AddRange(parameters);
+                            }
+
+                            var executionStatusParam = new SqlParameter
+                            {
+                                ParameterName = "@executionStatus",
+                                SqlDbType = SqlDbType.Bit,
+                                Direction = ParameterDirection.Output
+                            };
+
+                            sqlCommand.Parameters.Add(executionStatusParam);
+
+                            sqlConnection.Open();
+                            sqlCommand.ExecuteNonQuery();
+
+                            status = (bool)sqlCommand.Parameters["@executionStatus"].Value;
+
+                            return status;
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
+                        finally
+                        {
+
+                            sqlConnection.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return status;
+            }
+
         }
     }
 }

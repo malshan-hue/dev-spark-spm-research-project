@@ -9,16 +9,22 @@ namespace devspark_core_model.SystemModels
 {
     public class User
     {
-        [DisplayName("User Name")]
-        public string UserName { get; set; }
+        public int UserId { get; set; }
 
-        [DisplayName("User Email")]
-        public string UserEmail { get; set; }
+        [DisplayName("First Name")]
+        public string FirstName { get; set; }
+
+        [DisplayName("Last Name")]
+        public string LastName { get; set; }
+
+        [DisplayName("Personal Email")]
+        public string PersonalEmail { get; set; }
 
         [DisplayName("Password")]
         public string Password { get; set; }
 
-        [DisplayName("Remember Me")]
-        public bool Remember { get; set; }
+        [DisplayName("Password")]
+        public string PasswordSalt { get; set; }
+
     }
 }

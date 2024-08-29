@@ -14,6 +14,12 @@ namespace devspark_core_web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> MicrosoftSignIn()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Register()
         {
             return View();
@@ -26,7 +32,7 @@ namespace devspark_core_web.Controllers
 
             if (status)
             {
-                return RedirectToAction("Index", "DevsparkLanding");
+                return RedirectToAction("MicrosoftSignIn");
             }
 
             return View();
