@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DeveloperPortalModels\" />
     <Folder Include="LearnerPortalModels\" />
     <Folder Include="ContributionPortalModels\" />
     <Folder Include="ForumPortalModels\" />
