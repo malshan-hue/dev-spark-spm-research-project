@@ -1,5 +1,5 @@
 ﻿@using devspark_core_model.SystemModels
-@model User
+@model DevSparkUser
 
 @{
     Layout = "~/Views/Shared/_AccessLayout.cshtml";
@@ -82,7 +82,7 @@
 
                 <p class="text-center">
                     <span>Already have an account?</span>
-                    <a href="@Url.Action("MicrosoftSignIn", "Access")">
+                    <a href="@Url.Action("SignIn", "Access")">
                         <span>Sign in instead</span>
                     </a>
                 </p>

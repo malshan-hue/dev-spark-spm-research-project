@@ -13,4 +13,8 @@
     <Folder Include="ForumPortalModels\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Graph" Version="5.56.1" />
+  </ItemGroup>
+
 </Project>

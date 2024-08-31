@@ -70,7 +70,8 @@
     <Folder Include="StoredProcedures\System" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\SystemTables\User.sql" />
     <Build Include="StoredProcedures\System\InsertUser.sql" />
+    <Build Include="Tables\SystemTables\EntraIdUser.sql" />
+    <Build Include="Tables\SystemTables\DevSparkUser.sql" />
   </ItemGroup>
 </Project>
