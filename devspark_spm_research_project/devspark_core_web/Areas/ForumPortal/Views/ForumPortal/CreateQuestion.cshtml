@@ -1,0 +1,50 @@
+﻿@using devspark_core_model.ForumPortalModels
+@model Question
+
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+ 
+     
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Ask a Question</h4>
+
+         
+    <div class="row">
+        <div class="col-xl">
+        
+                <div class="card mb-4">
+                     
+                    <div class="card-body">
+                        <form asp-controller="ForumPortal" asp-action="CreateQuestion" id="QuestionCreate" method="POST">
+                            <div class="mb-3">
+                            <label asp-for="Title" class="form-label">@Html.DisplayNameFor(Model => Model.Title)</label>
+                            <p class="text-muted fw-light">Be specific and imagine you’re asking a question to another person.</p>
+                            <input type="text" class="form-control" asp-for="Title" id="Title" name="Title" placeholder="@Html.DisplayNameFor(Model => Model.Title)" />
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="Description">@Html.DisplayNameFor(Model => Model.Description)</label>
+                            <p class="text-muted fw-light">Introduce the problem and expand on what you put in the title.</p>
+                                <textarea id="Description"
+                                          class="form-control" asp-for="Description" name="Description"
+                                          placeholder="@Html.DisplayNameFor(Model => Model.Description)"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                 </div>
+             
+                        
+             </div>
+          </div>
+      </div>
+        
+    
+   
+     
+
+   
+ 

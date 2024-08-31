@@ -7,13 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\" />
     <Folder Include="Areas\ContributionPortal\Controllers\" />
     <Folder Include="Areas\ContributionPortal\Views\" />
     <Folder Include="Areas\DeveloperPortal\Controllers\" />
     <Folder Include="Areas\DeveloperPortal\Views\" />
-    <Folder Include="Areas\ForumPortal\Controllers\" />
-    <Folder Include="Areas\ForumPortal\Views\" />
     <Folder Include="Areas\LearnerPortal\Controllers\" />
     <Folder Include="Areas\LearnerPortal\Views\" />
   </ItemGroup>

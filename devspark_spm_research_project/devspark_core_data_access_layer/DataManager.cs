@@ -106,7 +106,7 @@ namespace devspark_core_data_access_layer
             }
         }
 
-        public ICollection<TEntity> RetrieveData(string procedureName, SqlParameter[] parameters = null)
+        public ICollection<TEntity> RetrieveData<TEntity>(string procedureName, SqlParameter[] parameters = null) where TEntity : class
         {
             ICollection<TEntity> data = new List<TEntity>();
 
@@ -136,11 +136,13 @@ namespace devspark_core_data_access_layer
             }
             catch (Exception ex)
             {
+          
                 throw;
             }
 
             return data;
         }
+
 
         public bool DeleteData(string procedureName, SqlParameter[] parameters = null)
         {
@@ -196,6 +198,54 @@ namespace devspark_core_data_access_layer
                 return status;
             }
 
+
+
         }
+        public async Task<TEntity> RetrieveSingleData<TEntity>(string procedureName, SqlParameter[] parameters = null) where TEntity : class
+        {
+            TEntity entity = null;
+
+            try
+            {
+                using (var sqlConnection = new SqlConnection(_connectionString))
+                {
+                    using (var sqlCommand = new SqlCommand(procedureName, sqlConnection))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        if (parameters != null)
+                        {
+                            sqlCommand.Parameters.AddRange(parameters);
+                        }
+
+                        var outputParam = new SqlParameter("@jsonResult", SqlDbType.NVarChar, -1)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+
+                        sqlCommand.Parameters.Add(outputParam);
+
+                        sqlConnection.Open();
+                        await sqlCommand.ExecuteNonQueryAsync();
+
+                        var jsonResult = outputParam.Value as string;
+
+                        if (!string.IsNullOrEmpty(jsonResult))
+                        {
+                            entity = JsonConvert.DeserializeObject<TEntity>(jsonResult);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                throw;
+            }
+
+            return entity;
+        }
+
+
     }
 }

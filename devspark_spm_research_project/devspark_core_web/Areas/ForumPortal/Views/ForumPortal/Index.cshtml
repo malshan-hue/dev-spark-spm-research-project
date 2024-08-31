@@ -1,0 +1,11 @@
+﻿@using devspark_core_model.ForumPortalModels
+@model Question
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<a class="" href="@Url.Action("CreateQuestion", "ForumPortal")">
+    <button type="submit" class="btn btn-primary">Ask a Question</button>
+</a>
+

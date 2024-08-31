@@ -1,3 +1,5 @@
+using devspark_core_business_layer.ForumPortalService;
+using devspark_core_business_layer.ForumPortalService.Interfaces;
 using devspark_core_business_layer.SystemService;
 using devspark_core_business_layer.SystemService.Interfaces;
 
@@ -19,6 +21,7 @@ builder.Services.AddSingleton<IDatabaseService>(provider =>
 });
 
 builder.Services.AddSingleton<IUserService, UserServiceImpl>();
+builder.Services.AddSingleton<IForumService, ForumServiceImpl>();
 
 #endregion
 
@@ -57,7 +60,7 @@ app.MapAreaControllerRoute(
 app.MapAreaControllerRoute(
     name: "ForumPortal",
     areaName: "ForumPortal",
-    pattern: "ForumPortal/{controller=Landing}/{action=Index}/{id?}");
+    pattern: "ForumPortal/{controller=ForumPortalController}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "area",
