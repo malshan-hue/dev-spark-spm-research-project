@@ -8,5 +8,10 @@ namespace devspark_core_web.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> DevSparkHome()
+        {
+            return View();
+        }
     }
 }

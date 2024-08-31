@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace devspark_core_model.SystemModels
 {
-    public class User
+    public class DevSparkUser
     {
         public int UserId { get; set; }
 

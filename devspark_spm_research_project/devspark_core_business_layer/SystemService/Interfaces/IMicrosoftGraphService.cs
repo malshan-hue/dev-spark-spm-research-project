@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace devspark_core_business_layer.SystemService.Interfaces
 {
-    public interface IUserService
+    public interface IMicrosoftGraphService
     {
-        Task<bool> InsertUser(EntraIdUser entraIdUser);
+        Task<bool> CreateUserInMicrosoftEntraId(DevSparkUser user);
     }
 }

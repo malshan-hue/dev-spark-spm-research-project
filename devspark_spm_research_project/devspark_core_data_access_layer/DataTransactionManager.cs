@@ -19,17 +19,17 @@ namespace devspark_core_data_access_layer
 
         #region User Manager
 
-        private DataManager<User> _userDatamanager;
-        public DataManager<User> userDataManager
+        private DataManager<EntraIdUser> _entraIdUserDatamanager;
+        public DataManager<EntraIdUser> EntraIdUserDataManager
         {
             get
             {
-                if(this._userDatamanager == null)
+                if(this._entraIdUserDatamanager == null)
                 {
-                    this._userDatamanager = new DataManager<User>(_connectionString);
+                    this._entraIdUserDatamanager = new DataManager<EntraIdUser>(_connectionString);
                 }
 
-                return this._userDatamanager;
+                return this._entraIdUserDatamanager;
             }
         }
 
