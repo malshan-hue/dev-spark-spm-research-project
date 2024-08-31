@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[User]
+﻿CREATE TABLE [dbo].[DevSparkUser]
 (
 	[UserId] INT IDENTITY NOT NULL,
 	[FirstName] NVARCHAR(100) NOT NULL,

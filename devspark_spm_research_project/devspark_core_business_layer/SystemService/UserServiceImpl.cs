@@ -19,11 +19,11 @@ namespace devspark_core_business_layer.SystemService
             _databaseService = databaseService;
         }
 
-        public async Task<bool> InsertUser(User user)
+        public async Task<bool> InsertUser(EntraIdUser entraIdUser)
         {
-            string userJsonString = JsonConvert.SerializeObject(user);
+            string userJsonString = JsonConvert.SerializeObject(entraIdUser);
             DataTransactionManager dataTransactionManager = new DataTransactionManager(_databaseService.GetConnectionString());
-            bool status = dataTransactionManager.userDataManager.InsertData("InsertUser", userJsonString);
+            bool status = dataTransactionManager.EntraIdUserDataManager.InsertData("InsertUser", userJsonString);
             return status;
         }
     }

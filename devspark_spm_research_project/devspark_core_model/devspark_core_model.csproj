@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DeveloperPortalModels\" />
     <Folder Include="LearnerPortalModels\" />
     <Folder Include="ContributionPortalModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Graph" Version="5.56.1" />
   </ItemGroup>
 
 </Project>

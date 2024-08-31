@@ -72,8 +72,9 @@
     <Folder Include="StoredProcedures\ForumPortal\Answer" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\SystemTables\User.sql" />
     <Build Include="StoredProcedures\System\InsertUser.sql" />
+    <Build Include="Tables\SystemTables\EntraIdUser.sql" />
+    <Build Include="Tables\SystemTables\DevSparkUser.sql" />
     <Build Include="Tables\ForumPortalTables\Question.sql" />
     <Build Include="Tables\ForumPortalTables\Answer.sql" />
     <Build Include="StoredProcedures\ForumPortal\Question\InsertQuestion.sql" />
