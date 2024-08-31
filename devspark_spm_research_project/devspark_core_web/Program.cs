@@ -1,3 +1,5 @@
+using devspark_core_business_layer.DeveloperPortalService;
+using devspark_core_business_layer.DeveloperPortalService.Interfaces;
 using devspark_core_business_layer.SystemService;
 using devspark_core_business_layer.SystemService.Interfaces;
 
@@ -19,6 +21,7 @@ builder.Services.AddSingleton<IDatabaseService>(provider =>
 });
 
 builder.Services.AddSingleton<IUserService, UserServiceImpl>();
+builder.Services.AddSingleton<ICreateDevSpace, CreateDevSpaceServiceImpl>();
 
 #endregion
 

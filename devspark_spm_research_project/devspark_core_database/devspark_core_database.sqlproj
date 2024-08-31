@@ -72,5 +72,8 @@
   <ItemGroup>
     <Build Include="Tables\SystemTables\User.sql" />
     <Build Include="StoredProcedures\System\InsertUser.sql" />
+    <Build Include="Tables\DeveloperPortalTables\Folder.sql" />
+    <Build Include="Tables\DeveloperPortalTables\Files.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\CreateDevSpace.sql" />
   </ItemGroup>
 </Project>

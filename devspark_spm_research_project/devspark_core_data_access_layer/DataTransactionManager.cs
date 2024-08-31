@@ -1,4 +1,5 @@
-﻿using devspark_core_model.SystemModels;
+﻿using devspark_core_model.DeveloperPortalModels;
+using devspark_core_model.SystemModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,24 @@ namespace devspark_core_data_access_layer
                 }
 
                 return this._userDatamanager;
+            }
+        }
+
+        #endregion
+
+        #region Developer
+
+        private DataManager<Folder> _devSpaceManager;
+        public DataManager<Folder> devSpaceManager
+        {
+            get
+            {
+                if (this._devSpaceManager == null)
+                {
+                    this._devSpaceManager = new DataManager<Folder>(_connectionString);
+                }
+
+                return this._devSpaceManager;
             }
         }
 

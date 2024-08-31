@@ -1,0 +1,334 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSpace</title>
+    <!-- Add the stylesheets here -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        .devspace-container {
+            font-family: Roboto;
+            height: 100vh;
+            display: grid;
+            grid-template-rows: 75px 1fr;
+        }
+        .fullpage-loader {
+            background-color: rgba(0, 0, 0, 0.534);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .loader {
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: 8px solid #14233c;
+            border-left-color: #093b98;
+            animation: 0.8s loader infinite linear;
+            border-radius: 50%;
+        }
+        .header-container {
+            background-color: #081c38;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+        }
+        .header-container img {
+            width: 190px;
+            cursor: pointer;
+        }
+        .bottom-container {
+            gap: 5px;
+            padding: 5px;
+            display: grid;
+            grid-template-columns: 800px 1fr;
+        }
+        .utility-container {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 5px;
+        }
+        .input-console-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .input-console-header {
+            background-color: #2a3f6c;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        .utility-name {
+            background-color: #2a3f6c;
+            border: none;
+            font-size: 14px;
+            color: white;
+            padding: 5px;
+            pointer-events: none;
+        }
+        .icon-container {
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            gap: 5px;
+        }
+        .icon-container .material-icons {
+            color: #e9ecf0;
+        }
+        .icon-container button {
+            background-color: #2a3f6c;
+            border: none;
+            font-size: 14px;
+            color: white;
+            padding: 5px;
+            cursor: pointer;
+        }
+        textarea {
+            background-color: #e9ecf0;
+            flex-grow: 1;
+            font-size: 17px;
+            border: none;
+            resize: none;
+            padding: 8px;
+        }
+        textarea:focus {
+            outline: none;
+        }
+
+        .root-editor-container {
+            background-color: #e9ecf0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-header,
+        .editor-footer {
+            background-color: #2a3f6c;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .left-header-container .file-name-container {
+            background-color: #2a3f6c;
+            color: white;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            padding-right: 40px;
+        }
+
+        .right-header-container {
+            display: flex;
+            gap: 10px;
+        }
+
+            .right-header-container select {
+                padding: 12px;
+                background-color: #4c5871;
+                color: white;
+                border: none;
+                font-size: 14px;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+
+                .right-header-container select:focus {
+                    outline: none;
+                }
+
+        .editor-body {
+            flex-grow: 1;
+            background-color: black;
+            color: white;
+        }
+
+        .editor-footer .footer-btn-fullScreen,
+        .editor-footer .footer-btn-export,
+        .editor-footer .footer-btn-run,
+        .editor-footer .footer-btn-save {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            background-color: #4c5871;
+            border: none;
+            font-size: 14px;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            transition-duration: 0.15s;
+            border-radius: 3px;
+        }
+
+        .editor-footer .footer-btn-import {
+            border: none;
+            border-radius: 3px;
+        }
+
+        .editor-footer .footer-btn-fullScreen:hover,
+        .editor-footer .footer-btn-export:hover,
+        .editor-footer .footer-btn-run:hover,
+        .editor-footer .footer-btn-save:hover,
+        .editor-footer label:hover {
+            background-color: #626263;
+        }
+
+        .editor-footer .icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            background-color: #4c5871;
+            border: none;
+            font-size: 14px;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="devspace-container">
+        <div class="header-container">
+            <img src="@Url.Content("~/assets/images/logos/DEV_SPARK.png")" alt="Logo" />
+        </div>
+        <div class="bottom-container">
+            <div class="editor-container">
+                <div class="root-editor-container">
+                    <div class="editor-header">
+                        <div class="left-header-container">
+                            <button class="file-name-container">
+                                code.Model.FileExtension
+                            </button>
+                        </div>
+                        <div class="right-header-container">
+                            <select class="language-set">
+                                <option value="java">Java (JDK 17.0.6)</option>
+                                <option value="javascript">JavaScript (Node.js 18.15.0)</option>
+                                <option value="cpp">C++ (GCC 9.2.0)</option>
+                                <option value="c">C (GCC 9.2.0)</option>
+                                <option value="csharp">C# (Mono 6.6.0.161)</option>
+                                <option value="python">Python (3.11.2)</option>
+                            </select>
+                            <select class="theme-set">
+                                <option value="night-owl">Night Owl</option>
+                                <option value="vs-dark">vs-dark</option>
+                                <option value="vs">vs</option>
+                                <option value="vs-light">vs-light</option>
+                                <option value="hc-black">hc-black</option>
+                                <option value="oceanic-next">Oceanic Next</option>
+                                <option value="github-dark">GitHub Dark</option>
+                                <option value="monokai">Monokai</option>
+                                <option value="tomorrow-night-blue">Tomorrow Night Blue</option>
+                                <option value="nord">Nord</option>
+                                <option value="cobalt2">Cobalt2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <textarea id="editor" style="height: 100%; width: 100%;">Model.Code</textarea>
+                    </div>
+                    <div class="editor-footer">
+                        <button class="footer-btn-fullScreen" onclick="toggleFullscreen()">
+                            <span class="material-icons" id="fullscreen-icon">fullscreen</span>
+                            <span id="fullscreen-text">Full Screen</span>
+                        </button>
+                        <button class="footer-btn-import" onclick="document.getElementById('input').click()">
+                            <label for="input" class="icon-container">
+                                <span class="material-icons">cloud_download</span>
+                                <span>Import Code</span>
+                            </label>
+                        </button>
+                        <input type="file" style="display: none" id="input" onchange="importCode(event)" />
+                        <button class="footer-btn-export" onclick="exportCode()">
+                            <span class="material-icons">cloud_upload</span>
+                            <span>Export Code</span>
+                        </button>
+                        <button class="footer-btn-run" onclick="runCode()">
+                            <span class="material-icons">play_arrow</span>
+                            <span>Run Code</span>
+                        </button>
+                        <button class="footer-btn-save" onclick="saveCode()">
+                            <span class="material-icons">save</span>
+                            <span>Save Code</span>
+                        </button>
+                    </div>
+                </div>
+
+                <script>
+                    // Define your JavaScript functions here
+                    function toggleFullscreen() {
+                        // Implement fullscreen toggle
+                    }
+                    function importCode(event) {
+                        // Implement code import
+                    }
+                    function exportCode() {
+                        // Implement code export
+                    }
+                    function runCode() {
+                        // Implement code run
+                    }
+                    function saveCode() {
+                        // Implement code save
+                    }
+                </script>
+            </div>
+            <div class="utility-container">
+                <div class="input-console-container">
+                    <div class="input-console-header">
+                        <div>
+                            <button class="utility-name">Inputs</button>
+                        </div>
+                        <label class="icon-container">
+                            <span class="material-icons">cloud_download</span>
+                            <button>Import Inputs</button>
+                            <input type="file" style="display: none;" id="input-file" />
+                        </label>
+                    </div>
+                    <textarea id="input">Model.Input</textarea>
+                </div>
+                <div class="input-console-container">
+                    <div class="input-console-header">
+                        <div>
+                            <button class="utility-name">Console</button>
+                        </div>
+                        <div class="icon-container">
+                            <span class="material-icons">cloud_upload</span>
+                            <button>Export Outputs</button>
+                        </div>
+                    </div>
+                    <textarea id="output" readonly>Model.Output</textarea>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

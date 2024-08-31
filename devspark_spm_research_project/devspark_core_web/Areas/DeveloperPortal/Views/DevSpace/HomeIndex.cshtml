@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>DevSpark Home</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Add the stylesheets here -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <style>
+        /* Your existing CSS styles */
+        .home-container {
+            font-family: 'Roboto', sans-serif;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            overflow-y: hidden;
+        }
+
+        .left-container {
+            background-color: #344256;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .items-container {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+        }
+
+            .items-container img {
+                width: 250px;
+            }
+
+            .items-container h2 {
+                color: rgb(207, 203, 203);
+            }
+
+            .items-container button {
+                cursor: pointer;
+                height: 50px;
+                width: 94%;
+                border-radius: 2px;
+                border: none;
+                transition-duration: 1s;
+                font-size: 17px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+                .items-container button:hover {
+                    box-shadow: 2px 2px 6px gray;
+                }
+
+        .right-container {
+            background-color: #e9ecf0;
+            padding: 20px; /* Ensure padding for spacing */
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid black;
+        }
+
+        .header-title {
+            font-weight: 900;
+      font-size: 25px;
+        }
+
+        .add-folder {
+            display: flex;
+            align-items: center;
+            background-color: #e9ecf0;
+            color: #4c5871;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+
+        .modal-container {
+            position: fixed;
+            z-index: 101;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(153, 153, 153, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none; /* Initially hidden */
+        }
+
+        .modal-body {
+            background-color: #d9dcdf;
+            padding: 20px;
+            box-shadow: 4px 4px 10px gray;
+            border-radius: 2px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .modal-heading {
+            border: none;
+            font-size: 18px;
+            background-color: #4c5871;
+            color: white;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+            .item input {
+                border: none;
+                background-color: #f1f1f1;
+                padding: 8px;
+                border: 1px solid gray;
+                width: 100%;
+            }
+
+                .item input:focus {
+                    outline-color: #344256;
+                }
+
+            .item select {
+                padding: 8px;
+                width: 100%;
+            }
+
+            .item button {
+                padding: 10px;
+                background-color: #4c5871;
+                color: white;
+                border: none;
+                font-size: 15px;
+                cursor: pointer;
+            }
+
+                .item button:active {
+                    opacity: 0.8;
+                }
+
+        .close {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            cursor: pointer;
+        }
+
+        .folder-container {
+            margin-bottom: 10px;
+        }
+
+        .folder-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid black;
+        }
+
+        .folder-name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-delete {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .new-dev-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 6px;
+            font-size: 17px;
+            border: none;
+            background-color: #e9ecf0;
+            cursor: pointer;
+        }
+        .cards-container {
+      margin-bottom: 10px;
+      padding: 2px;}
+
+        .card {
+            display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px;
+        width: 100%;
+        margin: 10px;
+        cursor: pointer;
+        gap: 50px;
+        }
+
+        .card-info {
+            display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .file-info {
+            display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="home-container">
+            <div class="left-container">
+                <div class="items-container">
+                    <img src="@Url.Content("~/assets/images/logos/DEVSPARK.png")" alt="DevSpark Logo" />
+                    
+                    <h2>YOUR INTERACTIVE DEV_SPACE</h2>
+                    <h2>CODE --&gt; COMPILE --&gt; RUN</h2>
+                    <button type="button" onclick="location.href='@Url.Action("CreateDevSpace", "DevSpace")'">
+                        <span class="material-icons">add</span>
+                        <span>Create a Dev_Space</span>
+                    </button>
+                </div>
+            </div>
+            <div class="right-container">
+                <div class="header">
+                    <div class="header-title">
+                        <span>My</span> DEV_SPACE
+                    </div>
+                    <button class="add-folder" onclick="showModal('CreateNewFolderModal')">
+                        <span class="material-icons">add</span>
+                        <span>New Folder</span>
+                    </button>
+                </div>
+                <!-- Right Component-->
+                <div class="folder-container">
+                    <div class="folder-header">
+                        <div class="folder-name">
+                            <span class="material-icons" style="color: #FFCA28;">folder</span>
+                            <span>Folder Title</span>
+                        </div>
+                        <div class="edit-delete">
+                            <span class="material-icons" onclick="location.href='@Url.Action("UpdateFolder", "DevSpace")'">edit</span>
+                            <span class="material-icons" onclick="showModal('ConfirmDeleteFolderModal')">delete</span>
+                            <div>
+                                <button class="new-dev-button" onclick="showModal('CreateNewFileModal')">
+                                    <span class="material-icons">add</span>
+                                    <span>New File</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards-container">
+                        <!-- Repeat this block for each file -->
+                        <div class="card">
+                            <div class="card-info" >
+                                <span class="material-icons">code</span>
+                                <div onclick="location.href='@Url.Action("DevPage", "DevSpace")'">
+                                    <span>File Title</span>
+                                    <span>.js</span>
+                                </div>
+                                
+                            </div>
+                            <div class="file-info">
+                                <span class="material-icons" onclick="location.href='@Url.Action("UpdateFile", "DevSpace")'">edit</span>
+                                <span class="material-icons" onclick="showModal('ConfirmDeleteFileModal')">delete</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
