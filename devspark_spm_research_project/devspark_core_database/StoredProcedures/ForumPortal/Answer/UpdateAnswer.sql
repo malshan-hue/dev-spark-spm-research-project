@@ -7,11 +7,11 @@ BEGIN
 
     BEGIN TRY
         UPDATE [Answer]
-        SET [Explanation] = jsonData.[Body]
+        SET [Explanation] = jsonData.[Explanation]
         FROM OPENJSON(@jsonString, '$')
         WITH(
             [AnswerId] INT,
-            [Body] NVARCHAR(MAX)
+            [Explanation] NVARCHAR(MAX)
         ) AS jsonData
         WHERE [Answer].[AnswerId] = jsonData.[AnswerId];
 

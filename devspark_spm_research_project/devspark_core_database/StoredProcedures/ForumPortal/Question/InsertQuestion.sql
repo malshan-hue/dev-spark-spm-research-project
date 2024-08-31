@@ -6,12 +6,14 @@ BEGIN
     SET @executionStatus = 0;
 
     BEGIN TRY
-        INSERT INTO [Question]([Title], [Description]  )
-        SELECT [Title], [Description] 
+        INSERT INTO [Question]([Title], [Description], [UserId]  )
+        SELECT [Title], [Description], [UserId]
         FROM OPENJSON(@jsonString, '$')
         WITH(
             [Title] NVARCHAR(255),
-            [Description] NVARCHAR(MAX)
+            [Description] NVARCHAR(MAX),
+            [UserId] INT
+             
              
         );
 

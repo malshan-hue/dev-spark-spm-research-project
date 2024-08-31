@@ -7,11 +7,11 @@ BEGIN
 
     BEGIN TRY
         INSERT INTO [Answer]([QuestionId], [Explanation], [UserId])
-        SELECT [QuestionId], [Body], [UserId]
+        SELECT [QuestionId], [Explanation], [UserId]
         FROM OPENJSON(@jsonString, '$')
         WITH(
             [QuestionId] INT,
-            [Body] NVARCHAR(MAX),
+            [Explanation] NVARCHAR(MAX),
             [UserId] INT
         );
 

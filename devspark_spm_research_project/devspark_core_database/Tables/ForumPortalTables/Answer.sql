@@ -8,5 +8,5 @@
 
     CONSTRAINT [Answer_AnswerId_PK] PRIMARY KEY CLUSTERED ([AnswerId]),
     CONSTRAINT [Answer_QuestionId_FK] FOREIGN KEY ([QuestionId]) REFERENCES [dbo].[Question]([QuestionId]),
-    CONSTRAINT [Answer_UserId_FK] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User]([UserId])
+    CONSTRAINT [Answer_UserId_FK] FOREIGN KEY ([UserId]) REFERENCES [dbo].[DevSparkUser]([UserId])
 )

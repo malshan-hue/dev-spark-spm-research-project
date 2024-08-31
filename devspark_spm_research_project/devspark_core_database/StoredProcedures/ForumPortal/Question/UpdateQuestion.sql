@@ -7,12 +7,12 @@ BEGIN
 
     BEGIN TRY
         UPDATE [Question]
-        SET [Title] = jsonData.[Title], [Description] = jsonData.[Body]
+        SET [Title] = jsonData.[Title], [Description] = jsonData.[Description]
         FROM OPENJSON(@jsonString, '$')
         WITH(
             [QuestionId] INT,
             [Title] NVARCHAR(255),
-            [Body] NVARCHAR(MAX)
+            [Description] NVARCHAR(MAX)
         ) AS jsonData
         WHERE [Question].[QuestionId] = jsonData.[QuestionId];
 
