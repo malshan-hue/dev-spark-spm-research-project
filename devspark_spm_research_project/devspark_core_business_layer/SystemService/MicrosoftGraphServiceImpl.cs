@@ -86,7 +86,8 @@ namespace devspark_core_business_layer.SystemService
 
                 if (status)
                 {
-                    await _mailService.SendGoogleMail(user.PersonalEmail, "Microsoft Credentials", tempPassword);
+                    var emailbody = $"you microsoft email is: {createdUser.UserPrincipalName} and use this temporary password: {tempPassword} for your first login";
+                    await _mailService.SendGoogleMail(user.PersonalEmail, "Microsoft Credentials", emailbody);
                 }
 
                 return true;
