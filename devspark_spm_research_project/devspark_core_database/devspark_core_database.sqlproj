@@ -68,8 +68,8 @@
     <Folder Include="StoredProcedures\ContributionPortal" />
     <Folder Include="Tables\SystemTables" />
     <Folder Include="StoredProcedures\System" />
-    <Folder Include="StoredProcedures\ForumPortal\Question" />
-    <Folder Include="StoredProcedures\ForumPortal\Answer" />
+    <Folder Include="StoredProcedures\ForumPortal\Question\" />
+    <Folder Include="StoredProcedures\ForumPortal\Answer\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="StoredProcedures\System\InsertUser.sql" />
