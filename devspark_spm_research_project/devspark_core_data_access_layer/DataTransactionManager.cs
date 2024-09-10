@@ -1,4 +1,5 @@
-﻿using devspark_core_model.SystemModels;
+﻿using devspark_core_model.LearnerPortalModels;
+using devspark_core_model.SystemModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,24 @@ namespace devspark_core_data_access_layer
                 }
 
                 return this._entraIdUserDatamanager;
+            }
+        }
+
+        #endregion
+
+        #region Lerver Service
+
+        private DataManager<Course> _courseDatamanager;
+        public DataManager<Course> CourseDataManager
+        {
+            get
+            {
+                if (this._courseDatamanager == null)
+                {
+                    this._courseDatamanager = new DataManager<Course>(_connectionString);
+                }
+
+                return this._courseDatamanager;
             }
         }
 

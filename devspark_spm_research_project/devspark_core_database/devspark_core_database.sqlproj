@@ -73,5 +73,7 @@
     <Build Include="StoredProcedures\System\InsertUser.sql" />
     <Build Include="Tables\SystemTables\EntraIdUser.sql" />
     <Build Include="Tables\SystemTables\DevSparkUser.sql" />
+    <Build Include="StoredProcedures\LernerPortal\InsertCourseWithFullContent.sql" />
+    <Build Include="Tables\LernerPortalTables\Course.sql" />
   </ItemGroup>
 </Project>

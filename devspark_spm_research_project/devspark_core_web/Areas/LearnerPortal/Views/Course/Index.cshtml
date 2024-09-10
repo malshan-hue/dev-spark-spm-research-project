@@ -1,0 +1,109 @@
+﻿@using devspark_core_model.LearnerPortalModels
+
+@model Course
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 mb-0">Create Your Course</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="CreateCourse" asp-controller="Course" asp-area="LernerPortal" id="create-course-form" method="post" data-ajax="true" data-ajax-begin="createCourseBegin" data-ajax-complete="createCourseComplete">
+                        
+                        <div class="row mb-5">
+                            <div class="col-12">
+
+                                @foreach(var item in Enum.GetValues(typeof(AreaOfStudyEnum)))
+                                {
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               asp-for="AreaOfStudyEnum"
+                                               name="AreaOfStudyEnum"
+                                               id="inlineRadio1"
+                                               value="@((int)item)" />
+                                        <label class="form-check-label" for="areaOfStudy_@((int)item)">@item</label>
+                                    </div>
+                                }
+                    
+                            </div>
+                        </div>
+
+                        <div class="row mb-5">
+
+                            <div class="col-6">
+                                <label asp-for="CurrentStatusEnum" class="form-label">Current Status</label>
+                                @Html.DropDownList("CurrentStatusEnum", Html.GetEnumSelectList<CurrentStatusEnum>(), "Select the currtent status", new { @class = "form-select" })
+                            </div>
+
+                            <div class="col-6">
+                                <label for="YearsOfExperience" class="form-label">Years Of Experience</label>
+                                <select class="form-select" name="YearsOfExperience" id="YearsOfExperience" aria-label="Default select example">
+                                    <option selected>Give us your experience</option>
+                                    <option value="1">None</option>
+                                    <option value="2">1 - 2 years</option>
+                                    <option value="3">3 or Above</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-5">
+
+                            <div class="col-6">
+                                <label asp-for="AchivingLevelEnum" class="form-label">Achiving Level</label>
+                                @Html.DropDownList("AchivingLevelEnum", Html.GetEnumSelectList<AchivingLevelEnum>(), "Select the level to achive", new { @class = "form-select" })
+                            </div>
+
+                            <div class="col-6">
+                                <label asp-for="StudyPeriodEnum" class="form-label">Study Period</label>
+                                @Html.DropDownList("StudyPeriodEnum", Html.GetEnumSelectList<StudyPeriodEnum>(), "Select the study period", new { @class = "form-select" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Create New Course</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- / Content -->
+
+@section Scripts{
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+
+
+        });
+
+    </script>
+}

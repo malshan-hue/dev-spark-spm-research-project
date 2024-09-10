@@ -11,6 +11,7 @@ namespace devspark_core_web.Controllers
 
         public async Task<IActionResult> DevSparkHome()
         {
+
             return View();
         }
     }

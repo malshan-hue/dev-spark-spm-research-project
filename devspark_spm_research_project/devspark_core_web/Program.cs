@@ -1,6 +1,9 @@
 using Azure.Identity;
+using devspark_core_business_layer.LearnerPortalService;
+using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_business_layer.SystemService;
 using devspark_core_business_layer.SystemService.Interfaces;
+using devspark_core_model.LearnerPortalModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Graph;
@@ -14,7 +17,7 @@ builder.Services.AddControllersWithViews();
 #region System Service
 
 var configuration = builder.Configuration;
-var connectionString = configuration.GetConnectionString("dev");
+var connectionString = configuration.GetConnectionString("malshan");
 
 builder.Services.AddSingleton<IDatabaseService>(provider =>
 {
@@ -85,6 +88,26 @@ builder.Services.AddAuthentication(options =>
 
 #endregion
 
+#region Learner Portal Services
+builder.Services.AddSingleton<IOpenAIStaticService>(provider =>
+{
+    OpenAICredentials openAICredentials = new OpenAICredentials()
+    {
+        EndPoint = configuration["OpenAiCredentials:EndPoint"],
+        Key = configuration["OpenAiCredentials:Key"],
+        DeploymentName = configuration["OpenAiCredentials:DeploymentName"]
+    };
+
+    var openAiStaticService = new OpenAIStaticServiceImpl();
+    openAiStaticService.SetOpenAICredentials(openAICredentials);
+    return openAiStaticService;
+});
+
+builder.Configuration.AddJsonFile("prompts.json", optional: false, reloadOnChange: true);
+
+builder.Services.AddSingleton<ICourseService, CourseServiceImpl>();
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -105,26 +128,26 @@ app.UseAuthorization();
 app.MapAreaControllerRoute(
     name: "LearnerPortal",
     areaName: "LearnerPortal",
-    pattern: "LearnerPortal/{controller=Landing}/{action=Index}/{id?}");
+    pattern: "LearnerPortal/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "DeveloperPortal",
     areaName: "DeveloperPortal",
-    pattern: "DeveloperPortal/{controller=Landing}/{action=Index}/{id?}");
+    pattern: "DeveloperPortal/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "ContributionPortal",
     areaName: "ContributionPortal",
-    pattern: "ContributionPortal/{controller=Landing}/{action=Index}/{id?}");
+    pattern: "ContributionPortal/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "ForumPortal",
     areaName: "ForumPortal",
-    pattern: "ForumPortal/{controller=Landing}/{action=Index}/{id?}");
+    pattern: "ForumPortal/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
-    name: "area",
-    pattern: "{area:exists}/{controller=Landing}/{action=Index}/{id?}");
+    name: "areaRoute",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
