@@ -51,6 +51,10 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <a href="@Url.Action("Index", "Course", new { Area = "LearnerPortal"})" class="btn btn-primary btn-lg" type="button">Create New Course</a>
+
+                    <form asp-area ="LernerPortal" asp-controller="Dashboard" asp-action="CheckNotification" method="post">
+                        <button type="submit" class="btn btn-primary btn-lg">Notificaion</button>
+                    </form>
                 </div>
             </div>
         </div>

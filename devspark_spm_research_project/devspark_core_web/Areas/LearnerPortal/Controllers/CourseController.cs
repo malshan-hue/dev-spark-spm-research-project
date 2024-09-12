@@ -1,6 +1,8 @@
 ﻿using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_model.LearnerPortalModels;
+using devspark_core_model.SystemModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace devspark_core_web.Areas.LearnerPortal.Controllers
 {
@@ -24,33 +26,51 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCourse(CoursePrompt coursePrompt)
+        public async Task<IActionResult> CreateCourse(Course course)
         {
             var prompts = new OpenAiPrompts();
             prompts.AssistantMessage = _configuration["assistantMessage"];
             prompts.SystemMessage = _configuration["systemMessage"];
             prompts.UserMessage = _configuration["userMessage"];
 
-            prompts.UserMessage = prompts.UserMessage.Replace("[*1*]", coursePrompt.CurrentStatusEnumDisplayname);
-            prompts.UserMessage = prompts.UserMessage.Replace("[*2*]", coursePrompt.YearsOfExperience.ToString());
-            prompts.UserMessage = prompts.UserMessage.Replace("[*3*]", coursePrompt.AreaOfStudyDisplayName);
-            prompts.UserMessage = prompts.UserMessage.Replace("[*4*]", coursePrompt.AchivingLevelEnumDisplayName);
-            prompts.UserMessage = prompts.UserMessage.Replace("[*5*]", coursePrompt.StudyPeriodDisplayName);
+            prompts.UserMessage = prompts.UserMessage.Replace("[*1*]", course.CurrentStatusEnumDisplayname);
+            prompts.UserMessage = prompts.UserMessage.Replace("[*2*]", course.YearsOfExperience.ToString());
+            prompts.UserMessage = prompts.UserMessage.Replace("[*3*]", course.AreaOfStudyDisplayName);
+            prompts.UserMessage = prompts.UserMessage.Replace("[*4*]", course.AchivingLevelEnumDisplayName);
+            prompts.UserMessage = prompts.UserMessage.Replace("[*5*]", course.StudyPeriodDisplayName);
 
-            prompts.SystemMessage = prompts.SystemMessage.Replace("[*1*]", coursePrompt.CurrentStatusEnumDisplayname);
-            prompts.SystemMessage = prompts.SystemMessage.Replace("[*2*]", coursePrompt.YearsOfExperience.ToString());
-            prompts.SystemMessage = prompts.SystemMessage.Replace("[*3*]", coursePrompt.AreaOfStudyDisplayName);
-            prompts.SystemMessage = prompts.SystemMessage.Replace("[*4*]", coursePrompt.AchivingLevelEnumDisplayName);
-            prompts.SystemMessage = prompts.SystemMessage.Replace("[*5*]", coursePrompt.StudyPeriodDisplayName);
+            prompts.SystemMessage = prompts.SystemMessage.Replace("[*1*]", course.CurrentStatusEnumDisplayname);
+            prompts.SystemMessage = prompts.SystemMessage.Replace("[*2*]", course.YearsOfExperience.ToString());
+            prompts.SystemMessage = prompts.SystemMessage.Replace("[*3*]", course.AreaOfStudyDisplayName);
+            prompts.SystemMessage = prompts.SystemMessage.Replace("[*4*]", course.AchivingLevelEnumDisplayName);
+            prompts.SystemMessage = prompts.SystemMessage.Replace("[*5*]", course.StudyPeriodDisplayName);
 
             var userId = 2;
-
-            Course course = await _openAIStaticService.GenerateCourse(prompts, userId);
+            course.CourseContent = await _openAIStaticService.GenerateCourse(prompts);
 
             bool status = await _courseService.InsertCourseWithFullContent(course);
 
             if (status)
             {
+                #region SYSTEM NOTIFICATION
+
+                List<SystemNotification> systemNotifications = new List<SystemNotification>();
+
+                SystemNotification systemNotification = new SystemNotification()
+                {
+                    Title = "Course Created Successfully",
+                    Message = course.CourseName,
+                    Time = DateTime.Now.ToString("dd/MM/yyyy"),
+                    NotificationType = ModelServices.GetEnumDisplayName(NotificationType.Success),
+                    NotificationPlacement = ModelServices.GetEnumDisplayName(NotificationPlacement.TopRight)
+                };
+
+                systemNotifications.Add(systemNotification);
+
+                TempData["SystemNotifications"] = JsonConvert.SerializeObject(systemNotifications);
+
+                #endregion
+
                 return RedirectToAction("Index", "Dashboard", new { Area = "LearnerPortal" });
             }
             else

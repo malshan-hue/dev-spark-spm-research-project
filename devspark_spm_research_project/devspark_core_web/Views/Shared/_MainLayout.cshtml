@@ -262,6 +262,8 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
 
+                    <div class="toast-container" style="position: fixed; top: 0; right: 0; z-index: 9999;"></div>
+
                     @RenderBody()
 
                     <!-- Footer -->
@@ -318,6 +320,49 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!--system notification-->
+    @{
+        var systemNotifications = TempData["SystemNotifications"] as string;
+        TempData.Remove("SystemNotifications");
+
+        if (!String.IsNullOrEmpty(systemNotifications))
+        {
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+
+                    var notifications = JSON.parse('@Html.Raw(systemNotifications)'.replace(/&quot;/g, '"'));
+
+                    notifications.forEach(notification => {
+                        showAlert(notification.Title, notification.Message, notification.NotificationType, notification.Time, notification.NotificationPlacement);
+                    });
+
+                    function showAlert(title, message, type, time, placement) {
+                        var toastHTML = `
+                                        <div class="bs-toast toast m-2 ${type} ${placement}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+                                            <div class="toast-header">
+                                                <i class="bx bx-bell me-2"></i>
+                                                <div class="me-auto fw-semibold">${title}</div>
+                                                <small>${time}</small>
+                                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                            </div>
+                                            <div class="toast-body">${message}</div>
+                                        </div>`;
+
+                        $('.toast-container').prepend(toastHTML);
+
+                        var toastElement = $('.toast');
+                        var toast = new bootstrap.Toast(toastElement);
+                        toast.show();
+                    }
+
+                });
+            </script>
+        }
+    }
+    <!--end system notification-->
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

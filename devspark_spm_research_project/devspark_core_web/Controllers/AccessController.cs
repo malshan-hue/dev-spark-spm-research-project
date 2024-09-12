@@ -3,6 +3,7 @@ using devspark_core_model.SystemModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Graph;
+using Microsoft.Graph.Models;
 
 namespace devspark_core_web.Controllers
 {
@@ -23,6 +24,10 @@ namespace devspark_core_web.Controllers
         [HttpGet]
         public async Task<IActionResult> SignIn()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("DevSparkHome", "DevsparkLanding");
+            }
             return View();
         }
 

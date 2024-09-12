@@ -12,6 +12,6 @@ namespace devspark_core_business_layer.LearnerPortalService.Interfaces
         void SetOpenAICredentials(OpenAICredentials openAICredentials);
         Task<OpenAICredentials> GetOpenAICredentials();
 
-        Task<Course> GenerateCourse(OpenAiPrompts openAiPrompts, int userId);
+        Task<string> GenerateCourse(OpenAiPrompts openAiPrompts);
     }
 }

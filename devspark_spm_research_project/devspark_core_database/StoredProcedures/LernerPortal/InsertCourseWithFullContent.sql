@@ -8,8 +8,8 @@ BEGIN
 
 	BEGIN TRY
 
-		INSERT INTO [Course]([UserId], [CourseName], [CourseContent], [AreaOfStudyEnum], [CurrentStatusEnum], [YearsOfExperience], [AchivingLevelEnum], [StudyPeriodEnum])
-		SELECT [UserId], [CourseName], [CourseContent], [AreaOfStudyEnum], [CurrentStatusEnum], [YearsOfExperience], [AchivingLevelEnum], [StudyPeriodEnum]
+		INSERT INTO [Course]([UserId], [CourseName], [CourseContent], [AreaOfStudyEnum], [CurrentStatusEnum], [YearsOfExperience], [AchivingLevelEnum], [StudyPeriodEnum], [CreatedDateTime])
+		SELECT [UserId], [CourseName], [CourseContent], [AreaOfStudyEnum], [CurrentStatusEnum], [YearsOfExperience], [AchivingLevelEnum], [StudyPeriodEnum], GETUTCDATE()
 		FROM OPENJSON(@jsonString, '$')
 		WITH(
 			[UserId] INT,

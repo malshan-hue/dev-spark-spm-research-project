@@ -62,7 +62,13 @@ namespace devspark_core_model.LearnerPortalModels
             }
         }
 
+        public DateTime CreatedDateTime { get; set; }
+
+        #region NAVIGATION PROPERTIES
+
         [JsonPropertyName("modules")]
         public List<Module> Modules { get; set; }
+
+        #endregion
     }
 }

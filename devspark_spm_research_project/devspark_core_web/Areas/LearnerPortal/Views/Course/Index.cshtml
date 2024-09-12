@@ -75,7 +75,11 @@
 
                         <div class="row">
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-lg">Create New Course</button>
+                                @* <button type="submit" class="btn btn-primary btn-lg">Create New Course</button> *@
+                                <button id="create-course-btn" type="submit" class="btn btn-primary btn-lg">
+                                    <div id="loader" class="" role="status"></div>
+                                    <span>Primary</span>
+                                </button>
                             </div>
                         </div>
 
@@ -100,7 +104,10 @@
 
         $(document).ready(function () {
 
+            var createCourseBegin = function(){
 
+                $("#create-course-btn").children("#loader").addClass("spinner-border spinner-border-sm");
+            }
 
 
         });
