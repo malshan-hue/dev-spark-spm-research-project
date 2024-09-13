@@ -1,4 +1,5 @@
-﻿using devspark_core_model.LearnerPortalModels;
+﻿using devspark_core_business_layer.LearnerPortalService.Interfaces;
+using devspark_core_model.LearnerPortalModels;
 using devspark_core_model.SystemModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -7,9 +8,29 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
 {
     public class DashboardController : Controller
     {
+        private readonly ICourseService _courseService;
+
+        public DashboardController(ICourseService courseService)
+        {
+            _courseService = courseService;
+        }
+
         public async Task<IActionResult> Index()
         {
-            return View();
+            ICollection<Course> courses = new List<Course>();
+
+            int userId = 2;
+            var courseList = await _courseService.GetAllCourses(userId);
+            
+            foreach(var course in courseList)
+            {
+                Course courseCourse = new Course();
+                courseCourse = JsonConvert.DeserializeObject<Course>(course.CourseContent);
+                courseCourse.CreatedDateTime = course.CreatedDateTime;
+                courses.Add(courseCourse);
+            }
+
+            return View(courses);
         }
 
         [HttpPost]

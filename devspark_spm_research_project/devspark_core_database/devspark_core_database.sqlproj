@@ -75,5 +75,6 @@
     <Build Include="Tables\SystemTables\DevSparkUser.sql" />
     <Build Include="StoredProcedures\LernerPortal\InsertCourseWithFullContent.sql" />
     <Build Include="Tables\LernerPortalTables\Course.sql" />
+    <Build Include="StoredProcedures\LernerPortal\GetAllCourses.sql" />
   </ItemGroup>
 </Project>

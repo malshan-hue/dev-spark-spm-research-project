@@ -1,0 +1,9 @@
+﻿CREATE PROCEDURE [dbo].[GetAllCourses]
+	@userId INT = 0
+	WITH ENCRYPTION
+AS
+BEGIN
+
+	SELECT C.* FROM Course C WHERE C.UserId = @userId FOR JSON PATH
+
+END

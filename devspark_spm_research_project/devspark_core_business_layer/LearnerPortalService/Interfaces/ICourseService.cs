@@ -11,5 +11,6 @@ namespace devspark_core_business_layer.LearnerPortalService.Interfaces
     public interface ICourseService
     {
         Task<bool> InsertCourseWithFullContent(Course course);
+        Task<IEnumerable<Course>> GetAllCourses(int userId);
     }
 }
