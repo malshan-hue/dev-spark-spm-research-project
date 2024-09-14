@@ -1,6 +1,8 @@
 ﻿using devspark_core_business_layer.SystemService.Interfaces;
 using devspark_core_model.SystemModels;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Graph;
 using Microsoft.Graph.Models;
@@ -24,7 +26,7 @@ namespace devspark_core_web.Controllers
         [HttpGet]
         public async Task<IActionResult> SignIn()
         {
-            if (User.Identity.IsAuthenticated)
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("DevSparkHome", "DevsparkLanding");
             }
@@ -34,7 +36,16 @@ namespace devspark_core_web.Controllers
         [HttpGet]
         public async Task<IActionResult> MicrosoftSignIn()
         {
-            return Challenge(new AuthenticationProperties { RedirectUri = "/" });
+            return Challenge(new AuthenticationProperties { RedirectUri = "/DevsparkLanding/DevSparkHome" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "DevsparkLanding");
         }
 
         //register view page

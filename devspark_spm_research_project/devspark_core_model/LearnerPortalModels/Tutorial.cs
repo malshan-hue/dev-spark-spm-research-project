@@ -1,4 +1,5 @@
-﻿using System;
+﻿using devspark_core_model.SystemModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,21 @@ namespace devspark_core_model.LearnerPortalModels
         [JsonPropertyName("content")]
         public string Content { get; set; }
 
+        public ProgressStatusEnum ProgressStatusEnum { get; set; }
+
+        public string ProgressStatusEnumDisplayName
+        {
+            get
+            {
+                return ModelServices.GetEnumDisplayName(this.ProgressStatusEnum);
+            }
+        }
+
+        #region NAVIGATIONAL PROPERTIES
+
         [JsonPropertyName("codeSnippets")]
         public List<CodeSnippet> CodeSnippets { get; set; }
+
+        #endregion
     }
 }

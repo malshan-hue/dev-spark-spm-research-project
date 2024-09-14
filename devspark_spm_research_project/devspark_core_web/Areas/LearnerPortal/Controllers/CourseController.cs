@@ -46,9 +46,15 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
             prompts.SystemMessage = prompts.SystemMessage.Replace("[*5*]", course.StudyPeriodDisplayName);
 
             var userId = 2;
-            course.CourseContent = await _openAIStaticService.GenerateCourse(prompts);
+            var generatedCourse = await _openAIStaticService.GenerateCourse(prompts);
+            generatedCourse.AreaOfStudyEnum = course.AreaOfStudyEnum;
+            generatedCourse.CurrentStatusEnum = course.CurrentStatusEnum;
+            generatedCourse.YearsOfExperience = course.YearsOfExperience;
+            generatedCourse.AchivingLevelEnum = course.AchivingLevelEnum;
+            generatedCourse.StudyPeriodEnum = course.StudyPeriodEnum;
+            generatedCourse.UserId = userId;
 
-            bool status = await _courseService.InsertCourseWithFullContent(course);
+            bool status = await _courseService.InsertCourseWithFullContent(generatedCourse);
 
             if (status)
             {

@@ -1,6 +1,7 @@
 ﻿using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_model.LearnerPortalModels;
 using devspark_core_model.SystemModels;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -9,26 +10,26 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
     public class DashboardController : Controller
     {
         private readonly ICourseService _courseService;
+        private IDataProtector _dataProtector;
 
-        public DashboardController(ICourseService courseService)
+        public DashboardController(ICourseService courseService, IDataProtectionProvider dataProtectionProvider)
         {
             _courseService = courseService;
+            _dataProtector = dataProtectionProvider.CreateProtector("courseprotect");
         }
 
         public async Task<IActionResult> Index()
         {
-            ICollection<Course> courses = new List<Course>();
+            IQueryable<Course> courses = new List<Course>().AsQueryable();
 
             int userId = 2;
             var courseList = await _courseService.GetAllCourses(userId);
-            
-            foreach(var course in courseList)
+            courses = courseList.AsQueryable();
+
+            courses.ToList().ForEach(e => 
             {
-                Course courseCourse = new Course();
-                courseCourse = JsonConvert.DeserializeObject<Course>(course.CourseContent);
-                courseCourse.CreatedDateTime = course.CreatedDateTime;
-                courses.Add(courseCourse);
-            }
+                e.EncryptedKey = _dataProtector.Protect(e.CourseId.ToString());
+            });
 
             return View(courses);
         }

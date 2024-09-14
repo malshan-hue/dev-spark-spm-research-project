@@ -9,7 +9,8 @@
 	[YearsOfExperience] INT NULL,
 	[AchivingLevelEnum] INT NULL,
 	[StudyPeriodEnum] INT NULL,
-	[CreatedDateTime] DATETIME NULL
+	[CreatedDateTime] DATETIME NULL,
+	ProgressStatusEnum INT DEFAULT 1 NULL
 
 
 	CONSTRAINT [Course_Id_Pk] PRIMARY KEY CLUSTERED ([CourseId])

@@ -1,10 +1,9 @@
 ﻿@using devspark_core_model.LearnerPortalModels
 
-@model ICollection<Course>
+@model IEnumerable<Course>
 
 @{
     Layout = "~/Views/Shared/_MainLayout.cshtml";
-    int count = 1;
 }
 
 <!-- Content -->
@@ -19,17 +18,15 @@
                 {
                     <div class="col-md-6 col-lg-4 mb-3">
                         <div class="card text-center">
-                            <div class="card-header">@count</div>
+                            <div class="card-header">feature</div>
                             <div class="card-body">
                                 <h5 class="card-title">@course.CourseName</h5>
                                 <p class="card-text">Description</p>
                                 <a href="javascript:void(0)" class="btn btn-primary">Go somewhere</a>
                             </div>
-                            <div class="card-footer text-muted">@(course.CreatedDateTime != null ? course.CreatedDateTime.ToString("dd/MM/yyyy") : "")</div>
+                            <div class="card-footer text-muted">@course.CreatedDateTime.ToString("dd/MM/yyyy")</div>
                         </div>
                     </div>
-
-                    count += 1;
                 }
 
             </div>

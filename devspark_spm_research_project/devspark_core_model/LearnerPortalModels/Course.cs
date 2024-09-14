@@ -1,6 +1,7 @@
 ﻿using devspark_core_model.SystemModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -26,7 +27,7 @@ namespace devspark_core_model.LearnerPortalModels
         {
             get
             {
-                return ModelServices.GetEnumDisplayName(AreaOfStudyEnum);
+                return ModelServices.GetEnumDisplayName(this.AreaOfStudyEnum);
             }
         }
 
@@ -36,7 +37,7 @@ namespace devspark_core_model.LearnerPortalModels
         {
             get
             {
-                return ModelServices.GetEnumDisplayName(CurrentStatusEnum);
+                return ModelServices.GetEnumDisplayName(this.CurrentStatusEnum);
             }
         }
 
@@ -48,7 +49,7 @@ namespace devspark_core_model.LearnerPortalModels
         {
             get
             {
-                return ModelServices.GetEnumDisplayName(AchivingLevelEnum);
+                return ModelServices.GetEnumDisplayName(this.AchivingLevelEnum);
             }
         }
 
@@ -58,11 +59,24 @@ namespace devspark_core_model.LearnerPortalModels
         {
             get
             {
-                return ModelServices.GetEnumDisplayName(StudyPeriodEnum);
+                return ModelServices.GetEnumDisplayName(this.StudyPeriodEnum);
             }
         }
 
         public DateTime CreatedDateTime { get; set; }
+
+        public ProgressStatusEnum ProgressStatusEnum { get; set; }
+
+        public string ProgressStatusEnumDisplayName
+        {
+            get
+            {
+                return ModelServices.GetEnumDisplayName(this.ProgressStatusEnum);
+            }
+        }
+
+        [NotMapped]
+        public string EncryptedKey { get; set; }
 
         #region NAVIGATION PROPERTIES
 

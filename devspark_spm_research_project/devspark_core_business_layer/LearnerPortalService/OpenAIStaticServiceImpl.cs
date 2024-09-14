@@ -29,8 +29,9 @@ namespace devspark_core_business_layer.LearnerPortalService
             return _openAICredentials;
         }
 
-        public async Task<string> GenerateCourse(OpenAiPrompts openAiPrompts)
+        public async Task<Course> GenerateCourse(OpenAiPrompts openAiPrompts)
         {
+            Course course = new Course();
             var courseContent = "";
             bool status = false;
 
@@ -40,14 +41,18 @@ namespace devspark_core_business_layer.LearnerPortalService
             try
             {
                 courseContent = await GeneratedCourseResponce(chatClient, openAiPrompts);
-                Course course = JsonConvert.DeserializeObject<Course>(courseContent);
+                course = JsonConvert.DeserializeObject<Course>(courseContent);
+                course.CourseContent = courseContent;
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 courseContent = await GeneratedCourseResponce(chatClient, openAiPrompts);
+                course = JsonConvert.DeserializeObject<Course>(courseContent);
+                course.CourseContent = courseContent;
             }
 
-            return courseContent;
+            return course;
         }
 
         public async Task<string> GeneratedCourseResponce(ChatClient chatClient, OpenAiPrompts openAiPrompts)

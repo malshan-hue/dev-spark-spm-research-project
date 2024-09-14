@@ -47,6 +47,7 @@ builder.Services.AddSingleton(sp =>
 });
 
 builder.Services.AddSingleton<IMailService, MailServiceImpl>();
+builder.Services.AddDataProtection();
 
 #endregion
 
@@ -76,7 +77,6 @@ builder.Services.AddAuthentication(options =>
             var claimsIdentity = (ClaimsIdentity)context.Principal.Identity;
             var redirectUrl = "/DevsparkLanding/DevSparkHome";
             context.Response.Redirect(redirectUrl);
-            context.HandleResponse();
         },
         OnAuthenticationFailed = context =>
         {
@@ -84,6 +84,14 @@ builder.Services.AddAuthentication(options =>
             return Task.CompletedTask;
         }
     };
+    options.SignedOutRedirectUri = "https://localhost:44360/";
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/MicrosoftSignIn"; 
+    options.Cookie.SameSite = SameSiteMode.Strict;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
 #endregion
