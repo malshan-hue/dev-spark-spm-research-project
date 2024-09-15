@@ -42,6 +42,14 @@
                     <form asp-area ="LernerPortal" asp-controller="Dashboard" asp-action="CheckNotification" method="post">
                         <button type="submit" class="btn btn-primary btn-lg">Notificaion</button>
                     </form>
+
+                    <form asp-area="LernerPortal" asp-controller="Dashboard" asp-action="GeneratePdfFromHtmlContent" method="post">
+                        <button type="submit" class="btn btn-primary btn-lg">Generate pdf</button>
+                    </form>
+
+                    <form asp-area="LernerPortal" asp-controller="Dashboard" asp-action="SendEmail" method="post">
+                        <button type="submit" class="btn btn-primary btn-lg">Send Email</button>
+                    </form>
                 </div>
             </div>
         </div>
