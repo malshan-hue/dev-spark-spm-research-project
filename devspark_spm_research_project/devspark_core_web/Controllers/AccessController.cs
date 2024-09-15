@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Graph;
 using Microsoft.Graph.Models;
+using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace devspark_core_web.Controllers
 {
@@ -26,17 +28,36 @@ namespace devspark_core_web.Controllers
         [HttpGet]
         public async Task<IActionResult> SignIn()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("DevSparkHome", "DevsparkLanding");
-            }
             return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> MicrosoftSignIn()
         {
-            return Challenge(new AuthenticationProperties { RedirectUri = "/DevsparkLanding/DevSparkHome" });
+            return Challenge(new AuthenticationProperties { RedirectUri = "/Access/SignInSuccess" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SignInSuccess()
+        {
+            #region SYSTEM NOTIFICATION
+
+            List<SystemNotification> systemNotifications = new List<SystemNotification>();
+
+            SystemNotification systemNotification = new SystemNotification()
+            {
+                Title = $"Hello! {User.FindFirstValue("name")}",
+                Message = "Welcome to DevSpark Dashboard",
+                Time = DateTime.Now.ToString("dd/MM/yyyy"),
+                NotificationType = ModelServices.GetEnumDisplayName(NotificationType.Success),
+                NotificationPlacement = ModelServices.GetEnumDisplayName(NotificationPlacement.TopRight)
+            };
+            systemNotifications.Add(systemNotification);
+
+            TempData["SystemNotifications"] = JsonConvert.SerializeObject(systemNotifications);
+            #endregion
+
+            return RedirectToAction("DevSparkHome", "DevsparkLanding");
         }
 
         [HttpGet]
