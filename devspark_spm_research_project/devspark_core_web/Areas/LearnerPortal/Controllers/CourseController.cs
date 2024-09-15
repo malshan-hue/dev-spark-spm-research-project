@@ -1,26 +1,32 @@
 ﻿using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_model.LearnerPortalModels;
 using devspark_core_model.SystemModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace devspark_core_web.Areas.LearnerPortal.Controllers
 {
+    [Authorize]
+    [Area("LearnerPortal")]
     public class CourseController : Controller
     {
         private readonly IConfiguration _configuration;
         private readonly IOpenAIStaticService _openAIStaticService;
         private readonly ICourseService _courseService;
+        private IDataProtector _dataProtector;
 
-        public CourseController(IConfiguration configuration, IOpenAIStaticService openAIStaticService, ICourseService courseService)
+        public CourseController(IConfiguration configuration, IOpenAIStaticService openAIStaticService, ICourseService courseService, IDataProtectionProvider dataProtectionProvider)
         {
             _configuration = configuration;
             _openAIStaticService = openAIStaticService;
             _courseService = courseService;
+            _dataProtector = dataProtectionProvider.CreateProtector("courseprotect");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> CreateCourse()
         {
             return View();
         }
@@ -34,13 +40,13 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
             prompts.UserMessage = _configuration["userMessage"];
 
             prompts.UserMessage = prompts.UserMessage.Replace("[*1*]", course.CurrentStatusEnumDisplayname);
-            prompts.UserMessage = prompts.UserMessage.Replace("[*2*]", course.YearsOfExperience.ToString());
+            prompts.UserMessage = prompts.UserMessage.Replace("[*2*]", course.YearsOfExperienceEnumDisplayname);
             prompts.UserMessage = prompts.UserMessage.Replace("[*3*]", course.AreaOfStudyDisplayName);
             prompts.UserMessage = prompts.UserMessage.Replace("[*4*]", course.AchivingLevelEnumDisplayName);
             prompts.UserMessage = prompts.UserMessage.Replace("[*5*]", course.StudyPeriodDisplayName);
 
             prompts.SystemMessage = prompts.SystemMessage.Replace("[*1*]", course.CurrentStatusEnumDisplayname);
-            prompts.SystemMessage = prompts.SystemMessage.Replace("[*2*]", course.YearsOfExperience.ToString());
+            prompts.SystemMessage = prompts.SystemMessage.Replace("[*2*]", course.YearsOfExperienceEnumDisplayname);
             prompts.SystemMessage = prompts.SystemMessage.Replace("[*3*]", course.AreaOfStudyDisplayName);
             prompts.SystemMessage = prompts.SystemMessage.Replace("[*4*]", course.AchivingLevelEnumDisplayName);
             prompts.SystemMessage = prompts.SystemMessage.Replace("[*5*]", course.StudyPeriodDisplayName);
@@ -49,7 +55,7 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
             var generatedCourse = await _openAIStaticService.GenerateCourse(prompts);
             generatedCourse.AreaOfStudyEnum = course.AreaOfStudyEnum;
             generatedCourse.CurrentStatusEnum = course.CurrentStatusEnum;
-            generatedCourse.YearsOfExperience = course.YearsOfExperience;
+            generatedCourse.YearsOfExperienceEnum = course.YearsOfExperienceEnum;
             generatedCourse.AchivingLevelEnum = course.AchivingLevelEnum;
             generatedCourse.StudyPeriodEnum = course.StudyPeriodEnum;
             generatedCourse.UserId = userId;
@@ -65,7 +71,7 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
                 SystemNotification systemNotification = new SystemNotification()
                 {
                     Title = "Course Created Successfully",
-                    Message = course.CourseName,
+                    Message = generatedCourse.CourseName,
                     Time = DateTime.Now.ToString("dd/MM/yyyy"),
                     NotificationType = ModelServices.GetEnumDisplayName(NotificationType.Success),
                     NotificationPlacement = ModelServices.GetEnumDisplayName(NotificationPlacement.TopRight)
@@ -77,14 +83,48 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
 
                 #endregion
 
-                return RedirectToAction("Index", "Dashboard", new { Area = "LearnerPortal" });
+                return Json(new { redirectToUrl = Url.Action("Index", "Dashboard", new { Area = "LearnerPortal" }) });
             }
             else
             {
-                return RedirectToAction("Index", "Course", new { Area = "LearnerPortal" });
+                #region SYSTEM NOTIFICATION
+
+                List<SystemNotification> systemNotifications = new List<SystemNotification>();
+
+                SystemNotification systemNotification = new SystemNotification()
+                {
+                    Title = "Error creating course",
+                    Message = "Created course didn't saved properly",
+                    Time = DateTime.Now.ToString("dd/MM/yyyy"),
+                    NotificationType = ModelServices.GetEnumDisplayName(NotificationType.Danger),
+                    NotificationPlacement = ModelServices.GetEnumDisplayName(NotificationPlacement.TopRight)
+                };
+
+                systemNotifications.Add(systemNotification);
+
+                TempData["SystemNotifications"] = JsonConvert.SerializeObject(systemNotifications);
+
+                #endregion
+
+                return RedirectToAction("CreateCourse", "Course", new { Area = "LearnerPortal" });
             }
 
             
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewCourse(string courseId)
+        {
+            var decryptedCourseId = _dataProtector.Unprotect(courseId);
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CourseProgress(string courseId)
+        {
+            //var decryptedCourseId = _dataProtector.Unprotect(courseId);
+            return ViewComponent("CourseProgress", new {courseId = courseId });
+        }
+
     }
 }

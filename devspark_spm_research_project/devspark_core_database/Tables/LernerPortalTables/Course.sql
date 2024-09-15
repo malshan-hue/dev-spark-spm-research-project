@@ -6,7 +6,7 @@
 	[CourseContent] NVARCHAR(MAX),
 	[AreaOfStudyEnum] INT NULL,
 	[CurrentStatusEnum] INT NULL,
-	[YearsOfExperience] INT NULL,
+	[YearsOfExperienceEnum] INT NULL,
 	[AchivingLevelEnum] INT NULL,
 	[StudyPeriodEnum] INT NULL,
 	[CreatedDateTime] DATETIME NULL,

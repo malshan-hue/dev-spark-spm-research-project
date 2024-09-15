@@ -15,6 +15,7 @@ BEGIN
         FROM Module M WHERE M.CourseId = C.CourseId FOR JSON PATH), '[]')) AS 'Modules'
     FROM Course C  
     WHERE C.UserId = @userId
+    ORDER BY C.CreatedDateTime DESC
     FOR JSON PATH
 
 END

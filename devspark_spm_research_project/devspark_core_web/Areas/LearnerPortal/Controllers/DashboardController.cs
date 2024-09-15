@@ -3,6 +3,7 @@ using devspark_core_business_layer.SystemService.Interfaces;
 using devspark_core_model.LearnerPortalModels;
 using devspark_core_model.SystemModels;
 using devspark_core_web.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Graph.Models;
@@ -10,6 +11,8 @@ using Newtonsoft.Json;
 
 namespace devspark_core_web.Areas.LearnerPortal.Controllers
 {
+    [Authorize]
+    [Area("LearnerPortal")]
     public class DashboardController : Controller
     {
         private readonly IMailService _mailService;

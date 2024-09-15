@@ -14,15 +14,15 @@ BEGIN
         DECLARE @tutorialIds TABLE(Id INT, title NVARCHAR(MAX));
 
         -- insert the course
-        INSERT INTO [Course]([UserId], [CourseName], [CourseContent], [AreaOfStudyEnum], [CurrentStatusEnum], [YearsOfExperience], [AchivingLevelEnum], [StudyPeriodEnum], [CreatedDateTime])
-        SELECT [UserId], [CourseName], [CourseContent], [AreaOfStudyEnum], [CurrentStatusEnum], [YearsOfExperience], [AchivingLevelEnum], [StudyPeriodEnum], GETUTCDATE()
+        INSERT INTO [Course]([UserId], [CourseName], [CourseContent], [AreaOfStudyEnum], [CurrentStatusEnum], [YearsOfExperienceEnum], [AchivingLevelEnum], [StudyPeriodEnum], [CreatedDateTime])
+        SELECT [UserId], [CourseName], [CourseContent], [AreaOfStudyEnum], [CurrentStatusEnum], [YearsOfExperienceEnum], [AchivingLevelEnum], [StudyPeriodEnum], GETUTCDATE()
         FROM OPENJSON(@jsonString, '$') WITH(
             [UserId] INT,
             [CourseName] NVARCHAR(MAX),
             [CourseContent] NVARCHAR(MAX),
             [AreaOfStudyEnum] INT,
             [CurrentStatusEnum] INT,
-            [YearsOfExperience] INT,
+            [YearsOfExperienceEnum] INT,
             [AchivingLevelEnum] INT,
             [StudyPeriodEnum] INT
         );

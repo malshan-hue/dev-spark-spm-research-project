@@ -1,0 +1,49 @@
+﻿@* @using devspark_core_model.LearnerPortalModels
+
+@model Course *@
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <div id="course-progress-container" class="">
+        @await Component.InvokeAsync("CourseProgress", new { courseId = "23"})
+    </div>
+    <a id="btn">click me</a>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+        });
+
+        $("#btn").click(function () {
+            refreshCourseProgress();
+        });
+
+        function refreshCourseProgress() {
+            $.ajax({
+                url: '@Url.Action("CourseProgress", "Course")',
+                type: 'GET',
+                data: { courseId: '23' },
+                success: function (data) {
+                    $('#course-progress-container').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        }
+    </script>
+}

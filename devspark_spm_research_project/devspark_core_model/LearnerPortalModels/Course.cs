@@ -1,6 +1,7 @@
 ﻿using devspark_core_model.SystemModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
@@ -21,6 +22,7 @@ namespace devspark_core_model.LearnerPortalModels
 
         public string CourseContent { get; set; }
 
+        [Required(ErrorMessage = "Area of Study is required.")]
         public AreaOfStudyEnum AreaOfStudyEnum { get; set; }
 
         public string AreaOfStudyDisplayName
@@ -31,6 +33,7 @@ namespace devspark_core_model.LearnerPortalModels
             }
         }
 
+        [Required(ErrorMessage = "Current Status is required.")]
         public CurrentStatusEnum CurrentStatusEnum { get; set; }
 
         public string CurrentStatusEnumDisplayname
@@ -41,8 +44,18 @@ namespace devspark_core_model.LearnerPortalModels
             }
         }
 
-        public int YearsOfExperience { get; set; }
+        [Required(ErrorMessage = "Years of Experience is required.")]
+        public YearsOfExperienceEnum YearsOfExperienceEnum { get; set; }
 
+        public string YearsOfExperienceEnumDisplayname
+        {
+            get
+            {
+                return ModelServices.GetEnumDisplayName(this.YearsOfExperienceEnum);
+            }
+        }
+
+        [Required(ErrorMessage = "Achieving Level is required.")]
         public AchivingLevelEnum AchivingLevelEnum { get; set; }
 
         public string AchivingLevelEnumDisplayName
@@ -53,6 +66,7 @@ namespace devspark_core_model.LearnerPortalModels
             }
         }
 
+        [Required(ErrorMessage = "Study Period is required.")]
         public StudyPeriodEnum StudyPeriodEnum { get; set; }
 
         public string StudyPeriodDisplayName
