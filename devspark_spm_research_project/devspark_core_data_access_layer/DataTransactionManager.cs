@@ -51,6 +51,20 @@ namespace devspark_core_data_access_layer
             }
         }
 
+        private DataManager<CourseProgress> _courseProgressDatamanager;
+        public DataManager<CourseProgress> CourseProgressDataManager
+        {
+            get
+            {
+                if (this._courseProgressDatamanager == null)
+                {
+                    this._courseProgressDatamanager = new DataManager<CourseProgress>(_connectionString);
+                }
+
+                return this._courseProgressDatamanager;
+            }
+        }
+
         #endregion
 
         private bool _disposed = false;

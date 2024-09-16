@@ -96,6 +96,7 @@ namespace devspark_core_model.LearnerPortalModels
 
         [JsonPropertyName("modules")]
         public List<Module> Modules { get; set; }
+        public CourseProgress CourseProgress { get; set; }
 
         #endregion
     }

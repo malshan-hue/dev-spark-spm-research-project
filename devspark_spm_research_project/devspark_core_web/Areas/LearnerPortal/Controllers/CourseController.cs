@@ -115,15 +115,24 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewCourse(string courseId)
         {
-            var decryptedCourseId = _dataProtector.Unprotect(courseId);
-            return View();
+            int decryptedCourseId = Convert.ToInt32(_dataProtector.Unprotect(courseId));
+            Course course = await _courseService.GetCourseByCourseId(decryptedCourseId);
+            course.EncryptedKey = courseId;
+            return View(course);
         }
 
         [HttpGet]
         public async Task<IActionResult> CourseProgress(string courseId)
         {
-            //var decryptedCourseId = _dataProtector.Unprotect(courseId);
             return ViewComponent("CourseProgress", new {courseId = courseId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CourseProgressData(string courseId)
+        {
+            int decryptedCourseId = Convert.ToInt32(_dataProtector.Unprotect(courseId));
+            CourseProgress courseProgress = await _courseService.GetCourseProgressByCourseId(decryptedCourseId);
+            return Json(courseProgress);
         }
 
     }

@@ -39,5 +39,25 @@ namespace devspark_core_business_layer.LearnerPortalService
 
             return course;
         }
+
+        public async Task<Course> GetCourseByCourseId(int courseId)
+        {
+            DataTransactionManager dataTransactionManager = new DataTransactionManager(_databaseService.GetConnectionString());
+            var course = dataTransactionManager.CourseDataManager.RetrieveData("GetCoursesByCourseId", new SqlParameter[]{
+                new SqlParameter("@courseId", courseId)
+            }).FirstOrDefault();
+
+            return course;
+        }
+
+        public async Task<CourseProgress> GetCourseProgressByCourseId(int courseId)
+        {
+            DataTransactionManager dataTransactionManager = new DataTransactionManager(_databaseService.GetConnectionString());
+            var courseProgress = dataTransactionManager.CourseProgressDataManager.RetrieveData("GetCourseProgressByCourseId", new SqlParameter[]{
+                new SqlParameter("@courseId", courseId)
+            }).FirstOrDefault();
+
+            return courseProgress;
+        }
     }
 }

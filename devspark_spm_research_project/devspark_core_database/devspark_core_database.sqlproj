@@ -81,5 +81,7 @@
     <Build Include="Tables\LernerPortalTables\Tutorial.sql" />
     <Build Include="Tables\LernerPortalTables\CodeSnippet.sql" />
     <Build Include="Tables\LernerPortalTables\Exercise.sql" />
+    <Build Include="StoredProcedures\LernerPortal\GetCoursesByCourseId.sql" />
+    <Build Include="StoredProcedures\LernerPortal\GetCourseProgressByCourseId.sql" />
   </ItemGroup>
 </Project>

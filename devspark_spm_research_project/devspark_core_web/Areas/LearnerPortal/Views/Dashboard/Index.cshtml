@@ -31,8 +31,8 @@
                             <div class="card-header"><span class="badge rounded-pill bg-warning">@course.ProgressStatusEnumDisplayName</span></div>
                             <div class="card-body">
                                 <h5 class="card-title">@course.CourseName</h5>
-                                <p class="card-text">Description</p>
-                                <a href="@Url.Action("ViewCourse", "Course", new {courseId = course.EncryptedKey})" class="btn btn-primary">Go somewhere</a>
+                                <p class="card-text">@course.StudyPeriodDisplayName</p>
+                                <a href="@Url.Action("ViewCourse", "Course", new {courseId = course.EncryptedKey})" class="btn btn-primary">Take Course</a>
                             </div>
                             <div class="card-footer text-muted">@course.CreatedDateTime.ToString("dd/MM/yyyy")</div>
                         </div>

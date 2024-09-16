@@ -12,5 +12,7 @@ namespace devspark_core_business_layer.LearnerPortalService.Interfaces
     {
         Task<bool> InsertCourseWithFullContent(Course course);
         Task<IEnumerable<Course>> GetAllCourses(int userId);
+        Task<Course> GetCourseByCourseId(int courseId);
+        Task<CourseProgress> GetCourseProgressByCourseId(int courseId);
     }
 }
