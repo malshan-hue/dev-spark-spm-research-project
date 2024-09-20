@@ -125,12 +125,22 @@ namespace devspark_core_data_access_layer
 
                         sqlConnection.Open();
 
-                        var jsonData = sqlCommand.ExecuteScalar() as string;
+                        var jsonResult = new StringBuilder();
+                        var reader = sqlCommand.ExecuteReader();
 
-                        if (!string.IsNullOrEmpty(jsonData))
+                        if (!reader.HasRows)
                         {
-                            data = JsonConvert.DeserializeObject<ICollection<TEntity>>(jsonData) ?? new List<TEntity>();
+                            jsonResult.Append("[]");
                         }
+                        else
+                        {
+                            while (reader.Read())
+                            {
+                                jsonResult.Append(reader.GetValue(0).ToString());
+                            }
+                        }
+
+                        data = JsonConvert.DeserializeObject<ICollection<TEntity>>(jsonResult.ToString()) ?? new List<TEntity>();
                     }
                 }
             }

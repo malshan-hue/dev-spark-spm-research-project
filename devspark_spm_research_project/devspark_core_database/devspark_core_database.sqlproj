@@ -76,5 +76,14 @@
     <Build Include="Tables\DeveloperPortalTables\Folder.sql" />
     <Build Include="Tables\DeveloperPortalTables\Files.sql" />
     <Build Include="StoredProcedures\DeveloperPortal\CreateDevSpace.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\GetDevSpaces.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\UpdateDevSpace.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\UpdateFileInfo.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\CreateNewFolder.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\CreateNewFile.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\UpdateFolder.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\UpdateFile.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\DeleteFolder.sql" />
+    <Build Include="StoredProcedures\DeveloperPortal\DeleteFile.sql" />
   </ItemGroup>
 </Project>
