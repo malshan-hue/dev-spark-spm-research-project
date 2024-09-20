@@ -14,8 +14,12 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.12.0" />
-    <PackageReference Include="iTextSharp" Version="5.5.13.4" />
-    <PackageReference Include="itextsharp.xmlworker" Version="5.5.13.4" />
+	<PackageReference Include="iTextSharp" Version="5.5.13.4">
+		<NoWarn>NU1701</NoWarn>
+	</PackageReference>
+	<PackageReference Include="itextsharp.xmlworker" Version="5.5.13.4">
+		<NoWarn>NU1701</NoWarn>
+	</PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.8" />
     <PackageReference Include="Microsoft.Graph" Version="5.58.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.5" />
