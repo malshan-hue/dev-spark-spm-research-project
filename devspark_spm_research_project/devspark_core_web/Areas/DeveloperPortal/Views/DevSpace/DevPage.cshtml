@@ -1,0 +1,825 @@
+﻿@using devspark_core_model.DeveloperPortalModels
+@model DevPageViewModel
+
+<!DOCTYPE html>   
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSpace</title>
+    <!-- Add the stylesheets here -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/monaco-editor@0.33.0/min/vs/editor/editor.main.css" />
+
+    <!-- Include Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+    <!-- Include Toastr JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            margin: 1px;
+            background-color: white;
+        }
+        .devspace-container {
+            font-family: Roboto;
+            height: 99.50vh;
+            display: grid;
+            grid-template-rows: 75px 1fr;
+        }
+
+        .fullpage-loader {
+            background-color: rgba(0, 0, 0, 0.534);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: 8px solid #14233c;
+            border-left-color: #093b98;
+            animation: 0.8s loader infinite linear;
+            border-radius: 50%;
+        }
+
+        .header-container {
+            background-color: #081c38;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+        }
+
+            .header-container img {
+                width: 190px;
+                cursor: pointer;
+            }
+
+        .bottom-container {
+            gap: 1px;
+            padding: 1px;
+            display: grid;
+            grid-template-columns: 800px 1fr;
+        }
+
+        .utility-container {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 1px;
+        }
+
+        .input-console-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-console-header {
+            background-color: #2a3f6c;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .utility-name {
+            background-color: #2a3f6c;
+            border: none;
+            font-size: 14px;
+            color: white;
+            padding: 5px;
+            pointer-events: none;
+        }
+
+        .icon-container {
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            gap: 5px;
+        }
+
+            .icon-container .material-icons {
+                color: #e9ecf0;
+            }
+
+            .icon-container button {
+                background-color: #2a3f6c;
+                border: none;
+                font-size: 14px;
+                color: white;
+                padding: 5px;
+                cursor: pointer;
+            }
+
+        textarea {
+            background-color: #1E1E1E;
+            flex-grow: 1;
+            font-size: 17px;
+            border: none;
+            resize: none;
+            padding: 8px;
+            color: white;
+        }
+
+            textarea:focus {
+                outline: none;
+            }
+
+        .root-editor-container {
+            background-color: #e9ecf0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-header,
+        .editor-footer {
+            background-color: #2a3f6c;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .left-header-container .file-name-container {
+            background-color: #2a3f6c;
+            color: white;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            padding-right: 40px;
+        }
+
+        .right-header-container {
+            display: flex;
+            gap: 10px;
+        }
+
+            .right-header-container select {
+                padding: 12px;
+                background-color: #4c5871;
+                color: white;
+                border: none;
+                font-size: 14px;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+
+                .right-header-container select:focus {
+                    outline: none;
+                }
+
+        .editor-body {
+            flex-grow: 1;
+            background-color: black;
+            color: white;
+        }
+
+        .editor-footer .footer-btn-import {
+            background-color: #2a3f6c;
+            border: none;
+        }
+
+        .editor-footer .footer-btn-fullScreen,
+        .editor-footer .footer-btn-export,
+        .editor-footer .footer-btn-run,
+        .editor-footer .footer-btn-save {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            background-color: #4c5871;
+            border: none;
+            font-size: 14px;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            transition-duration: 0.15s;
+            border-radius: 3px;
+        }
+
+        
+
+        .editor-footer .footer-btn-fullScreen:hover,
+        .editor-footer .footer-btn-export:hover,
+        .editor-footer .footer-btn-run:hover,
+        .editor-footer .footer-btn-save:hover,
+        .editor-footer label:hover {
+            background-color: #626263;
+        }
+
+        .editor-footer .icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            background-color: #4c5871;
+            border: none;
+            font-size: 14px;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="devspace-container">
+        <div class="header-container">
+            <a class="" href="@Url.Action("HomeIndex", "DevSpace", new{Area="DeveloperPortal"})">
+                <img src="@Url.Content("~/assets/images/logos/DEV_SPARK.png")" alt="Logo" />
+            </a>
+        </div>
+        <div class="bottom-container">
+            <div class="editor-container">
+                <div class="root-editor-container">
+                    <div class="editor-header">
+                        <div class="left-header-container">
+                            <button class="file-name-container" id="displayFile"></button>
+                        </div>
+                        <div class="right-header-container">
+                            <select class="language-set" id="language-select">
+                                <option value="java">Java (JDK 17.0.6)</option>
+                                <option value="javascript">JavaScript (Node.js 18.15.0)</option>
+                                <option value="cpp">C++ (GCC 9.2.0)</option>
+                                <option value="c">C (GCC 9.2.0)</option>
+                                <option value="csharp">C# (Mono 6.6.0.161)</option>
+                                <option value="python">Python (3.11.2)</option>
+                            </select>
+                            <select class="theme-set" id="theme-select">
+                                <option value="vs-dark">vs-dark</option>
+                                <option value="vs">vs</option>
+                                <option value="Night-Owl">Night Owl</option>
+                                <option value="Twilight">Twilight</option>
+                                <option value="hc-black">hc-black</option>
+                                <option value="Dracula">Dracula</option>
+                                <option value="Zenburnesque">Zenburnesque</option>
+                                <option value="Monokai">Monokai</option>
+                                <option value="Tomorrow-Night-Blue">Tomorrow Night Blue</option>
+                                <option value="Nord">Nord</option>
+                                <option value="Cobalt">Cobalt</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div id="editor" style="height: 100%; width: 100%;"></div>
+                    </div>
+                    <div class="editor-footer">
+                        <button class="footer-btn-fullScreen" id="fullscreenButton" onclick="toggleFullscreen()">
+                            <span id="fullscreenIcon" class="material-icons" id="fullscreen-icon">fullscreen</span>
+                            <span id="fullscreenText">Full Screen</span>
+                        </button>
+                        <button class="footer-btn-import">
+                            <label for="input" class="icon-container">
+                                <span class="material-icons">cloud_download</span>
+                                <span>Import Code</span>
+                            </label>
+                        </button>
+                        <input type="file" style="display: none" id="input" onchange="importCode(event)" />
+                        <button class="footer-btn-export" onclick="exportCode()">
+                            <span class="material-icons">cloud_upload</span>
+                            <span>Export Code</span>
+                        </button>
+                        <button class="footer-btn-run" onclick="submitCode()">
+                            <span class="material-icons">play_arrow</span>
+                            <span>Run Code</span>
+                        </button>
+                        <button class="footer-btn-save" onclick="saveCode()">
+                            <span class="material-icons">save</span>
+                            <span>Save Code</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Include Monaco Editor -->
+                <script src="https://unpkg.com/monaco-editor@0.33.0/min/vs/loader.js"></script>
+                <script>
+                    // Define default code snippets
+                    const defaultCodes = {
+java: 
+`public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}`,
+javascript: 
+`// Define a function to print Hello, World!
+function printMessage() {
+    const message = "Hello, World!";
+    console.log(message);
+}
+
+// Call the function
+printMessage();
+`,
+cpp: 
+`#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    cin>>a>>b;
+    int sum = 0;
+    for(int i = a; i <= b; i++){
+        sum += i;
+    }
+    cout << "Sum between a and b is "<< sum;
+    return 0;
+}`,
+c: 
+`#include <stdio.h>
+int main() {
+     printf("Hello, World!");
+     return 0;
+}`,
+csharp:
+`using System;
+class HelloWorld {
+    static void Main() {
+        Console.WriteLine("Hello, World!");
+    }
+}`,
+python: 
+`# Define a function to print Hello, World!
+def print_message():
+    message = "Hello, World!"
+    print(message)
+
+# Call the function
+print_message()
+`,
+                    };
+
+                    const fileExtensionsMapping = {
+                        java: 'java',
+                        javascript: 'js',
+                        cpp: 'cpp',
+                        c: 'c',
+                        csharp: 'cs',
+                        python: 'py'
+                    };
+
+                    let editor;
+                    const initialLanguage = '@Model.File_Language';
+
+                    require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@0.33.0/min/vs' } });
+                    require(['vs/editor/editor.main'], function () {
+                        // Check if Model.CodeSnippet has a value and use it
+                        const initialCode = `@Html.Raw(Model.File_CodeSnippet)`;
+                        const initialFileTitle = '@Model.File_Title';
+
+                        var fileTitleChanged = false; // This flag will track if the language has been changed
+
+                        editor = monaco.editor.create(document.getElementById('editor'), {
+                            value: initialCode,
+                            language: initialLanguage,
+                            theme: 'vs-dark',
+                            wordWrap: "on",
+                            fontSize: 16,
+                        });
+
+                        const languageSelect = document.getElementById('language-select');
+                        const displayFile = document.getElementById('displayFile');
+                        
+                        // Update the editor content based on the selected language
+                        function updateEditorContent() {
+                            const selectedLanguage = languageSelect.value;
+
+                            // Update file extension display
+                            const fileExtension = fileExtensionsMapping[selectedLanguage] || 'txt'; // Default to 'txt' if no extension found
+                            
+                            // Change file title only after first language change
+                            if (!fileTitleChanged) {
+                                displayFile.innerText = `${initialFileTitle}.${fileExtension}`
+
+                                // Update editor content and language model
+                                editor.setValue(initialCode);
+                                monaco.editor.setModelLanguage(editor.getModel(), selectedLanguage);
+                                fileTitleChanged = true;
+                            }else{
+                                displayFile.innerText = `code.${fileExtension}`;
+
+                                // Update editor content and language model
+                                editor.setValue(defaultCodes[selectedLanguage] || '');
+                                monaco.editor.setModelLanguage(editor.getModel(), selectedLanguage);
+                            }
+                            
+                        }
+
+                        // If there's no initial language, allow dynamic updates from the dropdown
+                        // if (!initialLanguage) {
+                        //     Set up event listener for language select changes
+                        //     languageSelect.addEventListener('change', updateEditorContent());
+                        // } else {
+                        //     If there's an initial language, set it and update the editor
+                        //     languageSelect.value = initialLanguage;
+                        //     updateEditorContent();
+
+                        //     Set up event listener for language select changes
+                        //     languageSelect.addEventListener('change', updateEditorContent);
+                        // }
+
+                        if (initialLanguage) {
+                            languageSelect.value = initialLanguage;
+                            updateEditorContent();
+                        }
+
+                        // Update the editor theme based on the selected theme
+                        function fetchAndRegisterTheme(themeName) {
+                            fetch(`/themes/${themeName}.json`)
+                                .then(response => response.json())
+                                .then(theme => {
+                                    monaco.editor.defineTheme(themeName, theme);
+                                    monaco.editor.setTheme(themeName); // Apply the theme immediately
+                                })
+                                .catch(error => console.error('Error loading theme:', error));
+                        }
+
+                        // Update the editor theme based on the selected theme
+                        function updateEditorTheme() {
+                            const themeSelect = document.getElementById('theme-select');
+                            const selectedTheme = themeSelect.value;
+
+                            // Check if the theme is a built-in theme
+                            const builtInThemes = ['vs-dark', 'vs', 'vs-light', 'hc-black'];
+                            if (builtInThemes.includes(selectedTheme)) {
+                                monaco.editor.setTheme(selectedTheme);
+                            } else {
+                                fetchAndRegisterTheme(selectedTheme);
+                            }
+                        }
+
+                        // Add event listeners
+                        document.getElementById('language-select').addEventListener('change', updateEditorContent);
+                        document.getElementById('theme-select').addEventListener('change', updateEditorTheme);
+
+                        // Initialize editor content with default language
+                        //updateEditorContent();
+                    });
+
+                    // Function to toggleFullscreen
+                    function toggleFullscreen() {
+                        const fullscreenButton = document.getElementById("fullscreenText");
+                        const fullscreenIcon = document.getElementById("fullscreenIcon");
+                        const editorContainer = document.getElementById("editor");
+
+                        if (!document.fullscreenElement) {
+                            // Enter fullscreen mode
+                            document.documentElement.requestFullscreen()
+                                .then(() => {
+                                    fullscreenButton.innerText = " Minimize Screen"; // Change button text
+                                    fullscreenIcon.innerHTML = "fullscreen_exit"; // Change icon to 'fullscreen_exit'
+                                    editorContainer.style.height = "100%"; // Make editor full height
+                                    editor.layout(); // Ensure Monaco Editor resizes
+                                })
+                                .catch(err => {
+                                    console.error(`Error trying to enable full-screen mode: ${err.message} (${err.name})`);
+                                });
+                        } else {
+                            // Exit fullscreen mode
+                            if (document.exitFullscreen) {
+                                document.exitFullscreen()
+                                    .then(() => {
+                                        fullscreenButton.innerText = " Full Screen"; // Revert button text
+                                        fullscreenIcon.innerHTML = "fullscreen"; // Revert icon to 'fullscreen'
+                                        editorContainer.style.height = "539px"; // Revert editor to original height
+                                        editor.layout(); // Ensure Monaco Editor resizes
+                                    });
+                            }
+                        }
+                    }
+
+                    // Listen for fullscreen change events to handle cases when user exits fullscreen using ESC key
+                    document.addEventListener("fullscreenchange", () => {
+                        const fullscreenButton = document.getElementById("fullscreenText");
+                        const fullscreenIcon = document.getElementById("fullscreenIcon");
+                        const editorContainer = document.getElementById("editor");
+
+                        if (!document.fullscreenElement) {
+                            fullscreenButton.innerText = " Full Screen"; // Revert button text when exiting fullscreen
+                            fullscreenIcon.innerHTML = "fullscreen"; // Revert icon to 'fullscreen'
+                            editorContainer.style.height = "539px"; // Revert editor to original height
+                        } else {
+                            fullscreenButton.innerText = " Minimize Screen"; // Change button text when entering fullscreen
+                            fullscreenIcon.innerHTML = "fullscreen_exit"; // Change icon to 'fullscreen_exit'
+                            editorContainer.style.height = "100%"; // Make editor full height
+                        }
+                        editor.layout(); // Make sure the Monaco Editor resizes properly
+                    });
+
+                    function showTryAgainToast() {
+                        toastr.error("Try again with a program file", {
+                            positionClass: "toast-top-center",
+                            timeOut: 5000,
+                            progressBar: true,
+                            pauseOnHover: true,
+                        });
+                    }
+
+                    //Function to Import Code
+                    function importCode(event) {
+                        const file = event.target.files[0];
+                        const allowedExtensions = ["js", "cpp", "cs", "c", "py", "java"];
+                        const fileExtension = file.name.split(".").pop().toLowerCase();
+
+                        if (allowedExtensions.includes(fileExtension)) {
+                            const reader = new FileReader();
+                            reader.readAsText(file);
+                            reader.onload = function (e) {
+                                editor.setValue(e.target.result);
+                            };
+                            reader.readAsText(file);
+                        }else {
+                            // If file extension is not allowed, show the error toast
+                            showTryAgainToast();
+                        }
+                    }
+
+                    function showEmptyCodeToast() {
+                        toastr.error("There is nothing to export", {
+                          position: "top-center",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          pauseOnHover: true,
+                        });
+                      };
+
+                    //Function to Export Code
+                    function exportCode() {
+                        const languageSelect = document.getElementById('language-select');
+                        const selectedLanguage = languageSelect.value;
+                        const fileExtension = fileExtensionsMapping[selectedLanguage] || 'txt';
+                        if(!editor.getValue()){
+                            showEmptyCodeToast();
+                        }else{
+                            const blob = new Blob([editor.getValue()], { type: 'text/plain' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `code.${fileExtension}`;
+                            a.click();
+                            URL.revokeObjectURL(url);
+                        }
+                    }
+
+                    function showCodeSaveToast() {
+                        toastr.success("Code Saved Succesfully", {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            pauseOnHover: true,
+                        });
+                    };
+
+                    //Function to Save Code
+                    async function saveCode() {
+                        const folderId = @Model.Folder_id;
+                        const fileId = @Model.File_id;
+                        const selectedLanguage = document.getElementById('language-select').value;
+                        const sourceCode = editor.getValue();
+                        let fileTitle;
+
+                        if (initialLanguage !== selectedLanguage) {
+                            fileTitle = 'code';
+                        } else {
+                            
+                            // Ensure the input field exists and has a valid value
+                            const fileNameWithExtension = document.getElementById('displayFile').innerText;
+
+                            // Check if the file name contains a dot, handle it correctly
+                            fileTitle = fileNameWithExtension.includes('.')
+                                ? fileNameWithExtension.split('.').slice(0, -1).join('.')
+                                : fileNameWithExtension;
+                        }
+
+                        try {
+                            
+                            const response = await fetch('/api/save', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    fileId: fileId,
+                                    fileTitle: fileTitle,
+                                    folderId: folderId,
+                                    language: selectedLanguage,
+                                    sourceCode: sourceCode
+                                }),
+                            });
+
+                            if (response.ok) {
+                                showCodeSaveToast();
+                            } else {
+                                showEmptyCodeToast();
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                        }
+                    }
+
+                    // Function to import inputs from a file
+                    function importInputs(e) {
+                        const file = e.target.files[0];
+
+                        if (file) {
+                            const fileType = file.type.includes("text");
+
+                            if (fileType) {
+                                const fileReader = new FileReader();
+                                fileReader.onload = function (e) {
+                                    document.getElementById('inputs').value = e.target.result;
+                                };
+                                fileReader.readAsText(file);
+                            }else {
+                                // If file extension is not allowed, show the error toast
+                                showTryAgainToast();
+                            }
+                        }
+                    }
+
+                    function showEmptyOutputToast() {
+                        toastr.error("Output is Empty", {
+                          position: "top-center",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          pauseOnHover: true,
+                        });
+                      };
+
+                    // Function to export outputs to a file
+                    function exportOutput() {
+                        const outputValue = document.getElementById('output').value.trim();
+                        if (!outputValue) {
+                            showEmptyOutputToast(); // Implement this function to show a toast message
+                            return;
+                        }
+
+                        const blob = new Blob([outputValue], { type: "text/plain" });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement("a");
+                        link.href = url;
+                        link.download = 'output.txt';
+                        link.click();
+                        URL.revokeObjectURL(url); // Clean up the URL object
+                    }
+
+                    //Function to submit and run code
+                    async function submitCode() {
+                        const languageSelect = document.getElementById('language-select');
+                        const selectedLanguage = languageSelect.value;
+                        const stdin = document.getElementById('inputs').value;
+                        const sourceCode = editor.getValue();
+
+                        const response = await fetch('/api/submit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                languageId: getLanguageId(selectedLanguage),
+                                sourceCode: sourceCode,
+                                stdin: stdin
+                            }),
+                        });
+                        
+                        const result = await response.json();
+                        console.log(result);
+                        const submissionId = result.submissionId;
+                        if (submissionId) {
+                            console.log("Submission ID:", submissionId);
+                            pollResult(submissionId);
+                        } else {
+                            console.error('Failed to get submission ID');
+                        }
+                    }
+
+                    //Function to get language Code
+                    function getLanguageId(language) {
+                        switch (language) {
+                            case 'java': return 91;
+                            case 'javascript': return 93;
+                            case 'cpp': return 54;
+                            case 'c': return 50;
+                            case 'csharp': return 51;
+                            case 'python': return 92;
+                            default: return 0;
+                        }
+                    }
+
+                    //Function to get compiled output
+                    async function pollResult(submissionId) {
+                        try {
+                            const response = await fetch(`/api/result/${submissionId}`);
+                            const data = await response.json();
+
+                            console.log({ data }); // Verify the structure of the returned data
+                            displayResult(data.finalResult); // Access the 'finalResult' property from the API response
+                        } catch (error) {
+                            console.error('Error fetching result:', error);
+                        }
+                    }
+
+                    //Function to format the compiled output
+                    function cleanAndFormatCompileOutput(encodedStr) {
+                        // Step 1: Decode the Base64 string
+                        let decodedStr = atob(encodedStr);
+
+                        // Step 2: Convert the non-ASCII characters to their proper equivalents
+                        let cleanStr = decodedStr
+                            .replace(/â/g, "'") // Replace open single quotes
+                            .replace(/â/g, "'") // Replace close single quotes
+                            .replace(/â/g, '"') // Replace open double quotes
+                            .replace(/â/g, '"') // Replace close double quotes
+                            .replace(/â¢/g, "•") // Replace bullet points
+                            .replace(/â/g, "–") // Replace en dash
+                            .replace(/â/g, "—") // Replace em dash
+                            .replace(/â¦/g, "…") // Replace ellipsis
+                            .replace(/â¢/g, "•") // Replace bullet points
+                            .replace(/~/g, "^"); // Replace all instances of ~ with ^
+
+                        // Return the cleaned and formatted string
+                        return cleanStr;
+                    }
+
+                    //Function to display compiled output on the console
+                    function displayResult(result) {
+                        try {
+                            // Parse the result string to JSON
+                            const resultJson = JSON.parse(result);
+
+                            // Function to decode Base64 strings
+                            function decodeBase64(base64String) {
+                                return atob(base64String);
+                            }
+
+                            // Access and decode the desired properties
+                            const output = document.getElementById('output');
+                            let content = '';
+
+                            if (resultJson.stdout) {
+                                content = decodeBase64(resultJson.stdout);
+                            } else if (resultJson.compile_output) {
+                                content = cleanAndFormatCompileOutput(resultJson.compile_output);
+                            } else {
+                                content = 'No output';
+                            }
+
+                            output.value = content;
+                        } catch (error) {
+                            console.error('Error parsing or decoding result:', error);
+                        }
+                    }
+                </script>
+            </div>
+            <div class="utility-container">
+                <div class="input-console-container">
+                    <div class="input-console-header">
+                        <div>
+                            <button class="utility-name">Inputs</button>
+                        </div>
+                        <label for="input-file" class="icon-container">
+                            <span class="material-icons">cloud_download</span>
+                            <button>Import Inputs</button>
+                        </label>
+                        <input type="file" style="display: none;" id="input-file" onchange="importInputs(event)" />
+                    </div>
+                    <textarea id="inputs"></textarea>
+                </div>
+                <div class="input-console-container">
+                    <div class="input-console-header">
+                        <div>
+                            <button class="utility-name">Console</button>
+                        </div>
+                        <div class="icon-container" onclick="exportOutput()">
+                            <span class="material-icons">cloud_upload</span>
+                            <button>Export Outputs</button>
+                        </div>
+                    </div>
+                    <textarea style="font-size: 16px;" id="output" readonly></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

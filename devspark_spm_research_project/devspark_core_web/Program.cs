@@ -1,6 +1,8 @@
 using Azure.Identity;
 using devspark_core_business_layer.LearnerPortalService;
 using devspark_core_business_layer.LearnerPortalService.Interfaces;
+using devspark_core_business_layer.DeveloperPortalService;
+using devspark_core_business_layer.DeveloperPortalService.Interfaces;
 using devspark_core_business_layer.SystemService;
 using devspark_core_business_layer.SystemService.Interfaces;
 using devspark_core_model.LearnerPortalModels;
@@ -95,6 +97,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
+builder.Services.AddSingleton<ICreateDevSpace, CreateDevSpaceServiceImpl>();
 
 #endregion
 

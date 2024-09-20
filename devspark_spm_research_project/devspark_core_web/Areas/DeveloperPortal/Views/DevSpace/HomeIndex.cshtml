@@ -1,0 +1,308 @@
+﻿@using devspark_core_model.DeveloperPortalModels
+@model ICollection<Folder>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>DevSpark Home</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Add the stylesheets here -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Include Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+    <!-- Include Toastr JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        /* Your existing CSS styles */
+        body {
+            margin: 1px;
+            background-color: white;
+        }
+
+        h2 {
+            margin: 5px;
+        }
+
+        .home-container {
+            font-family: 'Roboto', sans-serif;
+            height: 99.50vh;
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            overflow-y: hidden;
+        }
+
+        .left-container {
+            background-color: #081C38;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .items-container {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .items-container img {
+                width: 250px;
+            }
+
+            .items-container h2 {
+                color: rgb(207, 203, 203);
+            }
+
+            .items-container button {
+                cursor: pointer;
+                height: 50px;
+                width: 94%;
+                border-radius: 2px;
+                border: none;
+                transition-duration: 1s;
+                font-size: 17px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+                .items-container button:hover {
+                    box-shadow: 2px 2px 6px gray;
+                }
+
+        .create-dev-space {
+            margin-top: 8px;
+        }
+
+        .right-container {
+            background-color: #e9ecf0;
+            padding: 20px; /* Ensure padding for spacing */
+            height: 100vh;
+            overflow-y: scroll;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid black;
+        }
+
+        .header-title {
+            font-weight: 900;
+            font-size: 25px;
+        }
+
+        .add-folder {
+            display: flex;
+            align-items: center;
+            background-color: #e9ecf0;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .folder-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid black;
+        }
+
+        .folder-name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-delete {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .new-dev-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 6px;
+            font-size: 17px;
+            border: none;
+            background-color: #e9ecf0;
+            cursor: pointer;
+        }
+
+        .cards-container {
+            margin-bottom: 10px;
+            
+        }
+
+        .card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px;
+            width: 100%;
+            margin: 10px;
+            cursor: pointer;
+            gap: 40px;
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .file-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .null-text {
+            margin-top: 8px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="home-container">
+            <div class="left-container">
+                <div class="items-container">
+                    <img src="@Url.Content("~/assets/images/logos/DEV_SPARK.png")" alt="DevSpark Logo" />
+
+                    <h2>YOUR INTERACTIVE DEV_SPACE</h2>
+                    <h2>CODE --&gt; COMPILE --&gt; RUN</h2>
+                    <button class="create-dev-space" type="button" onclick="location.href='@Url.Action("CreateDevSpace", "DevSpace")'">
+                        <span class="material-icons">add</span>
+                        <span>Create a Dev_Space</span>
+                    </button>
+                </div>
+            </div>
+            <div class="right-container">
+                <div class="header">
+                    <div class="header-title">
+                        <span>My</span> DEV_SPACE
+                    </div>
+                    <button class="add-folder" type="button" onclick="location.href='@Url.Action("CreateNewFolder", "DevSpace")'">
+                        <span class="material-icons">add</span>
+                        <span>New Folder</span>
+                    </button>
+                </div>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var folder in Model)
+                    {
+                        <div class="folder-container">
+                            <div class="folder-header">
+                                <div class="folder-name">
+                                    <span class="material-icons" style="color: #FFCA28;">folder</span>
+                                    <span>@folder.FolderTitle</span>
+                                </div>
+                                <div class="edit-delete">
+                                    <span class="material-icons" onclick="location.href='@Url.Action("UpdateFolder", "DevSpace", new { folderId = folder.Id })'">edit</span>
+                                    <span class="material-icons" onclick="DeleteFolder(@folder.Id)">delete</span>
+                                    <div>
+                                        <button class="new-dev-button" type="button" onclick="location.href='@Url.Action("CreateNewFile", "DevSpace", new { folderId = folder.Id })'">
+                                            <span class="material-icons">add</span>
+                                            <span>New File</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                <!-- Repeat this block for each file -->
+                                @if (folder.Files != null && folder.Files.Any())
+                                {
+                                    @foreach (var file in folder.Files)
+                                    {
+                                        <div class="cards-container">
+                                            <div class="card">
+                                                <div class="card-info">
+                                                    <span class="material-icons">code</span>
+                                                <div onclick="location.href='@Url.Action("DevPage", "DevSpace", new {Folder_id = folder.Id, File_id = file.Id, File_Title = file.FileTitle, File_Language = file.Language, File_CodeSnippet = file.CodeSnippet })'">
+                                                        <span>@file.FileTitle.@file.Extension</span>
+                                                </div>
+                                            </div>
+                                                <div class="file-info">
+                                                <span class="material-icons" onclick="location.href='@Url.Action("UpdateFile", "DevSpace", new { fileId = file.Id, folderId = folder.Id })'">edit</span>
+                                                <span class="material-icons" onclick="DeleteFile(@folder.Id, @file.Id)">delete</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="null-text">No files available</p>
+                                }
+                                
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="null-text">No folders available</p>
+                }
+               
+            </div>
+        </div>
+        <script>
+            function DeleteFolder(folderId) {
+                if (confirm("Are you sure you want to permanently delete this folder and its contents?")) {
+                    confirmFolderDeletion(folderId);
+                }
+            }
+
+            function confirmFolderDeletion(folderId) {
+                fetch('/api/deleteFolder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ folderId: folderId }),
+                })
+                    .then(response => response.ok ? location.reload() : alert('Error deleting the folder'))
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function DeleteFile(folderId, fileId) {
+                if (confirm("Are you sure you want to permanently delete this file?")) {
+                    confirmFileDeletion(folderId, fileId);
+                }
+            }
+
+            function confirmFileDeletion(folderId, fileId) {
+                fetch('/api/deleteFile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ folderId: folderId, fileId: fileId }),
+                })
+                    .then(response => response.ok ? location.reload() : alert('Error deleting the file'))
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
+    </form>
+</body>
+</html>

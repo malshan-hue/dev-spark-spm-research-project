@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Areas\ContributionPortal\Controllers\" />
     <Folder Include="Areas\DeveloperPortal\Controllers\" />
+    <Folder Include="Areas\ContributionPortal\Views\" />
     <Folder Include="Areas\ForumPortal\Controllers\" />
   </ItemGroup>
 

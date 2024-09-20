@@ -1,0 +1,143 @@
+﻿@using devspark_core_model.DeveloperPortalModels
+@model FileModel
+
+@{
+    var folderId = ViewBag.FolderId as int?;
+    Layout = "~/Views/Shared/_AccessLayout.cshtml";
+}
+
+<!-- Include the provided CSS -->
+<style>
+    .modal-container {
+        background-color: rgba(153, 153, 153, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 50px;
+    }
+
+    .modal-body {
+        background-color: #d9dcdf;
+        padding: 20px;
+        box-shadow: 4px 4px 10px gray;
+        border-radius: 2px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-height: 80vh;
+        overflow-y: auto;
+        width: 90%;
+        max-width: 600px;
+    }
+
+    .modal-heading {
+        border: none;
+        font-size: 18px;
+        background-color: #4c5871;
+        color: white;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        font-size: 15px;
+    }
+
+        .item input {
+            border: none;
+            background-color: #f1f1f1;
+            padding: 8px;
+            border: 1px solid gray;
+            width: 100%;
+        }
+
+            .item input:focus {
+                outline-color: #344256;
+            }
+
+        .item select {
+            padding: 8px;
+            width: 100%;
+        }
+
+        .item button {
+            padding: 10px;
+            background-color: #4c5871;
+            color: white;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+            .item button:active {
+                opacity: 0.8;
+            }
+
+    img {
+        width: 190px;
+        cursor: pointer;
+    }
+
+    .card {
+        background-color: #081C38;
+    }
+
+    h4 {
+        color: white;
+    }
+</style>
+
+<div class="authentication-wrapper authentication-basic container-p-y" style="background-color:#050506;">
+    <div class="authentication-inner">
+        <!-- Register Card -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Logo -->
+                <div class="app-brand justify-content-center">
+                    <a class="" href="@Url.Action("HomeIndex", "DevSpace", new{Area="DeveloperPortal"})">
+                        <img src="@Url.Content("~/assets/images/logos/DEV_SPARK.png")" alt="Logo" />
+                    </a>
+                </div>
+                <!-- /Logo -->
+
+                <h4 class="app-brand justify-content-center">Adventure starts here 🚀</h4>
+                <p class="mb-4"></p>
+
+                <!-- Modal Heading Button -->
+                <div class="modal-container">
+                    <div class="modal-body">
+                        <button class="modal-heading" type="button">Create New File</button>
+                        <form asp-action="CreateNewFile" asp-controller="DevSpace" method="post">
+                            <!-- Hidden input for folderId -->
+                            <input type="hidden" name="folderId" asp-for="@folderId" />
+                            <div class="item mb-3">
+                                <input type="text" asp-for="FileTitle" name="fileName" required placeholder="Enter File Name" />
+                            </div>
+
+                            <div class="item mb-3">
+                                <select asp-for="Language" name="language" required>
+                                    <option value="java">Java</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="cpp">C++</option>
+                                    <option value="c">C</option>
+                                    <option value="csharp">C#</option>
+                                    <option value="python">Python</option>
+                                </select>
+                            </div>
+                            <div class="item mb-3">
+                                <button type="submit">Create File</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /Modal Body -->
+            </div>
+        </div>
+        <!-- Register Card -->
+    </div>
+</div>

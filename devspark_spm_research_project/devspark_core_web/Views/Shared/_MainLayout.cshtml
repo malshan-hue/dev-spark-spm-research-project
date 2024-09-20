@@ -1,4 +1,4 @@
-﻿@using System.Security.Claims
+@using System.Security.Claims
 
 <!DOCTYPE html>
 
@@ -182,6 +182,13 @@
                                        placeholder="Search..."
                                        aria-label="Search..." />
                             </div>
+                        <div class="nav-item d-flex align-items-center">
+                        <i class="bx bx-search fs-4 lh-0"></i>
+                        <input type="text"
+                        class="form-control border-0 shadow-none"
+                        placeholder="Search..."
+                        aria-label="Search..." />
+                        </div>
                         </div> *@
                         <span class="align-middle"><b>Hello!</b> @User.FindFirstValue("name")</span>
                         <!-- /Search -->
@@ -189,9 +196,10 @@
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <!-- Place this tag where you want the button to render. -->
 
-                            @* <li>
+
+                            <li>
                                 <span class="align-middle">Hello! @User.FindFirstValue("name")</span>
-                            </li> *@
+                            </li> 
 
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -257,6 +265,26 @@
                 </nav>
 
                 <!-- / Navbar -->
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+
+                    <div class="toast-container" style="position: fixed; top: 0; right: 0; z-index: 9999;"></div>
+
+                    @RenderBody()
+
+                    <!-- Footer -->
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                            <div class="mb-2 mb-md-0">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>
+                                DevSpark
+                            </div>
+                            <div>
+                                <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
@@ -282,7 +310,7 @@
                                 <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
                                    target="_blank"
                                    class="footer-link me-4">Documentation</a>
-
+                              
                                 <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
                                    target="_blank"
                                    class="footer-link me-4">Support</a>
@@ -302,7 +330,6 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="~/theme/v1/assets/vendor/libs/jquery/jquery.js"></script>
@@ -360,7 +387,7 @@
         }
     }
     <!--end system notification-->
-
+                  
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
