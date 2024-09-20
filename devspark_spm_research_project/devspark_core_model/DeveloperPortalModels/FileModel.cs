@@ -21,9 +21,12 @@ namespace devspark_core_model.DeveloperPortalModels
         [DisplayName("Language")]
         public string Language { get; set; }
 
+        public string Extension { get; set; }
+
         [DisplayName("Code Snippet")]
         public string CodeSnippet { get; set; }
 
+        public bool IsNew { get; set; }
 
     }
 }

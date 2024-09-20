@@ -11,7 +11,7 @@ namespace devspark_core_model.DeveloperPortalModels
     {
         public Folder()
         {
-            Files = new List<FileModel>(); // Ensure Files is never null
+            Files = new List<FileModel>(); // Ensure Files is never null 
         }
 
         [DisplayName("Folder ID")]
