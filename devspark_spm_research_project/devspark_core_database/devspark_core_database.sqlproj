@@ -73,6 +73,16 @@
     <Build Include="StoredProcedures\System\InsertUser.sql" />
     <Build Include="Tables\SystemTables\EntraIdUser.sql" />
     <Build Include="Tables\SystemTables\DevSparkUser.sql" />
+    <Build Include="StoredProcedures\LernerPortal\InsertCourseWithFullContent.sql" />
+    <Build Include="Tables\LernerPortalTables\Course.sql" />
+    <Build Include="StoredProcedures\LernerPortal\GetAllCourses.sql" />
+    <Build Include="Tables\LernerPortalTables\Module.sql" />
+    <Build Include="Tables\LernerPortalTables\Submodule.sql" />
+    <Build Include="Tables\LernerPortalTables\Tutorial.sql" />
+    <Build Include="Tables\LernerPortalTables\CodeSnippet.sql" />
+    <Build Include="Tables\LernerPortalTables\Exercise.sql" />
+    <Build Include="StoredProcedures\LernerPortal\GetCoursesByCourseId.sql" />
+    <Build Include="StoredProcedures\LernerPortal\GetCourseProgressByCourseId.sql" />
     <Build Include="Tables\DeveloperPortalTables\Folder.sql" />
     <Build Include="Tables\DeveloperPortalTables\Files.sql" />
     <Build Include="StoredProcedures\DeveloperPortal\CreateDevSpace.sql" />

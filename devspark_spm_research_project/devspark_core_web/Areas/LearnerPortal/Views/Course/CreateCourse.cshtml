@@ -1,0 +1,151 @@
+﻿@using devspark_core_model.LearnerPortalModels
+
+@model Course
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/helox-preloader.css" />
+@* <link rel="stylesheet" href="~/css/line-wobble.css" /> *@
+
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <div class="row">
+        <div class="col-6">
+            <h4 class="fw-bold py-3"><span class="text-muted fw-light">Learner Portal / Course / </span> Create Course</h4>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="CreateCourse" asp-controller="Course" id="create-course-form" method="post" data-ajax="true" data-ajax-begin="createCourseBegin" data-ajax-complete="createCourseComplete">
+                        
+                        <div class="row mb-5">
+                            <div class="col-12">
+
+                                <label for="AreaOfStudyEnum" class="form-label">Select your prefered area</label> <br/>
+
+                                @foreach(var item in Enum.GetValues(typeof(AreaOfStudyEnum)))
+                                {
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               asp-for="AreaOfStudyEnum"
+                                               name="AreaOfStudyEnum"
+                                               id="inlineRadio1"
+                                               value="@((int)item)" />
+                                        <label class="form-check-label" for="areaOfStudy_@((int)item)">@item</label>
+                                    </div>
+                                }
+
+                                <br />
+                                @Html.ValidationMessageFor(model => model.AreaOfStudyEnum, "", new { @class = "text-danger" })
+                    
+                            </div>
+                        </div>
+
+                        <div class="row mb-5">
+
+                            <div class="col-6">
+                                <label asp-for="CurrentStatusEnum" class="form-label">Current Status</label>
+                                @Html.DropDownList("CurrentStatusEnum", Html.GetEnumSelectList<CurrentStatusEnum>(), "Select the currtent status", new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.CurrentStatusEnum, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-6">
+                                <label asp-for="YearsOfExperienceEnum" class="form-label">Years Of Experience</label>
+                                @Html.DropDownList("YearsOfExperienceEnum", Html.GetEnumSelectList<YearsOfExperienceEnum>(), "Tell us your experience", new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.YearsOfExperienceEnum, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-5">
+
+                            <div class="col-6">
+                                <label asp-for="AchivingLevelEnum" class="form-label">Achiving Level</label>
+                                @Html.DropDownList("AchivingLevelEnum", Html.GetEnumSelectList<AchivingLevelEnum>(), "Select the level to achive", new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.AchivingLevelEnum, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-6">
+                                <label asp-for="StudyPeriodEnum" class="form-label">Study Period</label>
+                                @Html.DropDownList("StudyPeriodEnum", Html.GetEnumSelectList<StudyPeriodEnum>(), "Select the study period", new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.StudyPeriodEnum, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 text-center">
+
+                                <button id="create-course-btn" type="submit" class="btn btn-primary btn-lg">
+                                    <div id="loader" class="" role="status"></div>
+                                    <span>Create</span>
+                                </button>
+
+                                <div id="animator" class="">
+                                    <div class="slice"></div>
+                                    <div class="slice"></div>
+                                    <div class="slice"></div>
+                                    <div class="slice"></div>
+                                    <div class="slice"></div>
+                                    <div class="slice"></div>
+                                    <div class="d-none mt-2">
+                                        Please wait...
+                                    </div>
+                                </div>
+
+                                @* <div id="animator" class=""></div> *@
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- / Content -->
+
+@section Scripts {
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+        });
+
+        var createCourseBegin = function () {
+            //$("#create-course-btn").children("#loader").addClass("spinner-border spinner-border-sm");
+            $("#create-course-btn").remove();
+            $("#animator").addClass("container");
+            $("#animator").children("div").removeClass("d-none");
+        };
+
+        var createCourseComplete = function createCourseComplete(xhr, status) {
+            
+            //$("#create-course-btn").children("#loader").removeClass("spinner-border spinner-border-sm");
+
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.redirectToUrl) {
+                window.location.href = response.redirectToUrl;
+            }
+
+        }
+
+    </script>
+}

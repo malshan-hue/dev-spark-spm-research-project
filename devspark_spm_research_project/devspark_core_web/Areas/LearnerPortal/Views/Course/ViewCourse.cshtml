@@ -1,0 +1,167 @@
+﻿@using devspark_core_model.LearnerPortalModels
+
+@model Course
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <div id="course-progress-container" class="">
+        @* @await Component.InvokeAsync("CourseProgress", new { courseId = Model.EncryptedKey}) *@
+    </div>
+
+    <div id="course-modules-container" class="">
+        @* @await Component.InvokeAsync("CourseProgress", new { courseId = Model.EncryptedKey}) *@
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <!-- Vendors JS -->
+    <script src="~/theme/v1/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Page JS-->
+    <script src="~/theme/v1/assets/js/dashboards-analytics.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            refreshCourseProgress();
+        });
+
+        function refreshCourseProgress() {
+            $.ajax({
+                url: '@Url.Action("CourseProgress", "Course")',
+                type: 'GET',
+                data: { courseId: '@Model.EncryptedKey' },
+                success: function (data) {
+
+                    $('#course-progress-container').html(data);
+                    refreshCourseProgressChart();
+
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        }
+
+        function refreshCourseProgressChart() {
+            $.ajax({
+                url: '/LearnerPortal/Course/CourseProgressData',
+                type: 'GET',
+                data: { courseId: '@Model.EncryptedKey' },
+                success: function (data) {
+
+                    var notStartedModuleCount = 0;
+                    var notStartedSubModuleCount = 0;
+                    var notStartedTutorialCount = 0;
+                    var notStartedExerciseCount = 0;
+
+                    var inProgressModuleCount = 0;
+                    var inProgressSubModuleCount = 0;
+                    var inProgressTutorialCount = 0;
+                    var inProgressExerciseCount = 0;
+
+                    var completedModuleCount = 0;
+                    var completedSubModuleCount = 0;
+                    var completedTutorialCount = 0;
+                    var completedExerciseCount = 0;
+
+                    notStartedModuleCount = data.notStartedModuleCount;
+                    notStartedSubModuleCount = data.notStartedSubModuleCount;
+                    notStartedTutorialCount = data.notStartedTutorialCount;
+                    notStartedExerciseCount = data.notStartedExerciseCount;
+
+                    inProgressModuleCount = data.inProgressModuleCount;
+                    inProgressSubModuleCount = data.inProgressSubModuleCount;
+                    inProgressTutorialCount = data.inProgressTutorialCount;
+                    inProgressExerciseCount = data.inProgressExerciseCount;
+
+                    completedModuleCount = data.completedModuleCount;
+                    completedSubModuleCount = data.completedSubModuleCount;
+                    completedTutorialCount = data.completedTutorialCount;
+                    completedExerciseCount = data.completedExerciseCount;
+
+                    var options = {
+                        chart: {
+                            type: 'bar',
+                            height: 340,
+                            stacked: true
+                        },
+                        series: [
+                            {
+                                name: 'Not Started',
+                                data: [
+                                    notStartedModuleCount,
+                                    notStartedSubModuleCount,
+                                    notStartedTutorialCount,
+                                    notStartedExerciseCount
+                                ]
+                            },
+                            {
+                                name: 'In Progress',
+                                data: [
+                                    inProgressModuleCount,
+                                    inProgressSubModuleCount,
+                                    inProgressTutorialCount,
+                                    inProgressExerciseCount
+                                ]
+                            },
+                            {
+                                name: 'Completed',
+                                data: [
+                                    completedModuleCount,
+                                    completedSubModuleCount,
+                                    completedTutorialCount,
+                                    completedExerciseCount
+                                ]
+                            }
+                        ],
+                        xaxis: {
+                            categories: ['Modules', 'Submodules', 'Tutorials', 'Exercises'],
+                            title: {
+                                text: 'Category'
+                            }
+                        },
+                        yaxis: {
+                            title: {
+                                text: 'Number of Items'
+                            }
+                        },
+                        colors: ['#f44336', '#ffc107', '#4caf50'],
+                        title: {
+                            text: 'Overall Progress Overview',
+                            align: 'center'
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                columnWidth: '50%',
+                                distributed: false
+                            }
+                        },
+                        dataLabels: {
+                            enabled: true
+                        }
+                    };
+
+                    $('#course-progress-chart').html('');
+                    var chart = new ApexCharts(document.querySelector("#course-progress-chart"), options);
+                    chart.render();
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        }
+    </script>
+}

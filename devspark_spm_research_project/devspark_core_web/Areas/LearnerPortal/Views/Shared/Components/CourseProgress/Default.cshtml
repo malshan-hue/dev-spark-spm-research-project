@@ -1,0 +1,62 @@
+﻿@using devspark_core_model.LearnerPortalModels
+
+@model Course
+
+<div class="row">
+    <!--left card-->
+    <div class="col-8">
+        <div class="card">
+            <div class="row row-bordered g-0">
+                <div class="col-12">
+                    <h5 class="card-header m-0 me-2 pb-3">Progress of the course</h5>
+                    <div id="course-progress-chart" class="px-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--right card-->
+    <div class="col-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-5">
+                            <div class="col-12 text-center">
+                                <div class="alert alert-dark mb-0" role="alert"><h3>@Model.CourseName</h3></div>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-6 text-center">
+                                <label asp-for="AreaOfStudyEnum">Area of study</label><br/>
+                                <span class="badge bg-label-primary">@Model.AreaOfStudyDisplayName</span>
+                            </div>
+                            <div class="col-6 text-center">
+                                <label asp-for="CurrentStatusEnum">Current Status</label><br />
+                                <span class="badge bg-label-primary">@Model.CurrentStatusEnum</span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-6 text-center">
+                                <label asp-for="YearsOfExperienceEnum">Years Of Experience</label><br/>
+                                <span class="badge bg-label-primary">@Model.YearsOfExperienceEnumDisplayname</span>
+                            </div>
+                            <div class="col-6 text-center">
+                                <label asp-for="AchivingLevelEnum">Current Status</label><br/>
+                                <span class="badge bg-label-primary">@Model.AchivingLevelEnumDisplayName</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <label asp-for="StudyPeriodEnum">Study Period </label><br />
+                                <span class="badge bg-label-primary">@Model.StudyPeriodDisplayName</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

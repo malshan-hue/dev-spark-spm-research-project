@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace devspark_core_web.Controllers
 {
@@ -9,8 +10,10 @@ namespace devspark_core_web.Controllers
             return View();
         }
 
+        [Authorize]
         public async Task<IActionResult> DevSparkHome()
         {
+
             return View();
         }
     }

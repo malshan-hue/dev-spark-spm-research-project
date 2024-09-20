@@ -40,7 +40,22 @@ namespace devspark_core_web.Controllers
         [HttpGet]
         public async Task<IActionResult> SignInSuccess()
         {
-            
+            #region SYSTEM NOTIFICATION
+
+            List<SystemNotification> systemNotifications = new List<SystemNotification>();
+
+            SystemNotification systemNotification = new SystemNotification()
+            {
+                Title = $"Hello! {User.FindFirstValue("name")}",
+                Message = "Welcome to DevSpark Dashboard",
+                Time = DateTime.Now.ToString("dd/MM/yyyy"),
+                NotificationType = ModelServices.GetEnumDisplayName(NotificationType.Success),
+                NotificationPlacement = ModelServices.GetEnumDisplayName(NotificationPlacement.TopRight)
+            };
+            systemNotifications.Add(systemNotification);
+
+            TempData["SystemNotifications"] = JsonConvert.SerializeObject(systemNotifications);
+            #endregion
 
             return RedirectToAction("DevSparkHome", "DevsparkLanding");
         }
