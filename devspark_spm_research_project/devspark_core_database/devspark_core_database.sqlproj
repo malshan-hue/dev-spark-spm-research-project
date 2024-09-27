@@ -87,5 +87,6 @@
     <Build Include="StoredProcedures\ForumPortal\Answer\DeleteAnswer.sql" />
     <Build Include="StoredProcedures\ForumPortal\Question\RetrieveQuestionById.sql" />
     <Build Include="StoredProcedures\ForumPortal\Answer\RetrieveAnswersByQuestionId.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Answer\RetrieveAnswerById.sql" />
   </ItemGroup>
 </Project>

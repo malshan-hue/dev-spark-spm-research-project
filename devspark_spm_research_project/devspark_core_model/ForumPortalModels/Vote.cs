@@ -14,7 +14,7 @@ namespace devspark_core_model.ForumPortalModels
         public int? QuestionId { get; set; }
         public int? AnswerId { get; set; }
         public bool IsUpvote { get; set; }
-        public User User { get; set; }
+        public DevSparkUser DevSparkUser { get; set; }
         public Question Question { get; set; }
         public Answer Answer { get; set; }
 

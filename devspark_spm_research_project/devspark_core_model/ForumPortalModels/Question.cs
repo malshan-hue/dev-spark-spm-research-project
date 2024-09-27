@@ -18,11 +18,11 @@ namespace devspark_core_model.ForumPortalModels
         [DisplayName("Description")]
         public string Description { get; set; }
 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         public DateTime DatePosted { get; set; }
-        public User User { get; set; }
+        public DevSparkUser? DevSparkUser { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
+        public ICollection<Answer>? Answers { get; set; }
          
         
     }

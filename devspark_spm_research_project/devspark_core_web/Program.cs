@@ -1,3 +1,5 @@
+using devspark_core_business_layer.ForumPortalService;
+using devspark_core_business_layer.ForumPortalService.Interfaces;
 using devspark_core_business_layer.SystemService;
 using devspark_core_business_layer.SystemService.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -23,6 +25,7 @@ builder.Services.AddSingleton<IDatabaseService>(provider =>
 });
 
 builder.Services.AddSingleton<IUserService, UserServiceImpl>();
+builder.Services.AddSingleton<IForumService, ForumServiceImpl>();
 
 #endregion
 

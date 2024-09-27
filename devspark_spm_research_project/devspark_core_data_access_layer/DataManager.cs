@@ -81,7 +81,7 @@ namespace devspark_core_data_access_layer
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                        sqlCommand.Parameters.AddWithValue("@JsonData", jsonString);
+                        sqlCommand.Parameters.AddWithValue("@jsonString", jsonString);
 
                         var executionStatusParam = new SqlParameter
                         {
@@ -118,6 +118,8 @@ namespace devspark_core_data_access_layer
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
 
+                        sqlCommand.CommandTimeout = 180; // 3 minutes or more
+
                         if (parameters != null)
                         {
                             sqlCommand.Parameters.AddRange(parameters);
@@ -125,23 +127,45 @@ namespace devspark_core_data_access_layer
 
                         sqlConnection.Open();
 
-                        var jsonData = sqlCommand.ExecuteScalar() as string;
-
-                        if (!string.IsNullOrEmpty(jsonData))
+                        // Use ExecuteReader to retrieve the JSON result
+                        using (var reader = sqlCommand.ExecuteReader())
                         {
-                            data = JsonConvert.DeserializeObject<ICollection<TEntity>>(jsonData) ?? new List<TEntity>();
+                            if (reader.Read())
+                            {
+                                var jsonData = reader.GetString(0); // Assumes first column is the JSON result
+
+                                if (!string.IsNullOrEmpty(jsonData))
+                                {
+                                    try
+                                    {
+                                        System.Diagnostics.Debug.WriteLine("JSON Data: " + jsonData);
+
+
+                                        // Deserialize the JSON into a collection of TEntity objects
+                                        data = JsonConvert.DeserializeObject<ICollection<TEntity>>(jsonData) ?? new List<TEntity>();
+                                    }
+                                    catch (JsonReaderException jsonEx)
+                                    {
+                                        // Handle any JSON-specific deserialization errors
+                                        Console.WriteLine($"JSON Deserialization error: {jsonEx.Message}");
+                                        throw;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-          
+                // Handle general exceptions (e.g., database connection issues)
+                Console.WriteLine($"An error occurred: {ex.Message}");
                 throw;
             }
 
             return data;
         }
+
 
 
         public bool DeleteData(string procedureName, SqlParameter[] parameters = null)
@@ -245,6 +269,9 @@ namespace devspark_core_data_access_layer
 
             return entity;
         }
+
+      
+
 
 
     }
