@@ -1,4 +1,5 @@
-﻿using devspark_core_model.DeveloperPortalModels;
+﻿using devspark_core_model.ContributionPortalModels;
+using devspark_core_model.DeveloperPortalModels;
 using devspark_core_model.SystemModels;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,24 @@ namespace devspark_core_data_access_layer
                 }
 
                 return this._devSpaceManager;
+            }
+        }
+
+        #endregion
+
+        #region Contributer
+
+        private DataManager<CodeSnippet> _codeSnippetManager;
+        public DataManager<CodeSnippet> codeSnippetManager
+        {
+            get
+            {
+                if (this._codeSnippetManager == null)
+                {
+                    this._codeSnippetManager = new DataManager<CodeSnippet>(_connectionString);
+                }
+
+                return this._codeSnippetManager;
             }
         }
 

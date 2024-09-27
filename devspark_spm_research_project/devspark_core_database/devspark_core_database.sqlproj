@@ -76,5 +76,7 @@
     <Build Include="Tables\DeveloperPortalTables\Folder.sql" />
     <Build Include="Tables\DeveloperPortalTables\Files.sql" />
     <Build Include="StoredProcedures\DeveloperPortal\CreateDevSpace.sql" />
+    <Build Include="Tables\ContributionPortalTables\CodeSnippet.sql" />
+    <Build Include="StoredProcedures\ContributionPortal\InsertCodeSnippet.sql" />
   </ItemGroup>
 </Project>

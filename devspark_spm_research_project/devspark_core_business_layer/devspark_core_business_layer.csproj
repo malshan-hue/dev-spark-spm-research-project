@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ContributionPortalService\Interfaces\" />
     <Folder Include="ForumPortalService\Interfaces\" />
     <Folder Include="LearnerPortalService\Interfaces\" />
   </ItemGroup>

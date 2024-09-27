@@ -10,7 +10,7 @@ namespace devspark_core_model.ContributionPortalModels
 {
     public class CodeSnippet
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Title is required")]

@@ -9,7 +9,7 @@
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">DevSparkCodeSnippet/</span> Create
+            <span class="text-muted fw-light">CodeSnippetLibrary /</span><span class="text-muted fw-light"> Elements /</span> Create
         </h4>
 
         <!-- Basic Layout & Basic with Icons -->
@@ -19,7 +19,6 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <form asp-controller="CodeSnippet" asp-action="Create" method="post">
-                            @Html.AntiForgeryToken() <!-- Prevent CSRF attacks -->
                             <div class="row mb-3">
                                 <label asp-for="Title" class="col-sm-2 col-form-label" for="basic-default-title">@Html.DisplayNameFor(Model => Model.Title)</label>
                                 <div class="col-sm-10">
@@ -33,18 +32,6 @@
                                     <input asp-for="Language" type="text" class="form-control" id="basic-default-language" placeholder="Enter the Language" />
                                 </div>
                             </div>
-                            
-                            <div class="row mb-3">
-                                <label asp-for="Code" class="col-sm-2 col-form-label" for="basic-default-code">@Html.DisplayNameFor(Model => Model.Code)</label>
-                                <div class="col-sm-10">
-                                    <textarea id="basic-default-code" class="form-control"
-                                              asp-for="Code"
-                                              placeholder="Enter the Code"
-                                              aria-label="Enter the Code"
-                                              aria-describedby="basic-icon-default-message2"
-                                              style="width: 100%; height: 200px;"></textarea>
-                                </div>
-                            </div>
 
                             <div class="row mb-3">
                                 <label asp-for="Description" class="col-sm-2 col-form-label" for="basic-default-description">@Html.DisplayNameFor(Model => Model.Description)</label>
@@ -56,7 +43,18 @@
                             <div class="row mb-3">
                                 <label asp-for="Tags" class="col-sm-2 col-form-label" for="basic-default-tags">@Html.DisplayNameFor(Model => Model.Tags)</label>
                                 <div class="col-sm-10">
-                                    <input asp-for="Tags" type="text" class="form-control" id="basic-default-tags" placeholder="Enter the Tags seperated with a comma" />
+                                    <input asp-for="Tags" type="text" class="form-control" id="basic-default-tags" placeholder="Enter the Tags separated with a comma" />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label asp-for="Code" class="col-sm-2 col-form-label" for="basic-default-code">@Html.DisplayNameFor(Model => Model.Code)</label>
+                                <div class="col-sm-10">
+                                    <!-- CodeMirror Editor -->
+                                    <textarea id="codeEditor" class="form-control" asp-for="Code" placeholder="Enter the Code" aria-label="Enter the Code"></textarea>
+
+                                    <!-- Preview iframe -->
+                                    <iframe id="previewIframe" style="width: 100%; height: auto; margin-top: 20px;"></iframe>
                                 </div>
                             </div>
 
@@ -73,3 +71,40 @@
     </div>
     <!-- / Content -->
 </div>
+
+<!-- Include jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Include CodeMirror Scripts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/htmlmixed/htmlmixed.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Initialize CodeMirror editor with HTML mixed mode
+        var editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
+            mode: "htmlmixed",
+            lineNumbers: true,
+            theme: "default"
+        });
+
+        // Function to update the iframe content in real-time
+        function updateIframeContent() {
+            var htmlContent = editor.getValue();
+            var iframe = document.getElementById("previewIframe");
+            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlContent);
+            iframeDoc.close();
+        }
+
+        // Initial content update
+        updateIframeContent();
+
+        // Update iframe whenever content changes in the editor
+        editor.on('change', function () {
+            updateIframeContent();
+        });
+    });
+</script>
