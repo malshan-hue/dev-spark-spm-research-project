@@ -19,7 +19,7 @@ namespace devspark_core_business_layer.ContributionPortalService
             _databaseService = databaseService;
         }
 
-        public async Task<bool> InsertCodeSnippet(CodeSnippet codesnippet)
+        public async Task<bool> InsertCodeSnippet(CodeSnippetLibrary codesnippet)
         {
             string codeSnippetJsonString = JsonConvert.SerializeObject(codesnippet);
             DataTransactionManager dataTransactionManager = new DataTransactionManager(_databaseService.GetConnectionString());

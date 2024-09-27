@@ -28,7 +28,7 @@ namespace devspark_core_web.Areas.ContributionPortal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CodeSnippet codesnippet)
+        public async Task<IActionResult> Create(CodeSnippetLibrary codesnippet)
         {
             bool status = await _codeSnippetService.InsertCodeSnippet(codesnippet);
             if (status)
@@ -45,13 +45,13 @@ namespace devspark_core_web.Areas.ContributionPortal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(CodeSnippet codesnippet)
+        public async Task<IActionResult> Edit(CodeSnippetLibrary codesnippet)
         {
             return View();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(CodeSnippet codesnippet)
+        public async Task<IActionResult> Delete(CodeSnippetLibrary codesnippet)
         {
             return View();
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace devspark_core_model.ContributionPortalModels
 {
-    public class CodeSnippet
+    public class CodeSnippetLibrary
     {
         public int Id { get; set; }
         public int UserId { get; set; }

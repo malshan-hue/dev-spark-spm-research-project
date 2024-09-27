@@ -4,7 +4,7 @@
 AS
 BEGIN
 
-	INSERT INTO [CodeSnippet] ([Title], [Language], [Code], [Description], [Tags])
+	INSERT INTO [CodeSnippetLibrary] ([Title], [Language], [Code], [Description], [Tags])
 	SELECT [Title], [Language], [Code], [Description], [Tags]
 	FROM OPENJSON(@jsonString, '$')
 	WITH(

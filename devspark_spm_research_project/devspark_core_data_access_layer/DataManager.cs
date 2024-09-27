@@ -106,7 +106,7 @@ namespace devspark_core_data_access_layer
             }
         }
 
-        public ICollection<TEntity> RetrieveData<TEntity>(string procedureName, SqlParameter[] parameters = null) where TEntity : class
+        public ICollection<TEntity> RetrieveData(string procedureName, SqlParameter[] parameters = null)
         {
             ICollection<TEntity> data = new List<TEntity>();
 

@@ -9,6 +9,6 @@ namespace devspark_core_business_layer.ContributionPortalService.Interfaces
 {
     public interface ICodeSnippetService
     {
-        Task<bool> InsertCodeSnippet(CodeSnippet codesnippet);
+        Task<bool> InsertCodeSnippet(CodeSnippetLibrary codesnippet);
     }
 }

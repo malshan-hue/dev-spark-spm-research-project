@@ -89,14 +89,14 @@ namespace devspark_core_data_access_layer
 
         #region Contributer
 
-        private DataManager<CodeSnippet> _codeSnippetManager;
-        public DataManager<CodeSnippet> codeSnippetManager
+        private DataManager<CodeSnippetLibrary> _codeSnippetManager;
+        public DataManager<CodeSnippetLibrary> codeSnippetManager
         {
             get
             {
                 if (this._codeSnippetManager == null)
                 {
-                    this._codeSnippetManager = new DataManager<CodeSnippet>(_connectionString);
+                    this._codeSnippetManager = new DataManager<CodeSnippetLibrary>(_connectionString);
                 }
 
                 return this._codeSnippetManager;

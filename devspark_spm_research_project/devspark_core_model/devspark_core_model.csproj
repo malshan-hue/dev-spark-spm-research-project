@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="LearnerPortalModels\" />
     <Folder Include="ForumPortalModels\" />
-    <Folder Include="ContributionPortalModels\" />
   </ItemGroup>
 
   <ItemGroup>

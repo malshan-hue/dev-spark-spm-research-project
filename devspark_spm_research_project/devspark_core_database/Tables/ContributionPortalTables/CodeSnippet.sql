@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[CodeSnippet]
+﻿CREATE TABLE [dbo].[CodeSnippetLibrary]
 (
 	[Id] INT PRIMARY KEY CLUSTERED IDENTITY(1,1),
     [UserId] INT NULL,
