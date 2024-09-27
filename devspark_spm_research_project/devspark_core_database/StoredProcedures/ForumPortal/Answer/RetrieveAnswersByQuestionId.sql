@@ -16,6 +16,8 @@ BEGIN
                 [Answer]
             WHERE 
                 [QuestionId] = @questionId
+            ORDER BY 
+                [DatePosted] DESC
             FOR JSON PATH
         )
     END TRY

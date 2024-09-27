@@ -3,6 +3,8 @@ using devspark_core_business_layer.LearnerPortalService;
 using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_business_layer.DeveloperPortalService;
 using devspark_core_business_layer.DeveloperPortalService.Interfaces;
+using devspark_core_business_layer.ForumPortalService;
+using devspark_core_business_layer.ForumPortalService.Interfaces;
 using devspark_core_business_layer.SystemService;
 using devspark_core_business_layer.SystemService.Interfaces;
 using devspark_core_model.LearnerPortalModels;
@@ -31,6 +33,7 @@ builder.Services.AddSingleton<IDatabaseService>(provider =>
 });
 
 builder.Services.AddSingleton<IUserService, UserServiceImpl>();
+builder.Services.AddSingleton<IForumService, ForumServiceImpl>();
 
     var credential = new ClientSecretCredential(tenantId, clientId, clientSecret, options);
     return new GraphServiceClient(credential, scopes);

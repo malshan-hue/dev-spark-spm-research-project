@@ -1,0 +1,36 @@
+﻿@using devspark_core_model.ForumPortalModels
+@model Answer
+ 
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<a href="@Url.Action("Index", "ForumPortal")">
+    <button type="button" class="btn btn-icon btn-primary mx-4 mt-3">
+        <i class='bx bx-arrow-back'></i>
+    </button>
+</a>
+<h4 class="fw-bold py-3 mb-4 mx-4"><span class="text-muted fw-light">Answer Question</h4>
+
+<div class="card mb-4 mx-3">
+    <div class="card-body">
+        <h5 class="card-title">Question:</h5>
+        <p class="card-text">
+            @Model.Question.Title
+        </p>
+        <p class="card-text">
+            @Model.Question.Description
+        </p>
+    </div>
+</div>
+
+<form asp-controller="ForumPortal" asp-action="CreateAnswer" id="AnswerCreate" method="post">
+    <input type="hidden" asp-for="QuestionId" />
+
+    <div class="form-group mx-3">
+        <label asp-for="Explanation">@Html.DisplayNameFor(Model => Model.Explanation)</label>
+        <textarea asp-for="Explanation" name="Explanation" id="Explanation" class="form-control mx-2"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3 mx-3">Submit Answer</button>
+</form>

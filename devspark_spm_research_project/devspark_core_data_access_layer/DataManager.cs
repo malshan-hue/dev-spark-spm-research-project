@@ -81,7 +81,7 @@ namespace devspark_core_data_access_layer
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                        sqlCommand.Parameters.AddWithValue("@JsonData", jsonString);
+                        sqlCommand.Parameters.AddWithValue("@jsonString", jsonString);
 
                         var executionStatusParam = new SqlParameter
                         {
@@ -152,6 +152,7 @@ namespace devspark_core_data_access_layer
 
             return data;
         }
+
 
 
         public bool DeleteData(string procedureName, SqlParameter[] parameters = null)
@@ -255,6 +256,9 @@ namespace devspark_core_data_access_layer
 
             return entity;
         }
+
+      
+
 
 
     }
