@@ -2,6 +2,7 @@
 using devspark_core_business_layer.DeveloperPortalService.Interfaces;
 using devspark_core_model.DeveloperPortalModels;
 using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.Graph.Models;
@@ -17,6 +18,8 @@ using static NuGet.Packaging.PackagingConstants;
 
 namespace devspark_core_web.Areas.DeveloperPortal.Controllers
 {
+    [Authorize]
+    [Area("DeveloperPortal")]
     public class DevSpaceController : Controller
     {
         private readonly ICreateDevSpace _createDevSpace;

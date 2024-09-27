@@ -6,7 +6,7 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        -- Delete associated files first
+        -- Delete associated files
         DELETE FROM Files WHERE Id = @FileId;
 
         -- Commit the transaction

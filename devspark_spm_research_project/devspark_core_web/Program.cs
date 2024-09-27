@@ -21,7 +21,7 @@ builder.Services.AddControllersWithViews();
 #region System Service
 
 var configuration = builder.Configuration;
-var connectionString = configuration.GetConnectionString("malshan");
+var connectionString = configuration.GetConnectionString("dev");
 
 builder.Services.AddSingleton<IDatabaseService>(provider =>
 {
@@ -97,7 +97,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
-builder.Services.AddSingleton<ICreateDevSpace, CreateDevSpaceServiceImpl>();
+
 
 #endregion
 
@@ -119,6 +119,10 @@ builder.Services.AddSingleton<IOpenAIStaticService>(provider =>
 builder.Configuration.AddJsonFile("prompts.json", optional: false, reloadOnChange: true);
 
 builder.Services.AddSingleton<ICourseService, CourseServiceImpl>();
+#endregion
+
+#region Developer Portal Services
+builder.Services.AddSingleton<ICreateDevSpace, CreateDevSpaceServiceImpl>();
 #endregion
 
 var app = builder.Build();
@@ -147,7 +151,7 @@ app.MapAreaControllerRoute(
 app.MapAreaControllerRoute(
     name: "DeveloperPortal",
     areaName: "DeveloperPortal",
-    pattern: "DeveloperPortal/{controller=Dashboard}/{action=Index}/{id?}");
+    pattern: "DeveloperPortal/{controller=DevSpace}/{action=HomeIndex}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "ContributionPortal",

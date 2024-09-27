@@ -57,6 +57,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="~/theme/v1/assets/js/config.js"></script>
+
 </head>
 
 <body>
@@ -138,7 +139,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="@Url.Action("Index", "DevsparkLanding", "")" class="menu-link">
+                        <a href="@Url.Action("HomeIndex", "DevSpace", new { Area = "DeveloperPortal"})" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Developer Portal</div>
                         </a>
