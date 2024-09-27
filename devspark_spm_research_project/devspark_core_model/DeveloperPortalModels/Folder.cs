@@ -7,23 +7,13 @@ using System.Threading.Tasks;
 
 namespace devspark_core_model.DeveloperPortalModels
 {
-    public class FileModel
+    public class Folder
     {
-        [DisplayName("File ID")]
-        public int Id { get; set; }
+        public Folder()
+        {
+            Files = new List<FileModel>(); // Ensure Files is never null
+        }
 
-        [DisplayName("File Title")]
-        public string FileTitle { get; set; }
-
-        [DisplayName("Language")]
-        public string Language { get; set; }
-
-        [DisplayName("Code Snippet")]
-        public string CodeSnippet { get; set; }
-    }
-
-    public class FolderModel
-    {
         [DisplayName("Folder ID")]
         public int Id { get; set; }
 

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="ContributionPortalService\Interfaces\" />
+    <Folder Include="ForumPortalService\Interfaces\" />
     <Folder Include="DeveloperPortalService\Interfaces\" />
     <Folder Include="LearnerPortalService\Interfaces\" />
   </ItemGroup>
