@@ -23,7 +23,7 @@ namespace devspark_core_business_layer.DeveloperPortalService.Interfaces
 
         Task<bool> UpdateFileInfo(FileModel file);
 
-        Task<IEnumerable<Folder>> GetDevSpaces(); 
+        Task<IEnumerable<devspark_core_model.DeveloperPortalModels.Folder>> GetDevSpaces(); 
 
         Task<bool> DeleteFolder(int folderid); 
 

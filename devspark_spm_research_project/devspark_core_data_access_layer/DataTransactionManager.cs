@@ -1,5 +1,7 @@
+using devspark_core_model.ContributionPortalModels;
 using devspark_core_model.LearnerPortalModels;
 using devspark_core_model.DeveloperPortalModels;
+using devspark_core_model.ForumPortalModels;
 using devspark_core_model.SystemModels;
 using System;
 using System.Collections.Generic;
@@ -80,6 +82,56 @@ namespace devspark_core_data_access_layer
                 }
 
                 return this._devSpaceManager;
+            }
+        }
+
+        #endregion
+
+        #region Contributer
+
+        private DataManager<CodeSnippetLibrary> _codeSnippetManager;
+        public DataManager<CodeSnippetLibrary> codeSnippetManager
+        {
+            get
+            {
+                if (this._codeSnippetManager == null)
+                {
+                    this._codeSnippetManager = new DataManager<CodeSnippetLibrary>(_connectionString);
+                }
+
+                return this._codeSnippetManager;
+            }
+        }
+
+        #endregion
+
+        #region Forum Manager
+
+        private DataManager<Question> _questionDataManager;
+        public DataManager<Question> questionDataManager
+        {
+            get
+            {
+                if (this._questionDataManager == null)
+                {
+                    this._questionDataManager = new DataManager<Question>(_connectionString);
+                }
+
+                return this._questionDataManager;
+            }
+        }
+
+        private DataManager<Answer> _answerDataManager;
+        public DataManager<Answer> answerDataManager
+        {
+            get
+            {
+                if (this._answerDataManager == null)
+                {
+                    this._answerDataManager = new DataManager<Answer>(_connectionString);
+                }
+
+                return this._answerDataManager;
             }
         }
 

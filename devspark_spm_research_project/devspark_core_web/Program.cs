@@ -1,8 +1,12 @@
 using Azure.Identity;
-using devspark_core_business_layer.LearnerPortalService;
-using devspark_core_business_layer.LearnerPortalService.Interfaces;
+using devspark_core_business_layer.ContributionPortalService;
+using devspark_core_business_layer.ContributionPortalService.Interfaces;
 using devspark_core_business_layer.DeveloperPortalService;
 using devspark_core_business_layer.DeveloperPortalService.Interfaces;
+using devspark_core_business_layer.ForumPortalService;
+using devspark_core_business_layer.ForumPortalService.Interfaces;
+using devspark_core_business_layer.LearnerPortalService;
+using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_business_layer.SystemService;
 using devspark_core_business_layer.SystemService.Interfaces;
 using devspark_core_model.LearnerPortalModels;
@@ -93,11 +97,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/MicrosoftSignIn"; 
+    options.LoginPath = "/MicrosoftSignIn";
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
-
 
 #endregion
 
@@ -122,8 +125,23 @@ builder.Services.AddSingleton<ICourseService, CourseServiceImpl>();
 #endregion
 
 #region Developer Portal Services
+
 builder.Services.AddSingleton<ICreateDevSpace, CreateDevSpaceServiceImpl>();
+
 #endregion
+
+#region Forum Portal Services
+
+builder.Services.AddSingleton<IForumService, ForumServiceImpl>();
+
+#endregion
+
+#region Contribution Portal Services
+
+builder.Services.AddSingleton<ICodeSnippetService, CodeSnippetServiceImpl>();
+
+#endregion
+
 
 var app = builder.Build();
 
@@ -156,12 +174,12 @@ app.MapAreaControllerRoute(
 app.MapAreaControllerRoute(
     name: "ContributionPortal",
     areaName: "ContributionPortal",
-    pattern: "ContributionPortal/{controller=Dashboard}/{action=Index}/{id?}");
+    pattern: "ContributionPortal/{controller=DevSpace}/{action=HomeIndex}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "ForumPortal",
     areaName: "ForumPortal",
-    pattern: "ForumPortal/{controller=Dashboard}/{action=Index}/{id?}");
+    pattern: "ForumPortal/{controller=ForumPortalController}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "areaRoute",

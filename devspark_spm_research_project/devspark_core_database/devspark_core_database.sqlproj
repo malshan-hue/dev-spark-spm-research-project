@@ -68,6 +68,8 @@
     <Folder Include="StoredProcedures\ContributionPortal" />
     <Folder Include="Tables\SystemTables" />
     <Folder Include="StoredProcedures\System" />
+    <Folder Include="StoredProcedures\ForumPortal\Question\" />
+    <Folder Include="StoredProcedures\ForumPortal\Answer\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="StoredProcedures\System\InsertUser.sql" />
@@ -95,5 +97,20 @@
     <Build Include="StoredProcedures\DeveloperPortal\UpdateFile.sql" />
     <Build Include="StoredProcedures\DeveloperPortal\DeleteFolder.sql" />
     <Build Include="StoredProcedures\DeveloperPortal\DeleteFile.sql" />
+    <Build Include="Tables\ForumPortalTables\Question.sql" />
+    <Build Include="Tables\ForumPortalTables\Answer.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Question\InsertQuestion.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Question\RetrieveQuestions.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Question\UpdateQuestion.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Question\DeleteQuestion.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Answer\InsertAnswer.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Answer\RetrieveAnswers.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Answer\UpdateAnswer.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Answer\DeleteAnswer.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Question\RetrieveQuestionById.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Answer\RetrieveAnswersByQuestionId.sql" />
+    <Build Include="StoredProcedures\ContributionPortal\InsertCodeSnippet.sql" />
+    <Build Include="StoredProcedures\ForumPortal\Answer\RetrieveAnswerById.sql" />
+    <Build Include="Tables\ContributionPortalTables\CodeSnippetLibrary.sql" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,35 @@
+﻿@using devspark_core_model.ForumPortalModels
+@model Answer
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Edit Answer</h4>
+
+
+    <div class="row">
+        <div class="col-xl">
+
+            <div class="card mb-4">
+
+                <div class="card-body">
+                    <form asp-controller="ForumPortal" asp-action="UpdateAnswer" id="AnswerUpdate" method="POST">
+                            <!-- Hidden field for questionId -->
+                            <input type="hidden" asp-for="QuestionId" />
+                            <input type="hidden" asp-for="AnswerId" />
+                        <div class="mb-3">
+                            <label asp-for="Explanation" class="form-label">@Html.DisplayNameFor(Model => Model.Explanation)</label>
+                            <textarea asp-for="Explanation" class="form-control"></textarea>
+                            <span asp-validation-for="Explanation" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

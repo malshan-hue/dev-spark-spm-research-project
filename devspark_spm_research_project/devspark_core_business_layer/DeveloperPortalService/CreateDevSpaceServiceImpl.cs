@@ -2,8 +2,6 @@
 using devspark_core_business_layer.SystemService.Interfaces;
 using devspark_core_data_access_layer;
 using devspark_core_model.DeveloperPortalModels;
-using devspark_core_model.SystemModels;
-using Microsoft.Graph.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

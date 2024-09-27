@@ -1,0 +1,113 @@
+﻿@using devspark_core_model.ContributionPortalModels
+@model CodeSnippetLibrary
+
+@{
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">CodeSnippetLibrary /</span><span class="text-muted fw-light"> Elements /</span> Create
+        </h4>
+
+        <!-- Basic Layout & Basic with Icons -->
+        <div class="row">
+            <!-- Basic Layout -->
+            <div class="col-xxl">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form asp-controller="CodeSnippet" asp-action="Create" method="post">
+                            <div class="row mb-3">
+                                <label asp-for="Title" class="col-sm-2 col-form-label" for="basic-default-title">@Html.DisplayNameFor(Model => Model.Title)</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Title" type="text" class="form-control" id="basic-default-title" placeholder="Code Snippet for a button" />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label asp-for="Language" class="col-sm-2 col-form-label" for="basic-default-language">@Html.DisplayNameFor(Model => Model.Language)</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Language" type="text" class="form-control" id="basic-default-language" placeholder="Enter the Language" />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label asp-for="Description" class="col-sm-2 col-form-label" for="basic-default-description">@Html.DisplayNameFor(Model => Model.Description)</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Description" type="text" class="form-control" id="basic-default-description" placeholder="Enter the Description" />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label asp-for="Tags" class="col-sm-2 col-form-label" for="basic-default-tags">@Html.DisplayNameFor(Model => Model.Tags)</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Tags" type="text" class="form-control" id="basic-default-tags" placeholder="Enter the Tags separated with a comma" />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label asp-for="Code" class="col-sm-2 col-form-label" for="basic-default-code">@Html.DisplayNameFor(Model => Model.Code)</label>
+                                <div class="col-sm-10">
+                                    <!-- CodeMirror Editor -->
+                                    <textarea id="codeEditor" class="form-control" asp-for="Code" placeholder="Enter the Code" aria-label="Enter the Code"></textarea>
+
+                                    <!-- Preview iframe -->
+                                    <iframe id="previewIframe" style="width: 100%; height: 500px; margin-top: 20px;"></iframe>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-end">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Content -->
+</div>
+
+@section Scripts {
+
+    <!-- Include jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Include CodeMirror Scripts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/htmlmixed/htmlmixed.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize CodeMirror editor with HTML mixed mode
+            var editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
+                mode: "htmlmixed",
+                lineNumbers: true,
+                theme: "default"
+            });
+
+            // Function to update the iframe content in real-time
+            function updateIframeContent() {
+                var htmlContent = editor.getValue();
+                var iframe = document.getElementById("previewIframe");
+                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write(htmlContent);
+                iframeDoc.close();
+            }
+
+            // Initial content update
+            updateIframeContent();
+
+            // Update iframe whenever content changes in the editor
+            editor.on('change', function () {
+                updateIframeContent();
+            });
+        });
+    </script>
+}
