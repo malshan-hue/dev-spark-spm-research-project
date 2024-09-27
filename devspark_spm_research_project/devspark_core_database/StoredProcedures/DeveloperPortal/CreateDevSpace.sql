@@ -9,7 +9,7 @@ BEGIN
         -- Insert data into Folder table
         INSERT INTO [Folder] ([FolderTitle])
         SELECT [FolderTitle]
-        FROM OPENJSON(@jsonString, '$.Folders')
+        FROM OPENJSON(@jsonString, '$')
         WITH (
             [FolderTitle] NVARCHAR(255)
         );
@@ -18,24 +18,25 @@ BEGIN
         DECLARE @FolderId INT = SCOPE_IDENTITY();
         
         -- Insert data into FileModel table
-        INSERT INTO [FileModel] ([FolderId], [FileTitle], [Language], [CodeSnippet])
-        SELECT [@FolderId], [FileTitle], [Language], [CodeSnippet]
+        INSERT INTO [Files] ([FolderId], [FileTitle], [Language], [Extension], [CodeSnippet])
+        SELECT @FolderId, [FileTitle], [Language], [Extension], [CodeSnippet]
         FROM OPENJSON(@jsonString, '$.Files')
         WITH (
             [FileTitle] NVARCHAR(255),
             [Language] NVARCHAR(50),
-            [CodeSnippet] NVARCHAR(555)
+            [Extension] NVARCHAR(50),
+            [CodeSnippet] NVARCHAR(MAX)
         );
         
         -- Commit the transaction
-        COMMIT;
+        COMMIT TRANSACTION;
         
         -- Set execution status to success
         SET @executionStatus = 1;
     END TRY
     BEGIN CATCH
         -- Rollback transaction on error
-        ROLLBACK;
+        ROLLBACK TRANSACTION;
         
         -- Set execution status to failure
         SET @executionStatus = 0;

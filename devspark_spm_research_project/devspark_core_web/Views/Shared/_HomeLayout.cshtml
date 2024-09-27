@@ -79,15 +79,21 @@
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <li>
-                                <a class="" href="@Url.Action("HomeIndex", "DevSpace", new{Area="DeveloperPortal"})">
-                                    <span class="align-middle">dev</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="" href="@Url.Action("SignIn", "Access")">
-                                    <i class='bx bx-log-in-circle'></i>
-                                    <span class="align-middle">Sign In</span>
-                                </a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a class="" href="@Url.Action("DevSparkHome", "DevsparkLanding")">
+                                        <i class='bx bx-log-in-circle'></i>
+                                        <span class="align-middle">Dashboard</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="" href="@Url.Action("SignIn", "Access")">
+                                        <i class='bx bx-log-in-circle'></i>
+                                        <span class="align-middle">Sign In</span>
+                                    </a>
+                                }
+                                
                             </li>
 
                         </ul>

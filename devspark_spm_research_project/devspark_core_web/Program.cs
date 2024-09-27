@@ -1,11 +1,16 @@
 using Azure.Identity;
+using devspark_core_business_layer.LearnerPortalService;
+using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_business_layer.DeveloperPortalService;
 using devspark_core_business_layer.DeveloperPortalService.Interfaces;
 using devspark_core_business_layer.SystemService;
 using devspark_core_business_layer.SystemService.Interfaces;
+using devspark_core_model.LearnerPortalModels;
+using devspark_core_model.SystemModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Graph;
+using Newtonsoft.Json;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +21,7 @@ builder.Services.AddControllersWithViews();
 #region System Service
 
 var configuration = builder.Configuration;
-var connectionString = configuration.GetConnectionString("dev");
+var connectionString = configuration.GetConnectionString("malshan");
 
 builder.Services.AddSingleton<IDatabaseService>(provider =>
 {
@@ -26,6 +31,13 @@ builder.Services.AddSingleton<IDatabaseService>(provider =>
 });
 
 builder.Services.AddSingleton<IUserService, UserServiceImpl>();
+
+    var credential = new ClientSecretCredential(tenantId, clientId, clientSecret, options);
+    return new GraphServiceClient(credential, scopes);
+});
+
+builder.Services.AddSingleton<IMailService, MailServiceImpl>();
+builder.Services.AddDataProtection();
 
 #endregion
 
@@ -47,15 +59,14 @@ builder.Services.AddAuthentication(options =>
     options.Scope.Add("openid");
     options.Scope.Add("profile");
     options.Scope.Add("email");
-    options.CallbackPath = "/DevsparkLanding/";
+    options.CallbackPath = "/Access/";
     options.Events = new OpenIdConnectEvents
     {
         OnTokenValidated = async context =>
         {
             var claimsIdentity = (ClaimsIdentity)context.Principal.Identity;
-            var redirectUrl = "/DevsparkLanding/DevSparkHome";
+            var redirectUrl = "/Access/SignInSuccess";
             context.Response.Redirect(redirectUrl);
-            context.HandleResponse();
         },
         OnAuthenticationFailed = context =>
         {
@@ -63,9 +74,37 @@ builder.Services.AddAuthentication(options =>
             return Task.CompletedTask;
         }
     };
+    options.SignedOutRedirectUri = "https://localhost:44360/";
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/MicrosoftSignIn"; 
+    options.Cookie.SameSite = SameSiteMode.Strict;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 builder.Services.AddSingleton<ICreateDevSpace, CreateDevSpaceServiceImpl>();
 
+#endregion
+
+#region Learner Portal Services
+builder.Services.AddSingleton<IOpenAIStaticService>(provider =>
+{
+    OpenAICredentials openAICredentials = new OpenAICredentials()
+    {
+        EndPoint = configuration["OpenAiCredentials:EndPoint"],
+        Key = configuration["OpenAiCredentials:Key"],
+        DeploymentName = configuration["OpenAiCredentials:DeploymentName"]
+    };
+
+    var openAiStaticService = new OpenAIStaticServiceImpl();
+    openAiStaticService.SetOpenAICredentials(openAICredentials);
+    return openAiStaticService;
+});
+
+builder.Configuration.AddJsonFile("prompts.json", optional: false, reloadOnChange: true);
+
+builder.Services.AddSingleton<ICourseService, CourseServiceImpl>();
 #endregion
 
 var app = builder.Build();
@@ -83,22 +122,23 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapAreaControllerRoute(
     name: "LearnerPortal",
     areaName: "LearnerPortal",
-    pattern: "LearnerPortal/{controller=Landing}/{action=Index}/{id?}");
+    pattern: "LearnerPortal/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "DeveloperPortal",
     areaName: "DeveloperPortal",
-    pattern: "DeveloperPortal/{controller=Landing}/{action=Index}/{id?}");
+    pattern: "DeveloperPortal/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "ContributionPortal",
     areaName: "ContributionPortal",
-    pattern: "ContributionPortal/{controller=Landing}/{action=Index}/{id?}");
+    pattern: "ContributionPortal/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "ForumPortal",
@@ -106,8 +146,8 @@ app.MapAreaControllerRoute(
     pattern: "ForumPortal/{controller=ForumPortalController}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
-    name: "area",
-    pattern: "{area:exists}/{controller=Landing}/{action=Index}/{id?}");
+    name: "areaRoute",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

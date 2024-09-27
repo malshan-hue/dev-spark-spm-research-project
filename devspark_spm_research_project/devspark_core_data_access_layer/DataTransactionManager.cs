@@ -1,4 +1,6 @@
-﻿using devspark_core_model.ForumPortalModels;
+using devspark_core_model.LearnerPortalModels;
+using devspark_core_model.DeveloperPortalModels;
+using devspark_core_model.ForumPortalModels;
 using devspark_core_model.SystemModels;
 using System;
 using System.Collections.Generic;
@@ -35,33 +37,50 @@ namespace devspark_core_data_access_layer
 
         #endregion
 
-        #region Forum Manager
+        #region Lerver Service
 
-        private DataManager<Question> _questionDataManager;
-        public DataManager<Question> questionDataManager
+        private DataManager<Course> _courseDatamanager;
+        public DataManager<Course> CourseDataManager
         {
             get
             {
-                if (this._questionDataManager == null)
+                if (this._courseDatamanager == null)
                 {
-                    this._questionDataManager = new DataManager<Question>(_connectionString);
+                    this._courseDatamanager = new DataManager<Course>(_connectionString);
                 }
 
-                return this._questionDataManager;
+                return this._courseDatamanager;
             }
         }
 
-        private DataManager<Answer> _answerDataManager;
-        public DataManager<Answer> answerDataManager
+        private DataManager<CourseProgress> _courseProgressDatamanager;
+        public DataManager<CourseProgress> CourseProgressDataManager
         {
             get
             {
-                if (this._answerDataManager == null)
+                if (this._courseProgressDatamanager == null)
                 {
-                    this._answerDataManager = new DataManager<Answer>(_connectionString);
+                    this._courseProgressDatamanager = new DataManager<CourseProgress>(_connectionString);
                 }
 
-                return this._answerDataManager;
+                return this._courseProgressDatamanager;
+              }
+         }
+        #endregion
+        
+        #region Developer
+
+        private DataManager<Folder> _devSpaceManager;
+        public DataManager<Folder> devSpaceManager
+        {
+            get
+            {
+                if (this._devSpaceManager == null)
+                {
+                    this._devSpaceManager = new DataManager<Folder>(_connectionString);
+                }
+
+                return this._devSpaceManager;
             }
         }
 
