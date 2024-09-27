@@ -1,3 +1,6 @@
+using Azure.Identity;
+using devspark_core_business_layer.DeveloperPortalService;
+using devspark_core_business_layer.DeveloperPortalService.Interfaces;
 using devspark_core_business_layer.SystemService;
 using devspark_core_business_layer.SystemService.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -23,6 +26,45 @@ builder.Services.AddSingleton<IDatabaseService>(provider =>
 });
 
 builder.Services.AddSingleton<IUserService, UserServiceImpl>();
+
+#endregion
+
+#region MICROSOFT LOGIN OPENID
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+})
+.AddCookie()
+.AddOpenIdConnect(options =>
+{
+    options.ClientId = configuration["EntraId:ClientId"];
+    options.ClientSecret = configuration["EntraId:ClientSecret"];
+    options.Authority = $"https://login.microsoftonline.com/{configuration["EntraId:TenantId"]}";
+    options.ResponseType = "code";
+    options.SaveTokens = true;
+    options.Scope.Add("openid");
+    options.Scope.Add("profile");
+    options.Scope.Add("email");
+    options.CallbackPath = "/DevsparkLanding/";
+    options.Events = new OpenIdConnectEvents
+    {
+        OnTokenValidated = async context =>
+        {
+            var claimsIdentity = (ClaimsIdentity)context.Principal.Identity;
+            var redirectUrl = "/DevsparkLanding/DevSparkHome";
+            context.Response.Redirect(redirectUrl);
+            context.HandleResponse();
+        },
+        OnAuthenticationFailed = context =>
+        {
+            context.HandleResponse();
+            return Task.CompletedTask;
+        }
+    };
+});
+builder.Services.AddSingleton<ICreateDevSpace, CreateDevSpaceServiceImpl>();
 
 #endregion
 
