@@ -5,44 +5,45 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
- 
 
- 
-<div class="row mb-3">
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row mb-3">
      
-        <div class="col-md-6">
-        <h4 class="pb-1 mb-4 mt-3 mx-4">Top Questions</h4>
-        </div>
-        <div class="col-md-6 text-end">
+            <div class="col-md-6">
+            <h4 class="pb-1 mb-4 mt-3 mx-4">Top Questions</h4>
+            </div>
+            <div class="col-md-6 text-end">
         
-        <a href="@Url.Action("CreateQuestion", "ForumPortal")">
-            <button type="submit" class="btn btn-primary mt-3 mx-4">Ask a Question</button>
-        </a>
-     </div>
-</div>
+            <a href="@Url.Action("CreateQuestion", "ForumPortal")">
+                <button type="submit" class="btn btn-primary mt-3 mx-4">Ask a Question</button>
+            </a>
+         </div>
+    </div>
 
-    <div class="row mb-5">
-    @foreach (var question in Model)
-    {
-        <div class="col-12"> 
-            <div class="card mx-3 mb-4" style="width: 100%; max-width: 1050px;">  
-                <div class="card-body">
-                    <h5 class="card-title">@question.Title</h5>
-                    <p class="card-text">
-                            @question.Description
-                        </p>
-                    <div class="text-end">
-                        <a href="@Url.Action("ViewQuestion", "ForumPortal", new { questionId = question.QuestionId })">
-                            <button type="button" class="btn btn-primary">View</button>
-                        </a>
-                        <a href="@Url.Action("CreateAnswer", "ForumPortal", new { questionId = question.QuestionId })">
-                            <button type="button" class="btn btn-primary">Answer</button>
-                        </a>
+        <div class="row mb-5">
+        @foreach (var question in Model)
+        {
+            <div class="col-12"> 
+                <div class="card mx-3 mb-4" style="width: 100%; max-width: 1050px;">  
+                    <div class="card-body">
+                        <h5 class="card-title">@question.Title</h5>
+                        <p class="card-text">
+                                @question.Description
+                            </p>
+                        <div class="text-end">
+                            <a href="@Url.Action("ViewQuestion", "ForumPortal", new { questionId = question.QuestionId })">
+                                <button type="button" class="btn btn-primary">View</button>
+                            </a>
+                            <a href="@Url.Action("CreateAnswer", "ForumPortal", new { questionId = question.QuestionId })">
+                                <button type="button" class="btn btn-primary">Answer</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
  
