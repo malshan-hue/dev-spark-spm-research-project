@@ -105,6 +105,38 @@ namespace devspark_core_data_access_layer
 
         #endregion
 
+        #region Forum Manager
+
+        private DataManager<Question> _questionDataManager;
+        public DataManager<Question> questionDataManager
+        {
+            get
+            {
+                if (this._questionDataManager == null)
+                {
+                    this._questionDataManager = new DataManager<Question>(_connectionString);
+                }
+
+                return this._questionDataManager;
+            }
+        }
+
+        private DataManager<Answer> _answerDataManager;
+        public DataManager<Answer> answerDataManager
+        {
+            get
+            {
+                if (this._answerDataManager == null)
+                {
+                    this._answerDataManager = new DataManager<Answer>(_connectionString);
+                }
+
+                return this._answerDataManager;
+            }
+        }
+
+        #endregion
+
         private bool _disposed = false;
         protected void Dispose(bool disposing)
         {

@@ -42,7 +42,7 @@ namespace devspark_core_business_layer.ForumPortalService
         public async Task<ICollection<Question>> RetrieveQuestions()
         {
             DataTransactionManager dataTransactionManager = new DataTransactionManager(_databaseService.GetConnectionString());
-            var questions = dataTransactionManager.questionDataManager.RetrieveData<Question>("RetrieveQuestions");
+            var questions = dataTransactionManager.questionDataManager.RetrieveData("RetrieveQuestions");
             return questions;
         }
 
