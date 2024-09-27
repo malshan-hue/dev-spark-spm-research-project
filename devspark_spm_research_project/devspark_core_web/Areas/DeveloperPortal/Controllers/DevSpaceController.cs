@@ -17,6 +17,7 @@ using static NuGet.Packaging.PackagingConstants;
 
 namespace devspark_core_web.Areas.DeveloperPortal.Controllers
 {
+    [Area("DeveloperPortal")]
     public class DevSpaceController : Controller
     {
         private readonly ICreateDevSpace _createDevSpace;
