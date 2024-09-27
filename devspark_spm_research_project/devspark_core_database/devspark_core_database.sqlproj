@@ -109,5 +109,7 @@
     <Build Include="StoredProcedures\ForumPortal\Answer\DeleteAnswer.sql" />
     <Build Include="StoredProcedures\ForumPortal\Question\RetrieveQuestionById.sql" />
     <Build Include="StoredProcedures\ForumPortal\Answer\RetrieveAnswersByQuestionId.sql" />
+    <Build Include="Tables\ContributionPortalTables\CodeSnippet.sql" />
+    <Build Include="StoredProcedures\ContributionPortal\InsertCodeSnippet.sql" />
   </ItemGroup>
 </Project>
