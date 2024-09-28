@@ -230,15 +230,15 @@ button.list-group-item-primary {
 
 .btn-primary {
     color: #fff;
-    background-color: #696cff;
-    border-color: #696cff;
+    background-color: #081C38;
+    border-color: #081C38;
     box-shadow: 0 0.125rem 0.25rem 0 rgba(105, 108, 255, 0.4);
 }
 
     .btn-primary:hover {
         color: #fff;
-        background-color: #5f61e6;
-        border-color: #5f61e6;
+        background-color: #081C38;
+        border-color: #081C38;
         transform: translateY(-1px);
     }
 

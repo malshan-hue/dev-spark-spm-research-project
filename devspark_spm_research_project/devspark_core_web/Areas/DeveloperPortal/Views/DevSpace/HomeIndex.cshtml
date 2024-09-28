@@ -1,17 +1,16 @@
 ﻿@using devspark_core_model.DeveloperPortalModels
+@using System.Security.Claims
 @model ICollection<Folder>
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>DevSpark Home</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
 
     <!-- Add the stylesheets here -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />  
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
@@ -27,10 +26,12 @@
         body {
             margin: 1px;
             background-color: white;
+            color:black;
         }
 
         h2 {
             margin: 5px;
+            font-size: 25px;
         }
 
         .home-container {
@@ -85,10 +86,10 @@
         }
 
         .right-container {
-            background-color: #e9ecf0;
+            background-color: #ffffff;
             padding: 20px; /* Ensure padding for spacing */
             height: 100vh;
-            overflow-y: scroll;
+            /* overflow-y: scroll; */
         }
 
         .header {
@@ -106,7 +107,7 @@
         .add-folder {
             display: flex;
             align-items: center;
-            background-color: #e9ecf0;
+            background-color: #ffffff;
             border: none;
             padding: 10px;
             border-radius: 4px;
@@ -143,17 +144,17 @@
             padding: 6px;
             font-size: 17px;
             border: none;
-            background-color: #e9ecf0;
+            background-color: #ffffff;
             cursor: pointer;
         }
 
         .cards-container {
             margin-bottom: 10px;
-            
         }
 
         .card {
             display: flex;
+            flex-direction:row;
             justify-content: space-between;
             align-items: center;
             padding: 0px;
@@ -182,15 +183,16 @@
             margin-left: 8px;
         }
     </style>
-</head>
-<body>
+
+    <!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
     <form id="form1" runat="server">
         <div class="home-container">
             <div class="left-container">
                 <div class="items-container">
-                    <a class="" href="@Url.Action("DevSparkHome", "DevsparkLanding", new { area = "" })">
+                    @* <a class="" href="@Url.Action("DevSparkHome", "DevsparkLanding", new { area = "" })">
                         <img src="@Url.Content("~/assets/images/logos/DEV_SPARK.png")" alt="DevSpark Logo" />
-                    </a>
+                    </a> *@
 
                     <h2>YOUR INTERACTIVE DEV_SPACE</h2>
                     <h2>CODE --&gt; COMPILE --&gt; RUN</h2>
@@ -203,7 +205,7 @@
             <div class="right-container">
                 <div class="header">
                     <div class="header-title">
-                        <span>My</span> DEV_SPACE
+                        <span>@User.FindFirstValue("name")?.Split(' ')[0]</span>'s DEV_SPACE
                     </div>
                     <button class="add-folder" type="button" onclick="location.href='@Url.Action("CreateNewFolder", "DevSpace")'">
                         <span class="material-icons">add</span>
@@ -268,43 +270,44 @@
                
             </div>
         </div>
-        <script>
-            function DeleteFolder(folderId) {
-                if (confirm("Are you sure you want to permanently delete this folder and its contents?")) {
-                    confirmFolderDeletion(folderId);
-                }
-            }
-
-            function confirmFolderDeletion(folderId) {
-                fetch('/api/deleteFolder', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ folderId: folderId }),
-                })
-                    .then(response => response.ok ? location.reload() : alert('Error deleting the folder'))
-                    .catch(error => console.error('Error:', error));
-            }
-
-            function DeleteFile(folderId, fileId) {
-                if (confirm("Are you sure you want to permanently delete this file?")) {
-                    confirmFileDeletion(folderId, fileId);
-                }
-            }
-
-            function confirmFileDeletion(folderId, fileId) {
-                fetch('/api/deleteFile', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ folderId: folderId, fileId: fileId }),
-                })
-                    .then(response => response.ok ? location.reload() : alert('Error deleting the file'))
-                    .catch(error => console.error('Error:', error));
-            }
-        </script>
     </form>
-</body>
-</html>
+    </div>
+    @section Scripts {
+    <script>
+        function DeleteFolder(folderId) {
+            if (confirm("Are you sure you want to permanently delete this folder and its contents?")) {
+                confirmFolderDeletion(folderId);
+            }
+        }
+
+        function confirmFolderDeletion(folderId) {
+            fetch('/api/deleteFolder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ folderId: folderId }),
+            })
+                .then(response => response.ok ? location.reload() : alert('Error deleting the folder'))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function DeleteFile(folderId, fileId) {
+            if (confirm("Are you sure you want to permanently delete this file?")) {
+                confirmFileDeletion(folderId, fileId);
+            }
+        }
+
+        function confirmFileDeletion(folderId, fileId) {
+            fetch('/api/deleteFile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ folderId: folderId, fileId: fileId }),
+            })
+                .then(response => response.ok ? location.reload() : alert('Error deleting the file'))
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+    }
