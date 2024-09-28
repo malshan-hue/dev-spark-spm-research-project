@@ -16,9 +16,11 @@ namespace devspark_core_web.Areas.ContributionPortal.Controllers
             _codeSnippetService = codeSnippetService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View();
+            var snippets = await _codeSnippetService.GetAllCodeSnippets();
+            return View(snippets);
         }
 
         [HttpGet]
@@ -38,16 +40,34 @@ namespace devspark_core_web.Areas.ContributionPortal.Controllers
             return View();
         }
 
+        // Edit (GET): Fetch the code snippet by ID and pass it to the view
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var snippet = await _codeSnippetService.GetCodeSnippetById(id);
+            if (snippet == null)
+            {
+                return NotFound();
+            }
+            return View(snippet);
         }
 
+        // Edit (POST): Update the code snippet
         [HttpPost]
         public async Task<IActionResult> Edit(CodeSnippetLibrary codesnippet)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(codesnippet);
+            }
+
+            bool status = await _codeSnippetService.UpdateCodeSnippet(codesnippet);
+            if (status)
+            {
+                return RedirectToAction("Index", "CodeSnippet");
+            }
+
+            return View(codesnippet);
         }
 
         [HttpDelete]
