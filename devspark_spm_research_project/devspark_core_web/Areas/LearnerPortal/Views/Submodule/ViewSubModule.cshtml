@@ -1,0 +1,106 @@
+﻿@using devspark_core_model.LearnerPortalModels
+
+@model Submodule
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css" />
+
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <div class="row mb-4">
+        <div class="col-6">
+            <h4 class="fw-bold py-3"><span class="text-muted fw-light">@Model.Module.Course.CourseName / @Model.Module.Title / </span> @Model.Title</h4>
+        </div>
+
+        <div class="col-6 text-end">
+            <a href="@Url.Action("CreateCourse", "Course", new { Area = "LearnerPortal"})" class="btn btn-primary btn-lg" type="button">Download Sub Module</a>
+        </div>
+
+    </div>
+
+    <div class="row mb-4">
+
+        <div class="col-md-12 col-lg-12">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Title</h5>
+                    <p class="card-text">@Model.Content</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-6">
+            <h4 class="fw-bold py-3">Tutorials</h4>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+
+        @foreach(var tutorial in Model.Tutorials)
+        {
+            <div class="col-md-12 col-lg-12 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">@tutorial.Title</h5>
+                        <p class="card-text">@tutorial.Content</p>
+                    </div>
+                    <div class="card-footer">
+                        @foreach (var codeSnippet in tutorial.CodeSnippets)
+                        {
+                            <textarea id="code-@codeSnippet.CodeSnippetId" class="code-editor" data-lang="@codeSnippet.Language">@codeSnippet.Code</textarea>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="row mb-4">
+
+        @foreach (var exercise in Model.Exercises)
+        {
+            <div class="col-md-12 col-lg-12">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <p class="card-text">@exercise.Description</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/sql/sql.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.code-editor').each(function () {
+
+                var language = $(this).data('lang').toLowerCase();
+                CodeMirror.fromTextArea(this, {
+                    mode: language, 
+                    lineNumbers: true,
+                    theme: "default", 
+                    readOnly: true 
+                });
+
+            });
+        });
+    </script>
+
+}

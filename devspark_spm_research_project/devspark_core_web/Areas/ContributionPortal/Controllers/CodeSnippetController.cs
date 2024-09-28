@@ -70,10 +70,20 @@ namespace devspark_core_web.Areas.ContributionPortal.Controllers
             return View(codesnippet);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(CodeSnippetLibrary codesnippet)
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            // Call the service layer to delete the code snippet by id
+            bool status = await _codeSnippetService.DeleteCodeSnippet(id);
+
+            if (status)
+            {
+                // If deletion is successful, redirect to the index view
+                return RedirectToAction("Index");
+            }
+
+            // If deletion fails, return to the view with an error
+            return View("Error", new { message = "Error deleting the code snippet" });
         }
     }
 }

@@ -81,6 +81,21 @@ namespace devspark_core_data_access_layer
                 return this._moduleDatamanager;
             }
         }
+
+        private DataManager<Submodule> _submoduleDatamanager;
+        public DataManager<Submodule> SubmoduleDataManager
+        {
+            get
+            {
+                if (this._submoduleDatamanager == null)
+                {
+                    this._submoduleDatamanager = new DataManager<Submodule>(_connectionString);
+                }
+
+                return this._submoduleDatamanager;
+            }
+        }
+
         #endregion
 
         #region Developer
