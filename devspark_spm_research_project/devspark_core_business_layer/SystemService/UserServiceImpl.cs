@@ -4,6 +4,7 @@ using devspark_core_model.SystemModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,15 @@ namespace devspark_core_business_layer.SystemService
             DataTransactionManager dataTransactionManager = new DataTransactionManager(_databaseService.GetConnectionString());
             bool status = dataTransactionManager.EntraIdUserDataManager.InsertData("InsertUser", userJsonString);
             return status;
+        }
+
+        public async Task<EntraIdUser> GetUserByEntraIdNameIdentifier(string nameIdentifier = "")
+        {
+            DataTransactionManager dataTransactionManager = new DataTransactionManager(_databaseService.GetConnectionString());
+            return dataTransactionManager.EntraIdUserDataManager.RetrieveData("GetUserByEntraIdNameIdentifier", new SqlParameter[]
+            {
+                new SqlParameter("@nameIdentifier", nameIdentifier)
+            }).FirstOrDefault();
         }
     }
 }

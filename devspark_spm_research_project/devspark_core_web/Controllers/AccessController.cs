@@ -1,8 +1,10 @@
 ﻿using devspark_core_business_layer.SystemService.Interfaces;
 using devspark_core_model.SystemModels;
+using devspark_core_web.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Graph;
 using Microsoft.Graph.Models;
@@ -57,7 +59,25 @@ namespace devspark_core_web.Controllers
             TempData["SystemNotifications"] = JsonConvert.SerializeObject(systemNotifications);
             #endregion
 
-            return RedirectToAction("DevSparkHome", "DevsparkLanding");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userPrincipalName = User.FindFirst(ClaimTypes.Upn)?.Value;
+                var userNameIdentifier = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                var user = _userService.GetUserByEntraIdNameIdentifier(userNameIdentifier).Result;
+
+                if(user != null)
+                {
+                    HttpContext.Session.SetInt32("userId", user.DevSparkUser.UserId);
+                    HttpContext.Session.SetString("displayName", user.DisplayName);
+                    HttpContext.Session.SetBool("accountEnabled", user.AccountEnabled);
+
+                    return RedirectToAction("DevSparkHome", "DevsparkLanding");
+                }
+
+            }
+
+            return RedirectToAction("SignIn", "Access");
         }
 
         [HttpGet]
@@ -84,7 +104,7 @@ namespace devspark_core_web.Controllers
 
             if (status)
             {
-                return RedirectToAction("SignIn");
+                return RedirectToAction("SignIn", "Access");
             }
 
             return View();

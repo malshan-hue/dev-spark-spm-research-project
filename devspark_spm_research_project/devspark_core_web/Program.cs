@@ -25,7 +25,7 @@ builder.Services.AddControllersWithViews();
 #region System Service
 
 var configuration = builder.Configuration;
-var connectionString = configuration.GetConnectionString("dev");
+var connectionString = configuration.GetConnectionString("malshan");
 
 builder.Services.AddSingleton<IDatabaseService>(provider =>
 {
@@ -160,6 +160,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapAreaControllerRoute(
     name: "LearnerPortal",
