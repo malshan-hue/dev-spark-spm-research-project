@@ -1,5 +1,4 @@
 ﻿CREATE PROCEDURE UpdateCodeSnippet
-    @Id INT,
     @jsonString NVARCHAR(MAX),
     @executionStatus BIT OUTPUT
 AS
@@ -7,11 +6,12 @@ BEGIN
     SET NOCOUNT ON;
     BEGIN TRY
         -- Declare variables to hold parsed JSON data
-        DECLARE @Title NVARCHAR(255), @Language NVARCHAR(100), @Code NVARCHAR(MAX), 
+        DECLARE @Id INT, @Title NVARCHAR(255), @Language NVARCHAR(100), @Code NVARCHAR(MAX), 
                 @Description NVARCHAR(MAX), @Tags NVARCHAR(255);
 
         -- Parse JSON string into variables
-        SELECT @Title = JSON_VALUE(@jsonString, '$.Title'),
+        SELECT @Id = JSON_VALUE(@jsonString, '$.Id'),
+               @Title = JSON_VALUE(@jsonString, '$.Title'),
                @Language = JSON_VALUE(@jsonString, '$.Language'),
                @Code = JSON_VALUE(@jsonString, '$.Code'),
                @Description = JSON_VALUE(@jsonString, '$.Description'),
