@@ -118,5 +118,6 @@
     <Build Include="StoredProcedures\ContributionPortal\UpdateCodeSnippet.sql" />
     <Build Include="StoredProcedures\ContributionPortal\DeleteCodeSnippet.sql" />
     <Build Include="StoredProcedures\LernerPortal\GetModuleByModuleId.sql" />
+    <Build Include="StoredProcedures\LernerPortal\GetSubmoduleById.sql" />
   </ItemGroup>
 </Project>
