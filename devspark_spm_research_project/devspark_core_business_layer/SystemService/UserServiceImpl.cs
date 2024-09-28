@@ -28,12 +28,12 @@ namespace devspark_core_business_layer.SystemService
             return status;
         }
 
-        public async Task<EntraIdUser> GetUserByEntraIdNameIdentifier(string nameIdentifier = "")
+        public async Task<EntraIdUser> GetUserByEntraIdNameIdentifier(string userObjectidentifier = "")
         {
             DataTransactionManager dataTransactionManager = new DataTransactionManager(_databaseService.GetConnectionString());
             return dataTransactionManager.EntraIdUserDataManager.RetrieveData("GetUserByEntraIdNameIdentifier", new SqlParameter[]
             {
-                new SqlParameter("@nameIdentifier", nameIdentifier)
+                new SqlParameter("@userObjectidentifier", userObjectidentifier)
             }).FirstOrDefault();
         }
     }

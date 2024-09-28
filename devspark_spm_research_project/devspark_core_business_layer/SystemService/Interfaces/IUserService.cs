@@ -10,6 +10,6 @@ namespace devspark_core_business_layer.SystemService.Interfaces
     public interface IUserService
     {
         Task<bool> InsertUser(EntraIdUser entraIdUser);
-        Task<EntraIdUser> GetUserByEntraIdNameIdentifier(string nameIdentifier = "");
+        Task<EntraIdUser> GetUserByEntraIdNameIdentifier(string userObjectidentifier = "");
     }
 }
