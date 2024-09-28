@@ -35,6 +35,7 @@
         }
 
         .fullpage-loader {
+            display: none; /* Initially hide the loader */
             background-color: rgba(0, 0, 0, 0.534);
             position: fixed;
             top: 0;
@@ -42,7 +43,6 @@
             bottom: 0;
             right: 0;
             z-index: 200;
-            display: flex;
             justify-content: center;
             align-items: center;
         }
@@ -241,6 +241,14 @@
             border-radius: 3px;
         }
 
+        @@keyframes loader {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
     </style>
 </head>
 <body>
@@ -685,6 +693,9 @@ print_message()
 
                     //Function to submit and run code
                     async function submitCode() {
+                        const loader = document.querySelector('.fullpage-loader');
+                        loader.style.display = 'flex'; // Show the full loader
+
                         const languageSelect = document.getElementById('language-select');
                         const selectedLanguage = languageSelect.value;
                         const stdin = document.getElementById('inputs').value;
@@ -787,6 +798,9 @@ print_message()
                             output.value = content;
                         } catch (error) {
                             console.error('Error parsing or decoding result:', error);
+                        } finally {
+                            // Hide the loader after displaying the result
+                            document.querySelector('.fullpage-loader').style.display = 'none';
                         }
                     }
                 </script>
@@ -819,6 +833,9 @@ print_message()
                 </div>
             </div>
 
+        </div>
+        <div class="fullpage-loader">
+            <div class="loader"></div>
         </div>
     </div>
 </body>

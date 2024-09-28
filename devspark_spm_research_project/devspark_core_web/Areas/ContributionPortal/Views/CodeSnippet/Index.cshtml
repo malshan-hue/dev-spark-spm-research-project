@@ -25,9 +25,10 @@
                             <h5 class="card-title">@snippet.Title</h5>
                             <h6 class="card-subtitle text-muted">@snippet.Language</h6>
                             <p class="card-text"><b>Description:</b> @snippet.Description</p>
+                            <p class="card-text" id="p1_@snippet.Id" hidden>@snippet.Code</p>
 
                             <!-- Copy Code Link with data-code attribute -->
-                            <a href="javascript:void(0);" class="card-link copy-code-link" data-code="@snippet.Code">Copy-Code</a>
+                            <a href="javascript:void(0);" class="card-link copy-code-link" onclick="copyToClipboard('#p1_@snippet.Id')">Copy-Code</a>
                             <a asp-action="Edit" asp-controller="CodeSnippet" asp-route-id="@snippet.Id" class="card-link">Edit</a>
                         </div>
                     </div>
@@ -36,3 +37,20 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <!-- jQuery script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Copy to clipboard function -->
+    <script>
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            alert("Code copied to clipboard!"); // Optional feedback
+        }
+    </script>
+}
