@@ -12,7 +12,7 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
     public class ModuleController : Controller
     {
         private readonly IModuleService _moduleService;
-        private readonly IDataProtector _dataProtector;
+        private IDataProtector _dataProtector;
 
         public ModuleController(IModuleService moduleService, IDataProtectionProvider dataProtectionProvider)
         {

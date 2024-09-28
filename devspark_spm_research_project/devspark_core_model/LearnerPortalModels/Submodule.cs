@@ -41,6 +41,7 @@ namespace devspark_core_model.LearnerPortalModels
 
         [JsonPropertyName("exercises")]
         public List<Exercise> Exercises { get; set; }
+        public Module Module { get; set; }
 
         #endregion
     }
