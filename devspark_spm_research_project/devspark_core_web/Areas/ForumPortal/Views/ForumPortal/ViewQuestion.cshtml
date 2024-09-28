@@ -12,7 +12,7 @@
 
 @* Other HTML and Razor code *@
 
-
+<div class="container-xxl flex-grow-1 container-p-y">
 <div class="col-12">
     <div class="card mx-3 mt-3 mb-4" style="width: 100%; max-width: 1050px;">
         <a href="@Url.Action("Index", "ForumPortal")">
@@ -46,7 +46,8 @@
              
         </div>
     </div>
-</div>     
+</div>
+
 
 
 
@@ -93,3 +94,4 @@ else
 }
 
 <a href="@Url.Action("CreateAnswer", new { questionId = Model.Question.QuestionId })" class="btn btn-primary pb-1 mb-4 mt-3 mx-4">Add Answer</a>
+</div>

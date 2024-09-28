@@ -12,7 +12,7 @@ BEGIN
         WITH(
             [QuestionId] INT,
             [Explanation] NVARCHAR(MAX),
-            [UserId] INT
+            [UserId] NVARCHAR(255)
         );
 
         SET @executionStatus = 1;

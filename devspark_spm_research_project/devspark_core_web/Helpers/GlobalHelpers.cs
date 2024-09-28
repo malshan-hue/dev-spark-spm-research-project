@@ -2,6 +2,8 @@
 {
     public static class GlobalHelpers
     {
+        public static string LearnerPortalDataProtectorSecret = "PBJ9SalsV9Q0vgNL3FUtXOD1s0TPLSp5";
+
         public static void SetBool(this ISession session, string key, bool value)
         {
             session.SetInt32(key, value ? 1 : 0);
