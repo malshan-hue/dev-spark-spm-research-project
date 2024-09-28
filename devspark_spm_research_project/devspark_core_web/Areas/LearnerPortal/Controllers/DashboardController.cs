@@ -30,7 +30,7 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
         {
             IQueryable<Course> courses = new List<Course>().AsQueryable();
 
-            int userId = (int)HttpContext.Session.GetInt32("userId");
+            int userId = Convert.ToInt32(HttpContext.Session.GetInt32("userId"));
             var courseList = await _courseService.GetAllCourses(userId);
             courses = courseList.AsQueryable();
 
