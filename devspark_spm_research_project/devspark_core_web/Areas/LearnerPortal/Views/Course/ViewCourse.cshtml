@@ -9,12 +9,48 @@
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
+    <div class="row mb-4">
+        <div class="col-6">
+            <h4 class="fw-bold py-3"><span class="text-muted fw-light">Learner Portal / Course / </span> @Model.CourseName</h4>
+        </div>
+
+        <div class="col-6 text-end">
+            <form asp-action="GenerateCoursePdf" asp-controller="Course" method="post">
+                <input type="hidden" name="courseId" value="@Model.EncryptedKey"/>
+                <button type="submit" class="btn btn-primary btn-lg">Download Course </button>
+            </form>
+        </div>
+
+    </div>
+
     <div id="course-progress-container" class="">
         @* @await Component.InvokeAsync("CourseProgress", new { courseId = Model.EncryptedKey}) *@
     </div>
 
     <div id="course-modules-container" class="">
         @* @await Component.InvokeAsync("CourseProgress", new { courseId = Model.EncryptedKey}) *@
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-6">
+            <h4 class="fw-bold py-3">Modules </h4>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        @foreach (var module in Model.Modules)
+        {
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card text-center">
+                    <div class="card-header"><span class="badge rounded-pill bg-warning">@module.ProgressStatusEnumDisplayName</span></div>
+                    <div class="card-body">
+                        <h5 class="card-title">@module.Title</h5>
+                        <p class="card-text">@module.Description</p>
+                        <a href="@Url.Action("ViewModule", "Module", new { moduleEncryptedKey = module.EncryptedKey})" class="btn btn-primary">Start</a>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 
 </div>

@@ -56,6 +56,11 @@
                  
              
         </div>
+
+            <form asp-area="ForumPortal" asp-controller="ForumPortal" asp-action="GenerateQuestionPdf" method="post">
+                <input type="hidden" name="questionId" value="@Model.Question.QuestionId"/>
+                <button type="submit" class="btn btn-primary btn-lg">Download for later</button>
+            </form>
     </div>
 </div>
 

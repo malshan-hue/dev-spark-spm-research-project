@@ -1,0 +1,60 @@
+﻿@using devspark_core_model.LearnerPortalModels
+
+@model Module
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <div class="row mb-4">
+        <div class="col-6">
+            <h4 class="fw-bold py-3"><span class="text-muted fw-light"> @Model.Course.CourseName / </span> @Model.Title</h4>
+        </div>
+
+        <div class="col-6 text-end">
+            <a href="@Url.Action("CreateCourse", "Course", new { Area = "LearnerPortal"})" class="btn btn-primary btn-lg" type="button">Download module</a>
+        </div>
+
+    </div>
+
+    <div class="row mb-4">
+
+        <div class="col-md-12 col-lg-12">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Title</h5>
+                    <p class="card-text">@Model.Description</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-6">
+            <h4 class="fw-bold py-3">Submodules</h4>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+
+        @foreach (var subModule in Model.Submodules)
+        {
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card text-center">
+                    <div class="card-header"><span class="badge rounded-pill bg-warning">@subModule.ProgressStatusEnumDisplayName</span></div>
+                    <div class="card-body">
+                        <h5 class="card-title">@subModule.Title</h5>
+                        <p class="card-text">@subModule.Content</p>
+                        <a href="@Url.Action("ViewSubModule", "SubModule", new { subModuleEncryptedKey = subModule.EncryptedKey})" class="btn btn-primary">Start</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>

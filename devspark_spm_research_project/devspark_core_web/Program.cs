@@ -123,6 +123,8 @@ builder.Services.AddSingleton<IOpenAIStaticService>(provider =>
 builder.Configuration.AddJsonFile("prompts.json", optional: false, reloadOnChange: true);
 
 builder.Services.AddSingleton<ICourseService, CourseServiceImpl>();
+builder.Services.AddSingleton<IModuleService, ModuleServiceImpl>();
+builder.Services.AddSingleton<ISubmoduleService, SubModuleServiceImpl>();
 #endregion
 
 #region Developer Portal Services

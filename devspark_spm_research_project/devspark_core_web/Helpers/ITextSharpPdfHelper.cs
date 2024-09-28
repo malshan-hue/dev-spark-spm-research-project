@@ -35,7 +35,7 @@ namespace devspark_core_web.Helpers
             var viewEngine = controller.HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
             var tempData = controller.TempData;
 
-            var viewPath = $"/Views/PdfTemplates/{templateName}.cshtml";
+            var viewPath = $"/Views/PdfTemplate/{templateName}.cshtml";
             var actionContext = new ActionContext(controller.HttpContext, controller.RouteData, controller.ControllerContext.ActionDescriptor);
 
             var viewData = new ViewDataDictionary<TModel>(new EmptyModelMetadataProvider(), actionContext.ModelState)

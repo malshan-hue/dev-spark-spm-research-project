@@ -22,7 +22,7 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
         public DashboardController(ICourseService courseService, IDataProtectionProvider dataProtectionProvider, IMailService mailService)
         {
             _courseService = courseService;
-            _dataProtector = dataProtectionProvider.CreateProtector("courseprotect");
+            _dataProtector = dataProtectionProvider.CreateProtector(GlobalHelpers.LearnerPortalDataProtectorSecret);
             _mailService = mailService;
         }
 
