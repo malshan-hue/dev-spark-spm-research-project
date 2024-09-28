@@ -1,11 +1,14 @@
 ﻿using devspark_core_business_layer.ForumPortalService.Interfaces;
 using devspark_core_model.ForumPortalModels;
 using devspark_core_web.Areas.ForumPortal.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace devspark_core_web.Areas.ForumPortal.Controllers
 {
+    [Authorize]
     [Area("ForumPortal")]
     public class ForumPortalController : Controller
     {
@@ -35,6 +38,13 @@ namespace devspark_core_web.Areas.ForumPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateQuestion(Question question)
         {
+           // Get the logged-in user's ID
+            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+           // Set the UserId on the question model
+            // question.UserId = userId;
+
+
             bool status = await _forumService.InsertQuestion(question);
 
             if (status)

@@ -20,7 +20,7 @@ namespace devspark_core_model.ForumPortalModels
 
         public string? UserId { get; set; }
         public DateTime DatePosted { get; set; }
-        public DevSparkUser? DevSparkUser { get; set; }
+        
 
         public ICollection<Answer>? Answers { get; set; }
          
