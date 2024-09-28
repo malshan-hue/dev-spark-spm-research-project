@@ -35,10 +35,15 @@ namespace devspark_core_web.Areas.DeveloperPortal.Controllers
             ICollection<devspark_core_model.DeveloperPortalModels.Folder> folders = new List<devspark_core_model.DeveloperPortalModels.Folder>();
 
             var allDevSpaces = await _createDevSpace.GetDevSpaces(); // This retrieves all folders
+            int? userId = HttpContext.Session.GetInt32("userId");
 
             foreach (var folder in allDevSpaces)
             {
-                folders.Add(folder);
+                if(folder.UserId == (int)userId)
+                {
+                    folders.Add(folder);
+                }
+                
             }
 
             // Pass the list of folders to the view
@@ -69,6 +74,7 @@ namespace devspark_core_web.Areas.DeveloperPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDevSpace(string folderName, string fileName, string language)
         {
+            int? userId = HttpContext.Session.GetInt32("userId");
             // Create a new FileModel
             var newFile = new FileModel
             {
@@ -76,7 +82,8 @@ namespace devspark_core_web.Areas.DeveloperPortal.Controllers
                 Language = language,
                 Extension = GetFileExtensionsMapping(language),
                 CodeSnippet = GetDefaultCodeSnippet(language),
-                IsNew = true
+                IsNew = true,
+                UserId = (int)userId
             };
 
             var allDevSpaces = await _createDevSpace.GetDevSpaces(); // This retrieves all folders
@@ -102,7 +109,8 @@ namespace devspark_core_web.Areas.DeveloperPortal.Controllers
                 var newFolder = new devspark_core_model.DeveloperPortalModels.Folder
                 {
                     FolderTitle = folderName,
-                    Files = new List<FileModel> { newFile }
+                    Files = new List<FileModel> { newFile },
+                    UserId = (int)userId
                 };
 
                 // Insert the new folder and its files into the database
@@ -205,6 +213,7 @@ namespace devspark_core_web.Areas.DeveloperPortal.Controllers
 
             // Check if the folder already exists
             var folder = allDevSpaces.FirstOrDefault(f => f.FolderTitle == folderName);
+            int? userId = HttpContext.Session.GetInt32("userId");
 
             if (folder != null)
             {
@@ -217,7 +226,8 @@ namespace devspark_core_web.Areas.DeveloperPortal.Controllers
                 // If the folder doesn't exist, create a new folder with the new file
                 var newFolder = new devspark_core_model.DeveloperPortalModels.Folder
                 {
-                    FolderTitle = folderName
+                    FolderTitle = folderName,
+                    UserId = (int)userId
                 };
 
                 // create new folder

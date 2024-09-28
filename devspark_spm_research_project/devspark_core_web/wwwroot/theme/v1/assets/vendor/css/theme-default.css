@@ -230,30 +230,30 @@ button.list-group-item-primary {
 
 .btn-primary {
     color: #fff;
-    background-color: #696cff;
-    border-color: #696cff;
+    background-color: #081C38;
+    border-color: #081C38;
     box-shadow: 0 0.125rem 0.25rem 0 rgba(105, 108, 255, 0.4);
 }
 
     .btn-primary:hover {
         color: #fff;
-        background-color: #5f61e6;
-        border-color: #5f61e6;
+        background-color: #081C38;
+        border-color: #081C38;
         transform: translateY(-1px);
     }
 
     .btn-check:focus + .btn-primary, .btn-primary:focus, .btn-primary.focus {
         color: #fff;
-        background-color: #5f61e6;
-        border-color: #5f61e6;
+        background-color: #081C38;
+        border-color: #081C38;
         transform: translateY(0);
         box-shadow: none;
     }
 
     .btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
         color: #fff;
-        background-color: #595cd9;
-        border-color: #595cd9;
+        background-color: #081C38;
+        border-color: #081C38;
     }
 
         .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
@@ -272,8 +272,8 @@ button.list-group-item-primary {
 
     .btn-outline-primary:hover {
         color: #fff;
-        background-color: #5f61e6;
-        border-color: #5f61e6;
+        background-color: #081C38;
+        border-color: #081C38;
         box-shadow: 0 0.125rem 0.25rem 0 rgba(105, 108, 255, 0.4);
         transform: translateY(-1px);
     }

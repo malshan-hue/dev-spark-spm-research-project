@@ -2894,7 +2894,7 @@ textarea.form-control-lg {
     border: 1px solid transparent;
     padding: 0.4375rem 1.25rem;
     font-size: 0.9375rem;
-    border-radius: 0.375rem;
+    border-radius: 0.2rem;
     transition: all 0.2s ease-in-out;
 }
 
@@ -2935,7 +2935,7 @@ textarea.form-control-lg {
 .btn-lg, .btn-group-lg > .btn {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.2rem;
 }
 
 .btn-sm, .btn-group-sm > .btn {
@@ -4128,7 +4128,7 @@ textarea.form-control-lg {
     background-color: #fff;
     background-clip: border-box;
     border: 0 solid #d9dee3;
-    border-radius: 0.5rem;
+    border-radius: 0rem;
 }
 
     .card > hr {
@@ -4231,14 +4231,14 @@ textarea.form-control-lg {
 
 .card-img,
 .card-img-top {
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
 }
 
 .card-img,
 .card-img-bottom {
-    border-bottom-right-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0rem;
+    border-bottom-left-radius: 0rem;
 }
 
 .card-group > .card {

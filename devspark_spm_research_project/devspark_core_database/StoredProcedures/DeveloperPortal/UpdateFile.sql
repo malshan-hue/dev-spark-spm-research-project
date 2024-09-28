@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[UpdateFile]
-    @JsonData NVARCHAR(MAX) = '',
+    @jsonString NVARCHAR(MAX) = '',
     @executionStatus BIT OUT
 AS
 BEGIN
@@ -14,7 +14,7 @@ BEGIN
         SELECT 
             @FileId = [Id],
             @FileTitle = [FileTitle]
-        FROM OPENJSON(@JsonData, '$')
+        FROM OPENJSON(@jsonString, '$')
         WITH (
             [Id] INT,
             [FileTitle] NVARCHAR(255)

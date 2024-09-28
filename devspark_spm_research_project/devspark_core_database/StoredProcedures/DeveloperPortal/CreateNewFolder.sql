@@ -7,11 +7,12 @@ BEGIN
         BEGIN TRANSACTION;
         
         -- Insert data into Folder table
-        INSERT INTO [Folder] ([FolderTitle])
-        SELECT [FolderTitle]
+        INSERT INTO [Folder] ([FolderTitle], [UserId])
+        SELECT [FolderTitle], [UserId]
         FROM OPENJSON(@jsonString, '$')
         WITH (
-            [FolderTitle] NVARCHAR(255)
+            [FolderTitle] NVARCHAR(255),
+            [UserId] INT
         );
         
         -- Commit the transaction

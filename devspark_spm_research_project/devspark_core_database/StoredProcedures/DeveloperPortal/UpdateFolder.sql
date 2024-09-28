@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[UpdateFolder]
-    @JsonData NVARCHAR(MAX) = '',
+    @jsonString NVARCHAR(MAX) = '',
     @executionStatus BIT OUT
 AS
 BEGIN
@@ -14,7 +14,7 @@ BEGIN
         SELECT 
             @FolderId = [Id],
             @FolderTitle = [FolderTitle]
-        FROM OPENJSON(@JsonData, '$')
+        FROM OPENJSON(@jsonString, '$')
         WITH (
             [Id] INT,
             [FolderTitle] NVARCHAR(255)

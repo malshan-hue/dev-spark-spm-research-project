@@ -22,5 +22,7 @@ namespace devspark_core_model.DeveloperPortalModels
 
         [DisplayName("Files")]
         public List<FileModel> Files { get; set; }
+
+        public int UserId { get; set; }
     }
 }

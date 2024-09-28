@@ -28,5 +28,7 @@ namespace devspark_core_model.DeveloperPortalModels
 
         public bool IsNew { get; set; }
 
+        public int UserId { get; set; }
+
     }
 }
