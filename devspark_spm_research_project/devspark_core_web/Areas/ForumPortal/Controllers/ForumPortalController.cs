@@ -1,7 +1,11 @@
 ﻿using devspark_core_business_layer.ForumPortalService.Interfaces;
+using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_model.ForumPortalModels;
+using devspark_core_model.LearnerPortalModels;
 using devspark_core_web.Areas.ForumPortal.Models;
+using devspark_core_web.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -185,7 +189,27 @@ namespace devspark_core_web.Areas.ForumPortal.Controllers
             return View("Error");
         }
 
+        [HttpPost]
+        public async Task<ActionResult> GenerateQuestionPdf(int questionId)
+        {
+            var question = await _forumService.RetrieveQuestionById(questionId);
+            var answers = await _forumService.RetrieveAnswersByQuestionId(questionId);
 
+            var viewModel = new QuestionDetailViewModel
+            {
+                Question = question,
+                Answers = answers
+            };
+
+            string htmlContent = await ITextSharpPdfHelper.RenderViewToStringAsync(this, "AnswersTemplate", viewModel);
+
+            byte[] pdfBytes = ITextSharpPdfHelper.GeneratePdfFromHtml(htmlContent);
+
+            var pdfName = question.Title + ".pdf";
+
+            // Return the PDF as a file download
+            return File(pdfBytes, "application/pdf", pdfName);
+        }
 
 
     }
