@@ -1,6 +1,7 @@
 ﻿using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_model.LearnerPortalModels;
 using devspark_core_model.SystemModels;
+using devspark_core_web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
             _configuration = configuration;
             _openAIStaticService = openAIStaticService;
             _courseService = courseService;
-            _dataProtector = dataProtectionProvider.CreateProtector("courseprotect");
+            _dataProtector = dataProtectionProvider.CreateProtector(GlobalHelpers.LearnerPortalDataProtectorSecret);
         }
 
         [HttpGet]
@@ -119,6 +120,7 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
             int decryptedCourseId = Convert.ToInt32(_dataProtector.Unprotect(courseId));
             Course course = await _courseService.GetCourseByCourseId(decryptedCourseId);
             course.EncryptedKey = courseId;
+            course.Modules.ToList().ForEach(e => { e.EncryptedKey = _dataProtector.Protect(e.ModuleId.ToString()); });
             return View(course);
         }
 
