@@ -6,7 +6,8 @@
     [Language] NVARCHAR(50),
     [Extension] NVARCHAR(50),
     [CodeSnippet] NVARCHAR(MAX),
-    [IsNew] BIT NOT NULL DEFAULT 0
+    [IsNew] BIT NOT NULL DEFAULT 0,
+    [UserId] INT NOT NULL
      
 	CONSTRAINT [Files_FilesId_PK] PRIMARY KEY CLUSTERED ([Id]),
     CONSTRAINT [Files_FolderId_FK] FOREIGN KEY ([FolderId]) REFERENCES [Folder]([Id]) 
