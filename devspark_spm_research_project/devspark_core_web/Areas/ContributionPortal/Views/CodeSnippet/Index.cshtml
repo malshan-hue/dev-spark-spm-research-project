@@ -20,16 +20,14 @@
             @foreach (var snippet in Model)
             {
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <div class="card h-50">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">@snippet.Title</h5>
-                            <h6 class="card-subtitle text-muted">@snippet.Tags</h6>
-                            <p class="card-text">@snippet.Description</p>
+                            <h6 class="card-subtitle text-muted">@snippet.Language</h6>
+                            <p class="card-text"><b>Description:</b> @snippet.Description</p>
 
-                            <!-- Iframe for live preview -->
-                            <iframe id="previewIframe_@snippet.Id" class="w-100" style="height: 300px;"></iframe>
-
-                            <a href="javascript:void(0);" class="card-link">Copy Code</a>
+                            <!-- Copy Code Link with data-code attribute -->
+                            <a href="javascript:void(0);" class="card-link copy-code-link" data-code="@snippet.Code">Copy-Code</a>
                             <a asp-action="Edit" asp-controller="CodeSnippet" asp-route-id="@snippet.Id" class="card-link">Edit</a>
                         </div>
                     </div>
@@ -38,38 +36,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <!-- Include jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- Include CodeMirror Script and Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/htmlmixed/htmlmixed.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            // Convert the C# Model to a JavaScript object
-            var snippets = @Html.Raw(Json.Serialize(Model));
-
-            // Function to update the iframe content
-            function updateIframeContent(iframeId, snippetCode) {
-                var iframe = document.getElementById(iframeId);
-                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                iframeDoc.open();
-                iframeDoc.write(snippetCode);
-                iframeDoc.close();
-            }
-
-            // Loop through each snippet and initialize live preview
-            snippets.forEach(function (snippet) {
-                var iframeId = "previewIframe_" + snippet.Id;
-                var snippetCode = snippet.Code;
-
-                // Update iframe content initially with the saved snippet code
-                updateIframeContent(iframeId, snippetCode);
-            });
-        });
-    </script>
-}
