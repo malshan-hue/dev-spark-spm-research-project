@@ -24,7 +24,23 @@
                             <textarea asp-for="Explanation" class="form-control"></textarea>
                             <span asp-validation-for="Explanation" class="text-danger"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        @if (Model.UserId == ViewBag.loggedUserId)
+                        {
+                            <button type="submit" class="btn btn-primary">Update Answer</button>
+                        }
+                        else
+                        {
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-offset="0,4"
+                                    data-bs-placement="right"
+                                    data-bs-html="true"
+                                    title="<i class='bx bx-trending-up bx-xs' ></i> <span>You don't have access to update this Answer</span>">
+                                Update Answer
+                            </button>
+                        }
+                         
                     </form>
                 </div>
             </div>

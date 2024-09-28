@@ -12,7 +12,7 @@ BEGIN
         WITH(
             [Title] NVARCHAR(255),
             [Description] NVARCHAR(MAX),
-            [UserId] NVARCHAR(255)
+            [UserId] INT
              
              
         );
