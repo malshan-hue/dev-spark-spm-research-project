@@ -20,7 +20,7 @@ namespace devspark_core_web.Areas.DeveloperPortal.Controllers
 {
     [Authorize]
     [Area("DeveloperPortal")]
-    public class DevSpaceController : Controller
+    public class DevSpaceController : Controller 
     {
         private readonly ICreateDevSpace _createDevSpace;
         private static readonly HttpClient client = new HttpClient();
