@@ -152,7 +152,7 @@
             margin-bottom: 10px;
         }
 
-        .card {
+        .card1 {
             display: flex;
             flex-direction:row;
             justify-content: space-between;
@@ -240,7 +240,7 @@
                                     @foreach (var file in folder.Files)
                                     {
                                         <div class="cards-container">
-                                            <div class="card">
+                                            <div class="card1">
                                                 <div class="card-info">
                                                     <span class="material-icons">code</span>
                                                 <div onclick="location.href='@Url.Action("DevPage", "DevSpace", new {Folder_id = folder.Id, File_id = file.Id, File_Title = file.FileTitle, File_Language = file.Language, File_CodeSnippet = file.CodeSnippet })'">
