@@ -1,0 +1,138 @@
+﻿@using devspark_core_model.LearnerPortalModels
+
+@model Course
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Course</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        h1, h2, h3, h4, h5 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .toc {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+            .toc h2 {
+                margin-top: 30px;
+                text-decoration: underline;
+            }
+
+        .code-container {
+            background-color: #f5f5f5;
+            border-left: 5px solid #007bff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: auto;
+            white-space: pre; /* Preserve formatting */
+            font-family: 'Courier New', Courier, monospace; /* Monospace font for code */
+        }
+
+        .badge {
+            background-color: #007bff;
+            color: white;
+            border-radius: 12px;
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Course Name -->
+    <h1>@Model.CourseName</h1>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            @foreach (var module in Model.Modules)
+            {
+                <li>@module.Title</li>
+                <ul>
+                    @foreach (var subModule in @module.Submodules)
+                    {
+                        <li>@subModule.Title</li>
+                    }
+
+                </ul>
+            }
+        </ul>
+    </div>
+
+    @foreach (var module in Model.Modules)
+    {
+        <!-- Module Title -->
+        <div class="section">
+            <h2>@module.Title</h2>
+            <p>@module.Description</p>
+        </div>
+
+        @foreach (var submodule in module.Submodules)
+        {
+            <!-- Submodules -->
+            <div class="section">
+                <h3>@submodule</h3>
+                <p>@submodule.Content</p>
+
+                @foreach (var tutorial in submodule.Tutorials)
+                {
+                    <h4>@tutorial.Title</h4>
+                    <p>@tutorial.Content</p>
+
+                    @foreach (var codeSnippet in @tutorial.CodeSnippets)
+                    {
+                        <div class="code-container">
+                            <h5>Code Snippet:</h5>
+                            <pre>
+                                @codeSnippet.Code
+                            </pre>
+                        </div>
+                    }
+
+                }
+
+                @foreach (var exercise in submodule.Exercises)
+                {
+                    <h4>Exercise:</h4>
+                    <p>@exercise.Description</p>
+                }
+            </div>
+        }
+    }
+
+    <div class="footer">
+        <p>© 2024 Dev Spark</p>
+    </div>
+
+</body>
+</html>

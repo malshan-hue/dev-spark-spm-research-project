@@ -21,12 +21,12 @@
     <div class="row">
 
         <!--left card-->
-        <div class="col-8">
+        <div class="col-12">
             <div class="row">
 
                 @foreach(var course in Model)
                 {
-                    <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="col-md-6 col-lg-3 mb-3">
                         <div class="card text-center">
                             <div class="card-header"><span class="badge rounded-pill bg-warning">@course.ProgressStatusEnumDisplayName</span></div>
                             <div class="card-body">
@@ -43,8 +43,8 @@
         </div>
 
         <!--right card-->
-        <div class="col-4">
-            @* <div class="row">
+        @* <div class="col-4">
+            <div class="row">
                 <div class="col-12 text-center">
 
                     <form asp-area ="LernerPortal" asp-controller="Dashboard" asp-action="CheckNotification" method="post">
@@ -59,8 +59,8 @@
                         <button type="submit" class="btn btn-primary btn-lg">Send Email</button>
                     </form>
                 </div>
-            </div> *@
-        </div>
+            </div>
+        </div> *@
         
     </div>
 

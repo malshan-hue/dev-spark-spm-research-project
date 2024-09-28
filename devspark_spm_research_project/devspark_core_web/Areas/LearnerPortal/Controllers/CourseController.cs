@@ -138,5 +138,21 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
             return Json(courseProgress);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> GenerateCoursePdf(string courseId)
+        {
+            int decryptedCourseId = Convert.ToInt32(_dataProtector.Unprotect(courseId));
+            Course course = await _courseService.GetCourseByCourseId(decryptedCourseId);
+
+            string htmlContent = await ITextSharpPdfHelper.RenderViewToStringAsync(this, "CourseTemplate", course);
+
+            byte[] pdfBytes = ITextSharpPdfHelper.GeneratePdfFromHtml(htmlContent);
+
+            var pdfName = course.CourseName + ".pdf";
+
+            // Return the PDF as a file download
+            return File(pdfBytes, "application/pdf", pdfName);
+        }
+
     }
 }

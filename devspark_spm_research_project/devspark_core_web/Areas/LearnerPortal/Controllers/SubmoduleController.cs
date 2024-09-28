@@ -1,10 +1,13 @@
 ﻿using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_web.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
 namespace devspark_core_web.Areas.LearnerPortal.Controllers
 {
+    [Authorize]
+    [Area("LearnerPortal")]
     public class SubmoduleController : Controller
     {
         private readonly ISubmoduleService _submoduleService;

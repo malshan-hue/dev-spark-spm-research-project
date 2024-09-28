@@ -11,11 +11,13 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
     [Area("LearnerPortal")]
     public class ModuleController : Controller
     {
+        private readonly ICourseService _courseService;
         private readonly IModuleService _moduleService;
         private IDataProtector _dataProtector;
 
-        public ModuleController(IModuleService moduleService, IDataProtectionProvider dataProtectionProvider)
+        public ModuleController(ICourseService courseService, IModuleService moduleService, IDataProtectionProvider dataProtectionProvider)
         {
+            _courseService = courseService;
             _moduleService = moduleService;
             _dataProtector = dataProtectionProvider.CreateProtector(GlobalHelpers.LearnerPortalDataProtectorSecret);
         }
@@ -29,5 +31,6 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
 
             return View(module);
         }
+
     }
 }

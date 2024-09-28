@@ -124,6 +124,7 @@ builder.Configuration.AddJsonFile("prompts.json", optional: false, reloadOnChang
 
 builder.Services.AddSingleton<ICourseService, CourseServiceImpl>();
 builder.Services.AddSingleton<IModuleService, ModuleServiceImpl>();
+builder.Services.AddSingleton<ISubmoduleService, SubModuleServiceImpl>();
 #endregion
 
 #region Developer Portal Services
