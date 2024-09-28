@@ -62,7 +62,7 @@ namespace devspark_core_web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userPrincipalName = User.FindFirst(ClaimTypes.Upn)?.Value;
-                var userNameIdentifier = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var userNameIdentifier = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
                 var user = _userService.GetUserByEntraIdNameIdentifier(userNameIdentifier).Result;
 
