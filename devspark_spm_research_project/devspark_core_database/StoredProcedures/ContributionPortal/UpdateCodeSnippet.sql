@@ -19,11 +19,11 @@ BEGIN
 
         -- Update the corresponding record
         UPDATE CodeSnippetLibrary
-        SET Title = @Title,
-            Language = @Language,
-            Code = @Code,
-            Description = @Description,
-            Tags = @Tags
+        SET [Title] = @Title,
+            [Language] = @Language,
+            [Code] = @Code,
+            [Description] = @Description,
+            [Tags] = @Tags
         WHERE Id = @Id;
 
         SET @executionStatus = 1;  -- Indicate success
