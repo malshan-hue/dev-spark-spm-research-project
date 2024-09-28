@@ -160,7 +160,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
 
 app.MapAreaControllerRoute(
     name: "LearnerPortal",
