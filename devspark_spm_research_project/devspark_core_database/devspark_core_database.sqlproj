@@ -114,5 +114,8 @@
     <Build Include="Tables\ContributionPortalTables\CodeSnippetLibrary.sql" />
     <Build Include="StoredProcedures\ContributionPortal\GetAllCodeSnippets.sql" />
     <Build Include="StoredProcedures\System\GetUserByEntraIdNameIdentifier.sql" />
+    <Build Include="StoredProcedures\ContributionPortal\GetCodeSnippetById.sql" />
+    <Build Include="StoredProcedures\ContributionPortal\UpdateCodeSnippet.sql" />
+    <Build Include="StoredProcedures\ContributionPortal\DeleteCodeSnippet.sql" />
   </ItemGroup>
 </Project>
