@@ -51,7 +51,8 @@ namespace devspark_core_web.Areas.LearnerPortal.Controllers
             prompts.SystemMessage = prompts.SystemMessage.Replace("[*4*]", course.AchivingLevelEnumDisplayName);
             prompts.SystemMessage = prompts.SystemMessage.Replace("[*5*]", course.StudyPeriodDisplayName);
 
-            var userId = 2;
+            int userId = (int)HttpContext.Session.GetInt32("userId");
+
             var generatedCourse = await _openAIStaticService.GenerateCourse(prompts);
             generatedCourse.AreaOfStudyEnum = course.AreaOfStudyEnum;
             generatedCourse.CurrentStatusEnum = course.CurrentStatusEnum;

@@ -13,7 +13,7 @@ namespace devspark_core_model.SystemModels
         public int UserId { get; set; }
         // Basic User Information
         public string Id { get; set; } // Unique identifier
-        public bool? AccountEnabled {  get; set; } 
+        public bool AccountEnabled {  get; set; } 
         public string DisplayName { get; set; } // Display name
         public string GivenName { get; set; } // First name
         public string Surname { get; set; } // Last name

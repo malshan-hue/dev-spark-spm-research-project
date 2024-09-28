@@ -113,5 +113,6 @@
     <Build Include="StoredProcedures\ForumPortal\Answer\RetrieveAnswerById.sql" />
     <Build Include="Tables\ContributionPortalTables\CodeSnippetLibrary.sql" />
     <Build Include="StoredProcedures\ContributionPortal\GetAllCodeSnippets.sql" />
+    <Build Include="StoredProcedures\System\GetUserByEntraIdNameIdentifier.sql" />
   </ItemGroup>
 </Project>
