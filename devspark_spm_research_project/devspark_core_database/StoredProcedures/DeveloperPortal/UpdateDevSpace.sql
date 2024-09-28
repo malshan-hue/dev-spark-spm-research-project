@@ -15,15 +15,16 @@ BEGIN
         );
 
         -- Insert only the new file into the Files table
-        INSERT INTO [Files] ([FolderId], [FileTitle], [Language], [Extension], [CodeSnippet])
-        SELECT @FolderId, [FileTitle], [Language], [Extension], [CodeSnippet]
+        INSERT INTO [Files] ([FolderId], [FileTitle], [Language], [Extension], [CodeSnippet], [UserId])
+        SELECT @FolderId, [FileTitle], [Language], [Extension], [CodeSnippet], [UserId]
         FROM OPENJSON(@jsonString, '$.Files')
         WITH (
             [FileTitle] NVARCHAR(255),
             [Language] NVARCHAR(50),
             [Extension] NVARCHAR(50),
             [CodeSnippet] NVARCHAR(MAX),
-            [IsNew] BIT
+            [IsNew] BIT,
+            [UserId] INT
         )
         WHERE [IsNew] = 1; -- Only insert files flagged as new
 

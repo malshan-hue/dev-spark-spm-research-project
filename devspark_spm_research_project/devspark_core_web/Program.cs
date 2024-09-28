@@ -56,6 +56,7 @@ builder.Services.AddSingleton(sp =>
 
 builder.Services.AddSingleton<IMailService, MailServiceImpl>();
 builder.Services.AddDataProtection();
+builder.Services.AddSession();
 
 #endregion
 
@@ -160,6 +161,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapAreaControllerRoute(
     name: "LearnerPortal",
