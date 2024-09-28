@@ -38,6 +38,7 @@ namespace devspark_core_model.LearnerPortalModels
 
         [JsonPropertyName("submodules")]
         public List<Submodule> Submodules { get; set; }
+        public Course Course { get; set; }
 
         #endregion
     }

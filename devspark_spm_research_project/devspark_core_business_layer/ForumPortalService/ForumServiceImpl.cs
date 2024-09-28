@@ -32,6 +32,7 @@ namespace devspark_core_business_layer.ForumPortalService
         public async Task<bool> InsertQuestion(Question question)
         {
             string questionJsonString = JsonConvert.SerializeObject(question);
+            Console.WriteLine(questionJsonString);
             DataTransactionManager dataTransactionManager = new DataTransactionManager(_databaseService.GetConnectionString());
             bool status = dataTransactionManager.questionDataManager.InsertData("InsertQuestion", questionJsonString);
             return status;

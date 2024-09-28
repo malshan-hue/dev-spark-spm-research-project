@@ -1,5 +1,6 @@
 ﻿using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_model.LearnerPortalModels;
+using devspark_core_web.Helpers;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace devspark_core_web.Areas.LearnerPortal.ViewComponents
         public CourseProgressViewComponent(ICourseService courseService, IDataProtectionProvider dataProtectionProvider)
         {
             _courseService = courseService;
-            _dataProtector = dataProtectionProvider.CreateProtector("courseprotect");
+            _dataProtector = dataProtectionProvider.CreateProtector(GlobalHelpers.LearnerPortalDataProtectorSecret);
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string courseId)
