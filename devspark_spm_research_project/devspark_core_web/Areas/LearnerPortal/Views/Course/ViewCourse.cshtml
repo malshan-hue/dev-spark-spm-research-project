@@ -42,7 +42,19 @@
         {
             <div class="col-md-6 col-lg-4 mb-3">
                 <div class="card text-center">
-                    <div class="card-header"><span class="badge rounded-pill bg-warning">@module.ProgressStatusEnumDisplayName</span></div>
+                    @if(module.ProgressStatusEnum == ProgressStatusEnum.NotStarted)
+                    {
+                        <div class="card-header"><span class="badge rounded-pill bg-warning">@module.ProgressStatusEnumDisplayName</span></div>
+                    }
+                    else if (module.ProgressStatusEnum == ProgressStatusEnum.InProgress)
+                    {
+                        <div class="card-header"><span class="badge rounded-pill bg-dark">@module.ProgressStatusEnumDisplayName</span></div>
+                    }
+                    else if (module.ProgressStatusEnum == ProgressStatusEnum.Completed)
+                    {
+                        <div class="card-header"><span class="badge rounded-pill bg-success">@module.ProgressStatusEnumDisplayName</span></div>
+                    }
+
                     <div class="card-body">
                         <h5 class="card-title">@module.Title</h5>
                         <p class="card-text">@module.Description</p>

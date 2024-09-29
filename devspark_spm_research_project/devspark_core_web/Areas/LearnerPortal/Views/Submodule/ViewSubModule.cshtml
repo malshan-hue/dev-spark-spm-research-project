@@ -20,7 +20,10 @@
         </div>
 
         <div class="col-6 text-end">
-            <a href="@Url.Action("CreateCourse", "Course", new { Area = "LearnerPortal"})" class="btn btn-primary btn-lg" type="button">Download Sub Module</a>
+            <form asp-action="GenerateCoursePdf" asp-controller="Course" method="post">
+                <input type="hidden" name="courseId" value="@Model.EncryptedKey" />
+                <button type="submit" class="btn btn-primary btn-lg">Download Submodule </button>
+            </form>
         </div>
 
     </div>
@@ -44,7 +47,7 @@
         </div>
 
         <div class="col-6 text-end">
-            <a href="@Url.Action("CreateCourse", "Course", new { Area = "LearnerPortal"})" class="btn btn-primary btn-lg" type="button">Try Tutorials</a>
+            <a href="@Url.Action("HomeIndex", "DevSpace", new { Area = "DeveloperPortal"})" class="btn btn-primary btn-lg" type="button">Try Tutorials</a>
         </div>
 
     </div>

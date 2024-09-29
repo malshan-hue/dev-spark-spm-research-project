@@ -17,4 +17,11 @@ BEGIN
     WHERE C.CourseId = @courseId
     FOR JSON PATH
 
+    IF EXISTS(SELECT CourseId FROM Course WHERE ProgressStatusEnum = 1 AND CourseId = @courseId)
+    BEGIN
+        
+        UPDATE Course SET ProgressStatusEnum = 2 WHERE CourseId = @courseId
+
+    END
+
 END

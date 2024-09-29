@@ -16,4 +16,11 @@ BEGIN
     WHERE M.ModuleId = @moduleId
     FOR JSON PATH
 
+    IF EXISTS(SELECT ModuleId FROM Module WHERE ProgressStatusEnum = 1 AND ModuleId = @moduleId)
+    BEGIN
+        
+        UPDATE Module SET ProgressStatusEnum = 2 WHERE ModuleId = @moduleId
+
+    END
+
 END

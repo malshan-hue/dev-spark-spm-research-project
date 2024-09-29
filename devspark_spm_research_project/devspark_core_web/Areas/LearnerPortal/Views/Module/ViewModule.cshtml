@@ -15,7 +15,10 @@
         </div>
 
         <div class="col-6 text-end">
-            <a href="@Url.Action("CreateCourse", "Course", new { Area = "LearnerPortal"})" class="btn btn-primary btn-lg" type="button">Download module</a>
+            <form asp-action="GenerateCoursePdf" asp-controller="Course" method="post">
+                <input type="hidden" name="courseId" value="@Model.EncryptedKey" />
+                <button type="submit" class="btn btn-primary btn-lg">Download Module </button>
+            </form>
         </div>
 
     </div>
@@ -45,7 +48,18 @@
         {
             <div class="col-md-6 col-lg-4 mb-3">
                 <div class="card text-center">
-                    <div class="card-header"><span class="badge rounded-pill bg-warning">@subModule.ProgressStatusEnumDisplayName</span></div>
+                    @if (subModule.ProgressStatusEnum == ProgressStatusEnum.NotStarted)
+                    {
+                        <div class="card-header"><span class="badge rounded-pill bg-warning">@subModule.ProgressStatusEnumDisplayName</span></div>
+                    }
+                    else if (subModule.ProgressStatusEnum == ProgressStatusEnum.InProgress)
+                    {
+                        <div class="card-header"><span class="badge rounded-pill bg-dark">@subModule.ProgressStatusEnumDisplayName</span></div>
+                    }
+                    else if (subModule.ProgressStatusEnum == ProgressStatusEnum.Completed)
+                    {
+                        <div class="card-header"><span class="badge rounded-pill bg-success">@subModule.ProgressStatusEnumDisplayName</span></div>
+                    }
                     <div class="card-body">
                         <h5 class="card-title">@subModule.Title</h5>
                         <p class="card-text">@subModule.Content</p>

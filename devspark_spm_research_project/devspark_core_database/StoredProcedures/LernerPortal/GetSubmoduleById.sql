@@ -16,4 +16,12 @@ BEGIN
     WHERE SM.SubmoduleId = @submoduleId
     FOR JSON PATH
 
+    IF EXISTS(SELECT SubmoduleId FROM Submodule WHERE ProgressStatusEnum = 1 AND SubmoduleId = @submoduleId)
+    BEGIN
+        
+        UPDATE Submodule SET ProgressStatusEnum = 2 WHERE SubmoduleId = @submoduleId
+        UPDATE Tutorial SET ProgressStatusEnum = 2 WHERE SubmoduleId = @submoduleId
+
+    END
+
 END
