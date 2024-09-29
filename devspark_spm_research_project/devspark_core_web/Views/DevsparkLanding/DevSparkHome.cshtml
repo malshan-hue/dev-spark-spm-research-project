@@ -15,13 +15,12 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-7">
                         <div class="card-body">
-                            <h5 class="card-title text-primary">Congratulations @User.FindFirstValue("name") 🎉</h5>
+                            <h5 class="card-title text-primary">Welcome @User.FindFirstValue("name") 🎉</h5>
                             <p class="mb-4">
-                                You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                                your profile.
+                                We’re excited to see you back. Check your profile for the latest updates and continue your great work!
                             </p>
 
-                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+                            @* <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a> *@
                         </div>
                     </div>
                     <div class="col-sm-5 text-center text-sm-left">
@@ -38,7 +37,7 @@
         </div>
     </div>
 
-    <div class="row mb-5">
+    <div class="row mb-6 justify-content-center">
 
         <!--left card-->
         <div class="col-md-6 col-lg-8">
@@ -47,7 +46,7 @@
                     <div class="card text-center mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Learner Portal</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <p class="card-text">Explore educational resources and track your learning progress as you advance through your journey.</p>
                             <a href="@Url.Action("Index", "Dashboard", new { Area = "LearnerPortal" })" class="btn btn-primary">Let's learn</a>
                         </div>
                     </div>
@@ -57,7 +56,7 @@
                     <div class="card text-center mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Developer Portal</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <p class="card-text">Collaborate, code, and manage projects efficiently with development tools and resources.</p>
                             <a href="@Url.Action("HomeIndex", "DevSpace", new { Area = "DeveloperPortal" })" class="btn btn-primary">Start Coding</a>
                         </div>
                     </div>
@@ -69,8 +68,8 @@
                     <div class="card text-center mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Contribbution Portal</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="javascript:void(0)" class="btn btn-primary">Go somewhere</a>
+                            <p class="card-text">Contribute to projects and share your expertise with the community.</p>
+                            <a href="@Url.Action("Index", "CodeSnippet", new {Area = "ContributionPortal"})" class="btn btn-primary">Need Help? Visit Code Snippet Libraray</a>
                         </div>
                     </div>
                 </div>
@@ -79,8 +78,8 @@
                     <div class="card text-center mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Forum Portal</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="javascript:void(0)" class="btn btn-primary">Go somewhere</a>
+                            <p class="card-text">Engage in discussions, share knowledge, and seek support from the community.</p>
+                            <a href="@Url.Action("Index", "ForumPortal", new {Area = "ForumPortal"})" class="btn btn-primary">Get Help from Community</a>
                         </div>
                     </div>
                 </div>
@@ -89,7 +88,7 @@
         </div>
 
         <!--right card-->
-        <div class="col-md-6 col-lg-4">
+        @* <div class="col-md-6 col-lg-4">
             <div class="row">
                 <div class="col-12">
                     <div class="card h-100">
@@ -208,7 +207,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> *@
     </div>
 </div>
 <!-- / Content -->

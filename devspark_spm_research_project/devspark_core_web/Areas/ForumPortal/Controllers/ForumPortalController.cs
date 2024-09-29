@@ -42,13 +42,8 @@ namespace devspark_core_web.Areas.ForumPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateQuestion(Question question)
         {
-           // Get the logged-in user's ID
-            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-           // Set the UserId on the question model
-            // question.UserId = userId;
-
-
+            int userId = Convert.ToInt32(HttpContext.Session.GetInt32("userId"));
+            question.UserId = userId;
             bool status = await _forumService.InsertQuestion(question);
 
             if (status)
@@ -71,15 +66,17 @@ namespace devspark_core_web.Areas.ForumPortal.Controllers
                 Question = question,
                 Answers = answers
             };
-
+            ViewBag.loggedUserId = Convert.ToInt32(HttpContext.Session.GetInt32("userId"));
             return View(viewModel);
         }
         //Display a form to create a new answer for a specific question
         [HttpGet]
         public async Task<IActionResult> CreateAnswer(int questionId)
         {
+           
             var question = await _forumService.RetrieveQuestionById(questionId);
-            var answer = new Answer { QuestionId = questionId, Question = question };
+            var answer = new Answer { QuestionId = questionId, Question = question  };
+            
             return View(answer);
         }
 
@@ -89,6 +86,9 @@ namespace devspark_core_web.Areas.ForumPortal.Controllers
         {
             if (ModelState.IsValid)
             {
+                int userId = Convert.ToInt32(HttpContext.Session.GetInt32("userId"));
+                // Set the UserId on the question model
+                answer.UserId = userId;
                 bool status = await _forumService.InsertAnswer(answer);
                 if (status)
                 {
@@ -111,6 +111,7 @@ namespace devspark_core_web.Areas.ForumPortal.Controllers
             {
                 return NotFound();
             }
+            ViewBag.loggedUserId = Convert.ToInt32(HttpContext.Session.GetInt32("userId"));
             return View(question);
         }
 
@@ -126,6 +127,7 @@ namespace devspark_core_web.Areas.ForumPortal.Controllers
                     return RedirectToAction("ViewQuestion", "ForumPortal", new { questionId = question.QuestionId });
                 }
             }
+            
             return View(question);
         }
 
@@ -140,7 +142,7 @@ namespace devspark_core_web.Areas.ForumPortal.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.loggedUserId = Convert.ToInt32(HttpContext.Session.GetInt32("userId"));
             return View(answer);
         }
 

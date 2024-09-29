@@ -18,6 +18,7 @@
                     <form asp-controller="ForumPortal" asp-action="UpdateQuestion" id="QuestionUpdate" method="POST">
                         <!-- Hidden field for questionId -->
                         <input type="hidden" asp-for="QuestionId" />
+                        
                          
                         <div class="mb-3">
                             <label asp-for="Title" class="form-label">@Html.DisplayNameFor(Model => Model.Title)</label>
@@ -32,7 +33,27 @@
                             <textarea asp-for="Description" class="form-control"></textarea>
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        @if (Model.UserId == ViewBag.loggedUserId)
+                        {
+                            <button type="submit" class="btn btn-primary">Update Question</button>
+                        }
+                        else
+                        {
+                             <button type="button"
+                                    class="btn btn-primary"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-offset="0,4"
+                                    data-bs-placement="right"
+                                    data-bs-html="true"
+                                    title="<i class='bx bx-trending-up bx-xs' ></i> <span>You don't have access to update this question</span>">
+                                Update Question
+                            </button> 
+                           
+                        }
+
+                            
+                   
+
                     </form>
                 </div>
             </div>

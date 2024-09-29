@@ -15,7 +15,7 @@ namespace devspark_core_model.ForumPortalModels
 
         [DisplayName("Explanation")]
         public string Explanation { get; set; }
-        public string? UserId { get; set; }
+        public int UserId { get; set; }
         public DateTime DatePosted { get; set; }
         public Question? Question { get; set; }
 
