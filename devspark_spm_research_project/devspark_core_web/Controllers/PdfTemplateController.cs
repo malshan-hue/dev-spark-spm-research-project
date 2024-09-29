@@ -13,5 +13,10 @@ namespace devspark_core_web.Controllers
         {
             return View();
         }
+
+        public IActionResult CodeLibrarySnippetTemplate()
+        {
+            return View();
+        }
     }
 }

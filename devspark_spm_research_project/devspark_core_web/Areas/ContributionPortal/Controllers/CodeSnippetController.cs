@@ -1,5 +1,9 @@
 ﻿using devspark_core_business_layer.ContributionPortalService.Interfaces;
+using devspark_core_business_layer.LearnerPortalService.Interfaces;
 using devspark_core_model.ContributionPortalModels;
+using devspark_core_model.LearnerPortalModels;
+using devspark_core_web.Helpers;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
 namespace devspark_core_web.Areas.ContributionPortal.Controllers
@@ -84,6 +88,21 @@ namespace devspark_core_web.Areas.ContributionPortal.Controllers
 
             // If deletion fails, return to the view with an error
             return View("Error", new { message = "Error deleting the code snippet" });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GenerateCodeSnippetPdf(int id)
+        {
+            var snippet = await _codeSnippetService.GetCodeSnippetById(id);
+
+            string htmlContent = await ITextSharpPdfHelper.RenderViewToStringAsync(this, "CodeLibrarySnippetTemplate", snippet);
+
+            byte[] pdfBytes = ITextSharpPdfHelper.GeneratePdfFromHtml(htmlContent);
+
+            var pdfName = snippet.Title + ".pdf";
+
+            // Return the PDF as a file download
+            return File(pdfBytes, "application/pdf", pdfName);
         }
     }
 }
