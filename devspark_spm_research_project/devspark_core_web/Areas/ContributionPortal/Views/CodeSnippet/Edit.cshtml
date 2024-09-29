@@ -8,21 +8,9 @@
 <div class="content-wrapper">
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="row mb-4">
-            <div class="col-6">
-                <h4 class="fw-bold py-3 mb-4">
-                    <span class="text-muted fw-light">CodeSnippetLibrary /</span><span class="text-muted fw-light" asp-action="Index">Elements /</span> Create
-                </h4>
-            </div>
-            
-            <div class="col-6 text-end">
-                <form asp-action="GenerateCodeSnippetPdf" asp-controller="CodeSnippet" method="post">
-                    <input type="hidden" name="id" value="@Model.Id" />
-                    <button type="submit" class="btn btn-primary btn-lg">Download Snippet</button>
-                </form>
-            </div>
-        </div>
-        
+        <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">CodeSnippetLibrary /</span><span class="text-muted fw-light" asp-action="Index"><a href="@Url.Action("Index", "CodeSnippet")" style="color:#a1acb8;">Elements</a> /</span> Create
+        </h4>
 
         <!-- Basic Layout & Basic with Icons -->
         <div class="row">
