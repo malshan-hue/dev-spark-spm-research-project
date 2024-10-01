@@ -1,0 +1,52 @@
+﻿ModuleId,CourseId,Title,Description,ProgressStatusEnum
+150,46,Events,Understand how to handle events in JavaScript.,1
+149,46,DOM Manipulation,Basics of interacting with and manipulating the Document Object Model (DOM).,1
+148,46,Functions,Delve into functions and how to use them in JavaScript.,1
+147,46,Control Flow,Understand control flow structures like conditionals and loops.,1
+146,46,Working with Data in JavaScript,"Cover working with different data types, operators, and basic operations.",1
+145,46,Getting Started with JavaScript,Introduction to JavaScript basics and setup,2
+144,45,Testing and Debugging,Enhance code reliability with comprehensive testing and debugging.,1
+143,45,Concurrency and Parallelism,Master concurrency and parallelism in Python.,1
+142,45,Data Science and Machine Learning,Explore data science techniques and machine learning models using Python.,1
+141,45,Web Development with Flask and Django,Master web development skills with Flask and Django frameworks.,1
+140,45,Data Structures and Algorithms,Enhance your problem-solving skills with in-depth knowledge of data structures and algorithms.,1
+139,45,Advanced Python Concepts,"Dive deep into advanced Python syntax, structures, and programming paradigms.",2
+138,44,Final Project,Apply everything you've learned in a final comprehensive project.,1
+137,44,Working with Libraries,Introduction to popular Python libraries and how to use them.,1
+136,44,Error Handling,Introduction to handling errors and exceptions in Python.,1
+135,44,File Handling,Learn how to read from and write to files in Python.,1
+134,44,Object-Oriented Programming,Introduction to object-oriented programming concepts in Python.,2
+133,44,Data Structures,Understand and use various data structures in Python.,1
+132,44,Functions and Modules,Learn how to write reusable code using functions and import external modules.,1
+131,44,Control Structures,Understand and apply control structures like conditionals and loops.,1
+130,44,Introduction to Python,An introduction to the basic concepts of Python programming.,2
+129,43,Java Advanced Topics,"Learn advanced Java topics such as networking, JDBC, and design patterns.",1
+128,43,Advanced Java Features,"Learn more advanced topics in Java such as exceptions, file handling, collections, and threading.",1
+127,43,Object-Oriented Programming (OOP),Understand the fundamental concepts of OOP in Java.,1
+126,43,Java Basics,"Deep dive into Java basic syntax, data types, and common operations.",2
+125,43,Introduction to Java,Learn the basics of Java programming and set up the development environment.,2
+124,42,Basic Debugging,Introduction to debugging C# programs.,1
+123,42,File I/O,Reading from and writing to files.,1
+122,42,Exception Handling,Handling errors and exceptions in C#.,1
+121,42,Arrays and Collections,Using arrays and collections to store data.,1
+120,42,Object-Oriented Programming,Basics of object-oriented programming (OOP) in C#.,1
+119,42,Functions and Methods,Defining and using functions and methods in C#.,1
+118,42,Control Flow,"Control flow statements in C# (if-else, switch, loops).",1
+117,42,Variables and Data Types,Understanding variables and data types in C#.,1
+116,42,Basic Syntax and Structure,Introduction to the basic syntax and structure of C# programs.,1
+115,42,Introduction to C#,Basic introduction to C# and setting up the development environment,2
+114,41,Week 4: Advanced Topics and Final Project,"Explore file handling, error handling, and work on a final project.",1
+113,41,Week 3: Data Structures and Object-Oriented Programming (OOP),"Concepts of lists, tuples, dictionaries, sets, and basics of OOP.",2
+112,41,Week 2: Control Flow and Functions,"Conditionals, loops, and functions.",2
+111,41,Week 1: Introduction to Python,Foundation concepts and basic syntax.,2
+110,40,Real-World Projects and Case Studies,Apply your knowledge by working on real-world projects and studying existing applications.,1
+109,40,Performance Optimization and Best Practices,Learn to write high-performance and maintainable TypeScript code.,1
+108,40,Advanced TypeScript,Delve into advanced TypeScript features and best practices.,1
+107,39,C# in Practice,Apply your knowledge to real-world projects and advanced programming problems.,1
+106,39,Advanced C# Concepts,Explore advanced features and concepts in C# to enhance your programming capabilities.,1
+105,39,Object-Oriented Programming,Dive into the principles of Object-Oriented Programming (OOP) and how they are implemented in C#.,1
+104,39,Introduction to C#,Understand the basics of C# programming language and .NET framework.,1
+103,38,Performance Tuning and Optimization,Learn techniques to optimize SQL queries and improve performance.,1
+102,38,Database Functions and Procedures,Master the use of SQL built-in functions and learn to create stored procedures.,2
+101,38,Advanced SQL Queries,Learn to write complex SQL queries that involve multiple tables and subqueries.,2
+100,37,Error Handling and Testing,Learn best practices for error handling and testing in Scala applications.,1
