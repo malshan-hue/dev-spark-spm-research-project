@@ -1,121 +1,153 @@
 ﻿@{
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+<!-- Content Wrapper -->
 
-<!-- Content wrapper -->
-<div class="content-wrapper">
-    <!-- Content -->
-
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="row" data-masonry='{"percentPosition": true }'>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card">
-                <img class="card-img-top" src="~/assets/images/home/leaning-home-img.jpg" alt="Card image cap" />
-                <div class="card-body">
-                        <h5 class="card-title">Custom Course Generator</h5>
-                    <p class="card-text">
-                        Design your learning journey! Create personalized courses based on your experience, achievements, and learning goals. Tailor your path to master new skills at your own pace.
-                    </p>
-                </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card p-3">
-                <figure class="p-3 mb-0">
-                    <blockquote class="blockquote">
-                        <p>Celebrate your milestones! Keep track of your achievements and badges as you level up in your coding and learning journey.</p>
-                    </blockquote>
-                    <figcaption class="blockquote-footer mb-0 text-muted">
-                    Personalized <cite title="Source Title">progress tracking</cite>
-                    </figcaption>
-                </figure>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card">
-                <img class="card-img-top" src="~/assets/images/home/code-home-img.jpg" alt="Card image cap" />
-                <div class="card-body">
-                    <h5 class="card-title">Online Coding Portal</h5>
-                    <p class="card-text">
-                        Code in real-time with our online compiler! Practice your skills, test your algorithms, and see instant results in a fully interactive coding environment
-                    </p>
-                </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card bg-primary text-white text-center p-3">
-                <figure class="mb-0">
-                    <blockquote class="blockquote">
-                        <p>Access and share reusable code snippets! Explore a library of ready-to-use code examples or contribute your own to help others solve common challenges.</p>
-                    </blockquote>
-                    <figcaption class="blockquote-footer mb-0 text-white">
-                    Personalized <cite title="Source Title">coode snippet library</cite>
-                    </figcaption>
-                </figure>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Learner Dashboard</h5>
-                    <p class="card-text">Track your progress and achievements with a personalized learner dashboard. Monitor your course completions, skill improvements, and stay motivated with real-time feedback.</p>
-                    <p class="card-text"><small class="text-muted">Learner Dashboard</small></p>
-                </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card">
-                <img class="card-img-top" src="~/assets/images/home/forum-home-img.jpg" alt="Card image cap" />
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card p-3 text-end">
-                <figure class="mb-0">
-                    <blockquote class="blockquote">
-                        <p>Connect with a community of learners and developers. Share insights, ask questions, and get advice from experts in a collaborative forum space.</p>
-                    </blockquote>
-                    <figcaption class="blockquote-footer mb-0 text-muted">
-                    Forum Portal 
-                    </figcaption>
-                </figure>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card p-3 text-end">
-                <figure class="mb-0">
-                    <blockquote class="blockquote">
-                        <p>Learn in the language of your choice. Our platform supports multiple languages, allowing you to comfortably navigate and study in your preferred language.</p>
-                    </blockquote>
-                    <figcaption class="blockquote-footer mb-0 text-muted">
-                    Multi-language Support 
-                    </figcaption>
-                </figure>
-                </div>
-            </div>
-            </div>
+    <div class="content-wrapper" style="background-color: rgb(242, 242, 245); color: #000000;">
+    <!-- Hero Section -->
+    <div class="container-fluid py-5" style="background-color: rgb(8, 28, 56); margin-top: 20px;">
+        <div class="container py-5 text-white text-center">
+            <h1 class="display-4">Elevate Your Modeling Career</h1>
+            <p class="lead mb-4">Discover opportunities, connect with professionals, and enhance your skills. Join a vibrant community where creativity meets ambition, and take the next step toward your modeling aspirations. From tailored courses to real-time collaboration, we provide the tools you need to succeed in the competitive modeling industry.</p>
+            <a href="@Url.Action("Register", "Access")" class="btn btn-warning btn-lg mt-3">Get Started</a>
+        </div>
     </div>
-    <!-- / Content -->
 
-    <!-- Footer -->
-    <footer class="content-footer footer bg-footer-theme">
-        <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-            <div class="mb-2 mb-md-0">
-                ©
-                <script>
-                    document.write(new Date().getFullYear());
-                </script>
-                , made with ❤️ by
-                <a>Dev_Spark Team</a>
+    <!-- Features Section -->
+    <div class="container my-5">
+        <div class="row g-4 text-center">
+
+            <!-- Personalized Learning -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-lg h-100 overflow-hidden transition-shadow duration-300 hover:shadow-lg">
+                    <img src="~/assets/images/home/personalized-learning.jpg" class="card-img-top" alt="Personalized Learning">
+                    <div class="card-body">
+                        <h5 class="card-title">Personalized Learning</h5>
+                        <p class="card-text">Tailor your courses to meet your specific modeling goals and pace. With a vast library of courses and resources, you can select modules that align with your career aspirations. Whether you're a beginner or an advanced model, our platform allows you to customize your learning experience. Receive tailored recommendations based on your progress, preferences, and industry trends, ensuring you stay ahead in your modeling career.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-Time Collaboration -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-lg h-100 overflow-hidden transition-shadow duration-300 hover:shadow-lg">
+                    <img src="~/assets/images/home/mimi-thian-vdXMSiX-n6M-unsplash.jpg" class="card-img-top" alt="Real-Time Collaboration">
+                    <div class="card-body">
+                        <h5 class="card-title">Real-Time Collaboration</h5>
+                        <p class="card-text">Work with peers in real-time to refine your modeling skills and get feedback. Join live workshops and interactive sessions with fellow aspiring models and experienced professionals. Collaborate on projects, share insights, and gain constructive feedback in a supportive environment. Our integrated tools facilitate smooth communication and brainstorming, fostering creativity and innovation among participants.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tracking -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-lg h-100 overflow-hidden transition-shadow duration-300 hover:shadow-lg">
+                    <img src="~/assets/images/home/kenny-eliason-YHYHu_IuM3Q-unsplash.jpg" class="card-img-top" alt="Progress Tracking">
+                    <div class="card-body">
+                        <h5 class="card-title">Progress Tracking</h5>
+                        <p class="card-text">Monitor your achievements and stay motivated with our tracking tools. Stay on top of your learning journey with our comprehensive progress dashboard. Visualize your achievements, set milestones, and celebrate your successes along the way. Our tracking system provides insights into your strengths and areas for improvement, helping you stay motivated and focused on your goals.</p>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Overview Section -->
+    <div class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2 class="display-4">Learn, Create, and Connect</h2>
+                <p class="mb-4">Our platform provides a unique space to explore modeling techniques and collaborate with others. Dive into a variety of resources, including tutorials, case studies, and expert articles that cover the latest modeling techniques. Engage in forums and discussion groups to connect with like-minded individuals and industry leaders. Our community is dedicated to fostering collaboration, creativity, and knowledge-sharing, ensuring that you always have access to the support and inspiration you need.</p>
+                <a href="#" class="btn btn-outline-primary btn-lg">Explore Opportunities</a>
+            </div>
+            <div class="col-md-6">
+                <img src="~/assets/images/home/annie-spratt-QckxruozjRg-unsplash.jpg" class="img-fluid rounded" alt="Modeling Overview">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Community Section -->
+    <div class="container-fluid bg-dark text-white py-5">
+        <div class="container text-center">
+            <h2 class="display-4">Join Our Community of Models</h2>
+            <p class="lead">Engage with a network of aspiring and established models to share insights and opportunities.</p>
+
+            <p class="mt-4">Why Join Us?</p>
+            <ul class="list-unstyled">
+                <li>Connect and Collaborate: Network with fellow models, photographers, agents, and industry professionals to build meaningful relationships.</li>
+                <li>Access Exclusive Resources: Gain access to workshops, webinars, and tutorials designed to help you grow your skills.</li>
+                <li>Share Your Journey: Whether you're just starting out or are an experienced model, share your story and tips with a supportive community.</li>
+                <li>Stay Updated on Opportunities: Be the first to know about casting calls, modeling gigs, and events in your area.</li>
+                <li>Receive Feedback and Support: Get constructive feedback on your portfolio and personal brand from industry experts.</li>
+            </ul>
+
+            <p class="mt-4">Join Us Today!</p>
+            <p>Don’t miss out on the chance to be part of a vibrant community that celebrates the art of modeling. Together, we can inspire and uplift one another in this dynamic industry.</p>
+
+            <a href="@Url.Action("Register", "Access")" class="btn btn-warning btn-lg">Join the Community</a>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="content-footer footer bg-light text-center py-4">
+        <div class="container">
+            <p class="mb-0 text-muted">&copy; <script>document.write(new Date().getFullYear());</script> Dev_Spark Team. Crafted with ❤️ for learners everywhere.</p>
+        </div>
     </footer>
-    <!-- / Footer -->
 
     <div class="content-backdrop fade"></div>
 </div>
-<!-- Content wrapper -->
 
 @section Scripts {
-
-        <script src="~/theme/v1/assets/vendor/libs/masonry/masonry.js"></script>
+    <script src="~/theme/v1/assets/vendor/libs/masonry/masonry.js"></script>
 }
+
+<style>
+    /* Additional Styling */
+    body {
+        font-family: Arial, sans-serif; /* Choose a modern sans-serif font */
+        line-height: 1.6;
+    }
+
+    .btn {
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-warning {
+        background-color: #FFC107; /* Change to a neutral color */
+        color: #fff;
+    }
+
+        .btn-warning:hover {
+            background-color: #FFA000; /* Darker shade on hover */
+        }
+
+    .card {
+        border-radius: 5px; /* Rounded corners for cards */
+        overflow: hidden; /* Ensures images don't overflow */
+    }
+
+    .card-img-top {
+        object-fit: cover; /* Ensures images cover the area */
+        height: 400px; /* Fixed height for consistency */
+    }
+
+    .footer {
+        background-color: #f8f9fa; /* Light gray footer */
+        border-top: 1px solid #dee2e6; /* Subtle border */
+    }
+
+        .footer p {
+            margin: 0; /* Remove margin for footer text */
+        }
+
+    /* Additional Styling */
+    .heading-font {
+        font-family: 'Arial', sans-serif; /* You can choose your preferred font */
+        font-weight: bold; /* Bold text */
+        line-height: 1.2; /* Adjust line height for better readability */
+    }
+</style>
+

@@ -54,6 +54,26 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="~/theme/v1/assets/js/config.js"></script>
+    <style>
+        .btn-custom {
+            display: inline-block; /* Ensure the button behaves like a block */
+            padding: 0.5rem 1rem; /* Adjust padding for a better look */
+            font-size: 1rem; /* Consistent font size */
+            color: #fff; /* Text color */
+            background-color: rgb(255, 193, 7); /* Background color */
+            border: none; /* Remove default border */
+            border-radius: 4px; /* Rounded corners */
+            text-align: center; /* Center the text */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+            text-decoration: none; /* Remove underline */
+        }
+
+            .btn-custom:hover {
+                background-color: rgb(255, 160, 0); /* Darker shade on hover */
+                color: #fff; /* Ensure text remains white on hover */
+            }
+
+    </style>
 </head>
 
 <body>
@@ -81,22 +101,21 @@
                             <li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <a class="" href="@Url.Action("DevSparkHome", "DevsparkLanding")">
+                                    <a class="btn-custom" href="@Url.Action("DevSparkHome", "DevsparkLanding")">
                                         <i class='bx bx-log-in-circle'></i>
-                                        <span class="align-middle">DASHBOARD</span>
+                                        <span class="align-middle btn-lg mt-3">Dashboard</span>
                                     </a>
                                 }
                                 else
                                 {
-                                    <a class="" href="@Url.Action("SignIn", "Access")">
+                                    <a class="btn-custom" href="@Url.Action("SignIn", "Access")">
                                         <i class='bx bx-log-in-circle'></i>
-                                        <span class="align-middle">SIGN IN</span>
+                                        <span class="align-middle btn-lg mt-3">Sign In</span>
                                     </a>
                                 }
-                                
                             </li>
-
                         </ul>
+
                     </div>
                 </nav>
 

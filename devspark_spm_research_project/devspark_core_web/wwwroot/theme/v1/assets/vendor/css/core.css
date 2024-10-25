@@ -16160,8 +16160,8 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
 
     .layout-navbar.navbar-detached {
         width: calc(100% - (1.625rem * 2));
-        margin: 0.75rem auto 0;
-        border-radius: 0.375rem;
+        margin: 0;
+        border-radius: 5px;
         padding: 0 1.5rem;
     }
 
